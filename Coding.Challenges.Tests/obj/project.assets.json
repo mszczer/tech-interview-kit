@@ -381,6 +381,16 @@
             "related": ".xml"
           }
         }
+      },
+      "Coding.Challenges/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Coding.Challenges.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Coding.Challenges.dll": {}
+        }
       }
     }
   },
@@ -975,10 +985,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Coding.Challenges/1.0.0": {
+      "type": "project",
+      "path": "../Coding.Challenges/Coding.Challenges.csproj",
+      "msbuildProject": "../Coding.Challenges/Coding.Challenges.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Coding.Challenges >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 17.5.0",
       "NUnit >= 3.13.3",
       "NUnit.Analyzers >= 3.6.1",
@@ -1017,7 +1033,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\mszczerk\\OneDrive - Capgemini\\Documents\\_Personal\\Software Projects\\Tech Interview Kit\\Coding.Challenges\\Coding.Challenges.csproj": {
+              "projectPath": "C:\\Users\\mszczerk\\OneDrive - Capgemini\\Documents\\_Personal\\Software Projects\\Tech Interview Kit\\Coding.Challenges\\Coding.Challenges.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
