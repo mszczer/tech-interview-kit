@@ -8,8 +8,10 @@ public class ReverseBitsTests
     }
 
     [Test]
-    public void ReverseBits_ReturnTheNumber()
+    [TestCase(6, 3)]
+    [TestCase(13, 11)]
+    public void GetReverseBitNumber_ReturnsTheReversedNumber(int inputNum, int resultNum)
     {
-        Assert.That(ReverseBits.GetReverseBit(13), Is.EqualTo(11));
+        Assert.That(ReverseBits.GetReverseBitNumber(inputNum), Is.EqualTo(resultNum));
     }
 }
