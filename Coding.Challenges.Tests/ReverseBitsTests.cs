@@ -2,11 +2,6 @@ namespace Coding.Challenges.Tests;
 
 public class ReverseBitsTests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     [TestCase(6, 3)]
     [TestCase(13, 11)]
