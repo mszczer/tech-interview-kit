@@ -5,16 +5,16 @@ public class ReverseBitsTests
     [Test]
     [TestCase(6, 3)]
     [TestCase(13, 11)]
-    public void GetReverseBitNumber_ReturnsTheReversedNumber(int inputNum, int resultNum)
+    public void GetReverseBitNumber_ReturnsTheReversedNumber(int input, int expected)
     {
-        Assert.That(ReverseBits.GetReverseBitNumber(inputNum), Is.EqualTo(resultNum));
+        Assert.That(ReverseBits.GetReverseBitNumber(input), Is.EqualTo(expected));
     }
 
     [Test]
     [TestCase(6, 3)]
     [TestCase(13, 11)]
-    public void GetReverseBitNumberShiftingBits_ReturnsTheReversedNumber(int inputNum, int resultNum)
+    public void GetReverseBitNumberShiftingBits_ReturnsTheReversedNumber(int input, int expected)
     {
-        Assert.That(ReverseBits.GetReverseBitNumberShiftingBits(inputNum), Is.EqualTo(resultNum));
+        Assert.That(ReverseBits.GetReverseBitNumberShiftingBits(input), Is.EqualTo(expected));
     }
 }
