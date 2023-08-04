@@ -1,9 +1,11 @@
-﻿namespace Coding.Challenges;
+﻿using System.Text;
+
+namespace Coding.Challenges;
 
 public abstract class ReverseBits
 {
     /*
-     * Given a non-negative integer num , write a program to return the number obtained after reversing the bits of num.
+     * Given a non-negative integer num, write a program to return the number obtained after reversing the bits of num.
      * The actual binary representation of the number is being considered for reversing the bits, no leading 0’s are being considered.
      * Example: 
      *  Input: 13
@@ -16,6 +18,40 @@ public abstract class ReverseBits
         var reversedBinary = Reverse(binaryStr);
 
         return BinaryToDecInt(reversedBinary);
+    }
+
+    /*
+     * Bitwise and shift operators:
+     *  https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-and-operator-
+     * Step 1: Create a variable result and initialize it with 0
+     * Step 2: If num > 0
+     *  Multiply res with 2
+     *  If num is odd then add 1 to res.
+     *  Divide num by 2.
+     * Step 3: Repeat step 2, until num > 0.
+     * Step 4: Return res.
+     */
+    public static int GetReverseBitNumberShiftingBits(int num)
+    {
+        var result = 0;
+
+        // traversing bits of 'num' from the right 
+        while (num > 0)
+        {
+            // bitwise left shift  
+            // 'result' by 1 
+            result <<= 1;
+
+            // if current bit is '1' or num is odd
+            if ((num & 1) == 1)
+                result ^= 1; // Convert 0 to 1
+
+            // bitwise right shift  
+            // 'num' by 1 
+            num >>= 1; // divide num by 2
+        }
+
+        return result;
     }
 
     /*
@@ -47,16 +83,16 @@ public abstract class ReverseBits
     private static string DecIntToBinary(int num)
     {
         var quotient = num;
-        var binaryString = "";
+        var binaryString = new StringBuilder();
 
         while (quotient > 0)
         {
             var reminder = quotient % 2;
             quotient /= 2;
-            binaryString += reminder.ToString();
+            binaryString.Append(reminder);
         }
 
-        return Reverse(binaryString);
+        return Reverse(binaryString.ToString());
     }
 
     private static string Reverse(string inputString)
