@@ -17,5 +17,12 @@ unit-test:
   stage: test
   script:
     - echo "Running unit tests... "
-    - dotnet test
+    - dotnet test --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"'
     - echo "Unit tests complete."
+  artifacts:
+    when: always
+    paths:
+      - ./**/*test-result.xml
+    reports:
+      junit:
+        - ./**/*test-result.xml
