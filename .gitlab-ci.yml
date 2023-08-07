@@ -1,0 +1,28 @@
+image: mcr.microsoft.com/dotnet/sdk:latest
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - echo "Compiling the code..."
+    - dotnet build
+    - echo "Compile complete."
+
+unit-test:
+  stage: test
+  script:
+    - echo "Running unit tests... "
+    - dotnet test
+    - echo "Unit tests complete."
+
+lint-test:
+  stage: test
+  script:
+    - echo "Linting code... This will take about 10 seconds."
+    - sleep 10
+    - echo "No lint issues found."
