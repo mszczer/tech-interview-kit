@@ -27,8 +27,8 @@ unit-test:
     reports:
       junit:
         - ./**/*test-result.xml
-api:
-  stage: codecov
+codecov:
+  stage: api
   script:
     - echo "Generating code coverage report..."
     - curl -Os https://uploader.codecov.io/latest/linux/codecov
