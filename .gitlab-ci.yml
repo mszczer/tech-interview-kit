@@ -3,6 +3,7 @@ image: mcr.microsoft.com/dotnet/sdk:latest
 stages:
   - build
   - test
+  - api
 
 build:
   stage: build
@@ -17,7 +18,7 @@ unit-test:
   stage: test
   script:
     - echo "Running unit tests... "
-    - dotnet test
+    - dotnet test --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
     - echo "Unit tests complete."
   artifacts:
     when: always
@@ -26,3 +27,11 @@ unit-test:
     reports:
       junit:
         - ./**/*test-result.xml
+codecov:
+  stage: api
+  script:
+    - echo "Generating code coverage report..."
+    - curl -Os https://uploader.codecov.io/latest/linux/codecov
+    - chmod +x codecov
+    - ./codecov -t ${CODECOV_TOKEN}
+    - echo "Code coverage report complete."
