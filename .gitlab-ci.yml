@@ -17,7 +17,7 @@ unit-test:
   stage: test
   script:
     - echo "Running unit tests... "
-    - dotnet test
+    - dotnet test --logger:"junit
     - echo "Unit tests complete."
   artifacts:
     when: always
