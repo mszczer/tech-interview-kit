@@ -19,3 +19,10 @@ unit-test:
     - echo "Running unit tests... "
     - dotnet test
     - echo "Unit tests complete."
+  artifacts:
+    when: always
+    paths:
+      - ./**/*test-result.xml
+    reports:
+      junit:
+        - ./**/*test-result.xml
