@@ -19,9 +19,6 @@ unit-test:
   script:
     - echo "Running unit tests... "
     - dotnet test --test-adapter-path:. --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
-    
-    - codecov/codecov-action@v1
-
     - echo "Unit tests complete."
     
   artifacts:
