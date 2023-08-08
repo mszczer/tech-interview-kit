@@ -3,6 +3,7 @@ image: mcr.microsoft.com/dotnet/sdk:latest
 stages:
   - build
   - test
+  - api
 
 build:
   stage: build
@@ -26,3 +27,9 @@ unit-test:
     reports:
       junit:
         - ./**/*test-result.xml
+api:
+  stage: api
+  script:
+    - echo "Generating code coverage report..."
+    - $ProgressPreference = 'SilentlyContinue' Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe -Outfile codecov.exe .\codecov.exe
+    - echo "Code coverage report complete."
