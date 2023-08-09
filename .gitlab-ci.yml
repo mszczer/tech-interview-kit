@@ -22,9 +22,9 @@ unit-test:
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
       --collect:"XPlat Code Coverage"
-      - curl -Os https://uploader.codecov.io/latest/linux/codecov
-      - chmod +x codecov
-      - ./codecov -t ${CODECOV_TOKEN}
+      # - curl -Os https://uploader.codecov.io/latest/linux/codecov
+      # - chmod +x codecov
+      # - ./codecov -t ${CODECOV_TOKEN}
     - echo "Unit tests complete."
   coverage: /TOTAL_COVERAGE=(\d+.\d+)/
   artifacts:
