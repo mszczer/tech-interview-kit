@@ -22,6 +22,11 @@ unit-test:
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
       --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    
+    - curl -Os https://uploader.codecov.io/latest/linux/codecov
+    - chmod +x codecov
+    - ./codecov -t ${CODECOV_TOKEN}
+    
     - echo "Unit tests complete."
     
   artifacts:
