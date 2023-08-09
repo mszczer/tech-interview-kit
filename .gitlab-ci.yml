@@ -21,26 +21,20 @@ unit-test:
     - dotnet test 
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
-      --collect:"XPlat Code Coverage"
     - echo "Unit tests complete."
-  coverage: /TOTAL_COVERAGE=(\d+.\d+)/
   artifacts:
     when: always
     paths:
-      - ./**/*cobertura.coverage.xml
       - ./**/*test-result.xml
     reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: ./**/*cobertura.coverage.xml
       junit:
         - ./**/*test-result.xml
 
-codecov:
-  stage: api
-  script:
-    - echo "Generating code coverage report..."
-    - curl -Os https://uploader.codecov.io/latest/linux/codecov
-    - chmod +x codecov
-    - ./codecov -t ${CODECOV_TOKEN}
-    - echo "Code coverage report complete."
+# codecov:
+#   stage: api
+#   script:
+#     - echo "Generating code coverage report..."
+#     - curl -Os https://uploader.codecov.io/latest/linux/codecov
+#     - chmod +x codecov
+#     - ./codecov -t ${CODECOV_TOKEN}
+#     - echo "Code coverage report complete."
