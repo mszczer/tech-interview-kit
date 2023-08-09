@@ -29,9 +29,9 @@ unit-test:
   coverage: /TOTAL_COVERAGE=(\d+.\d+)/
   artifacts:
     when: always
-    # paths:
-    #   - ./**/*cobertura.coverage.xml
-    #   - ./**/*test-result.xml
+    paths:
+      - ./**/*cobertura.coverage.xml
+      - ./**/*test-result.xml
     reports:
       coverage_report:
         coverage_format: cobertura
