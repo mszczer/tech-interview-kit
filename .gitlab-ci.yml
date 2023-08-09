@@ -21,14 +21,6 @@ unit-test:
     - dotnet test 
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
-      --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-    
-    - echo "Generating code coverage report..."
-    - curl -Os https://uploader.codecov.io/latest/linux/codecov
-    - chmod +x codecov
-    - ./codecov -t ${CODECOV_TOKEN}
-    - echo "Code coverage report complete."
-
     - echo "Unit tests complete."
     
   artifacts:
@@ -38,8 +30,8 @@ unit-test:
     reports:
       junit:
         - ./**/*test-result.xml
-# codecov:
-#   stage: api
+#codecov:
+#  stage: api
 #   script:
 #     - echo "Generating code coverage report..."
 #     - curl -Os https://uploader.codecov.io/latest/linux/codecov
