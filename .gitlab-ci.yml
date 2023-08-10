@@ -23,7 +23,7 @@ unit-test:
     - echo "Running unit tests... "
     - dotnet test 
       --test-adapter-path:. 
-      --logger:"$LOGGER_FLAG"'
+      --logger:"$LOGGER_FLAG"
     - echo "Unit tests complete."
   artifacts:
     when: always
