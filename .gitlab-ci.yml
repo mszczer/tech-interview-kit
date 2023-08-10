@@ -18,12 +18,11 @@ unit-test:
   stage: tests
   variables:
     COVERAGE_FLAG: "XPlat Code Coverage"
-    LOGGER_FLAG: "junit;LogFilePath=../artifacts/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
   script:
     - echo "Running unit tests... "
     - dotnet test 
       --test-adapter-path:. 
-      --logger:"$LOGGER_FLAG"
+      --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
     - echo "Unit tests complete."
   artifacts:
     when: always
