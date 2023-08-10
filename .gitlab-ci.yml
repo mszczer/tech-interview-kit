@@ -18,7 +18,7 @@ unit-test:
   stage: tests
   variables:
     COVERAGE_FLAG: "XPlat Code Coverage"
-    LOGGER_FLAG: "junit;LogFilePath=$CI_PROJECT_DIR/junit/junit-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+    LOGGER_FLAG: "junit;LogFilePath=../artifacts/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
   script:
     - echo "Running unit tests... "
     - dotnet test 
@@ -28,10 +28,27 @@ unit-test:
   artifacts:
     when: always
     paths:
-      - $CI_PROJECT_DIR/junit/junit-test-result.xml
+      - /**/*test-result.xml
     reports:
       junit:
-        - $CI_PROJECT_DIR/junit/junit-test-result.xml
+        - /**/*test-result.xml
+
+
+  #     --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose" 
+  #     --logger:"$LOGGER_FLAG"'
+  #   - echo "Unit tests complete."
+  # artifacts:
+  #   when: always
+  #   paths:
+  #     - ./**/*test-result.xml
+  #     - $CI_PROJECT_DIR/junit/junit-test-result.xml
+  #   reports:
+  #     junit:
+  #       - ./**/*test-result.xml
+  #       - $CI_PROJECT_DIR/junit/junit-test-result.xml
+
+
+
 
 # codecov:
 #   stage: api
