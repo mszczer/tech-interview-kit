@@ -12,7 +12,6 @@ build:
     - echo "Compiling the code..."
     - dotnet build
     - echo "Compile complete."
-  allow_failure: false
 
 unit-test:
   stage: test
@@ -22,11 +21,7 @@ unit-test:
       --test-adapter-path:. 
       --collect="XPlat Code Coverage" 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
-    - dotnet tool run reportgenerator 
-      -reports:"**/coverage.cobertura.xml" -targetdir:"..\artifacts\{assembly}/coverage" 
-        --reporttypes:Cobertura' # Generate Code Coverage Reports 
     - echo "Unit tests complete."
-  allow_failure: false
   artifacts:
     when: always
     # paths:
@@ -34,6 +29,3 @@ unit-test:
     reports:
       junit:
         - ./**/*test-result.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: "./coverage/Cobertura.xml"
