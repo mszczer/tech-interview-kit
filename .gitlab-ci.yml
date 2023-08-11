@@ -17,20 +17,14 @@ unit-test:
   stage: test
   script:
     - echo "Running unit tests... "
-    - dotnet test
-      - r ./cobertura
-      --collect:"XPlat Code Coverage"
+    - dotnet test 
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
     - echo "Unit tests complete."
   artifacts:
     when: always
     paths:
-      - ./**/*coverage.cobertura.xml
       - ./**/*test-result.xml
     reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: ./**/*coverage.cobertura.xml
       junit:
         - ./**/*test-result.xml
