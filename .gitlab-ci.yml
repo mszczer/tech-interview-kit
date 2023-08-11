@@ -12,6 +12,7 @@ build:
     - echo "Compiling the code..."
     - dotnet build
     - echo "Compile complete."
+  allow_failure: false
 
 unit-test:
   stage: test
@@ -19,12 +20,16 @@ unit-test:
     - echo "Running unit tests... "
     - dotnet test 
       --test-adapter-path:. 
+      --collect="XPlat Code Coverage" 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
     - echo "Unit tests complete."
   artifacts:
     when: always
-    paths:
-      - ./**/*test-result.xml
+    # paths:
+    #   - ./**/*test-result.xml
     reports:
       junit:
         - ./**/*test-result.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: "./coverage/Cobertura.xml"
