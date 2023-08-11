@@ -23,7 +23,7 @@ unit-test:
       --collect="XPlat Code Coverage" 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
     - dotnet tool run reportgenerator 
-      -reports:"**/coverage.cobertura.xml" -targetdir:"./coverage" 
+      -reports:"**/coverage.cobertura.xml" -targetdir:"..\artifacts\{assembly}/coverage" 
         --reporttypes:Cobertura' # Generate Code Coverage Reports 
     - echo "Unit tests complete."
   artifacts:
