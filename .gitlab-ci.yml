@@ -26,6 +26,7 @@ unit-test:
       -reports:"**/coverage.cobertura.xml" -targetdir:"..\artifacts\{assembly}/coverage" 
         --reporttypes:Cobertura' # Generate Code Coverage Reports 
     - echo "Unit tests complete."
+  allow_failure: false
   artifacts:
     when: always
     # paths:
