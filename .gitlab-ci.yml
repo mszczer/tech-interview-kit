@@ -21,6 +21,7 @@ unit-test:
       --collect:"XPlat Code Coverage"
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+    - bash <(curl -Ls https://coverage.codacy.com/get.sh)
     - echo "Unit tests complete."
   artifacts:
     when: always
