@@ -18,6 +18,7 @@ unit-test:
   script:
     - echo "Running unit tests... "
     - dotnet test 
+      --collect:"XPlat Code Coverage"
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
     - echo "Unit tests complete."
