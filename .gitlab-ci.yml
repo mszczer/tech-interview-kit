@@ -30,4 +30,4 @@ unit-test:
       coverage_report:
         coverage_format: cobertura
         path: ./coverage/cobertura-coverage.xml
-  coverage: '/All files\s+\|\s+\d+\.\d+/'
+  coverage: /Total\s*\|\s*(\d+(?:\.\d+)?)/
