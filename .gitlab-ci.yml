@@ -21,8 +21,6 @@ unit-test:
       --collect:"XPlat Code Coverage"
       --test-adapter-path:. 
       --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
-    - 'dotnet tool run reportgenerator -reports:"**/cobertura-coverage.xml" -targetdir:"./coverage" --reporttypes:"Cobertura;HtmlInline;TextSummary"' # Generate Code Coverage Reports
-    - "sed -n '/Summary/,/^$/p' coverage/Summary.txt"
     - echo "Unit tests complete."
   artifacts:
     when: always
@@ -32,6 +30,4 @@ unit-test:
       coverage_report:
         coverage_format: cobertura
         path: ./coverage/cobertura-coverage.xml
-    paths:
-      - "./coverage/*.*" # collect coverage HTMls
   coverage: '/All files\s+\|\s+\d+\.\d+/'
