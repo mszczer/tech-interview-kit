@@ -24,7 +24,7 @@ unit-test:
   artifacts:
     when: always
     paths:
-        - coverage/
+        - coverage/cobertura-coverage.xml
     reports:
       junit:
         - ./**/*test-result.xml
