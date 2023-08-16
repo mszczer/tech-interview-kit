@@ -23,6 +23,12 @@ unit-test:
     - echo "Unit tests complete."
   artifacts:
     when: always
+    paths:
+        - coverage/
     reports:
       junit:
         - ./**/*test-result.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+  coverage: '/All files\s+\|\s+\d+\.\d+/'
