@@ -40,7 +40,7 @@ jobs:
 #        path: "**/test-result.xml"  # Path to test results
 #        reporter: jest-junit        # Format of test results
 
-    - name: Publish test report
+    - name: Test Report
       uses: dorny/test-reporter@v1
       if: always()
       with:
