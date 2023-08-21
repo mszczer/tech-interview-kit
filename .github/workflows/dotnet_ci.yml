@@ -32,16 +32,9 @@ jobs:
         --collect:"XPlat Code Coverage" 
         --logger "trx;LogFileName=test-results.trx" || true
 #        --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
-#    - name: Publish Test Report
-#      uses: dorny/test-reporter@v1
-#      if: always()                  # run this step even if previous step failed
-#      with:
-#        name: JEST Tests            # Name of the check run which will be created
-#        path: "**/test-result.xml"  # Path to test results
-#        reporter: jest-junit        # Format of test results
 
     - name: Test Report
-      uses: dorny/test-reporter@v1
+      uses: dorny/test-reporter@v2
       if: always()
       with:
         name: DotNET Tests
