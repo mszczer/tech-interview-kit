@@ -26,14 +26,18 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
-    - name: Publish Test Report
-      uses: dorny/test-reporter@v1
-      if: always()                  # run this step even if previous step failed
-      with:
-        name: JEST Tests            # Name of the check run which will be created
-        path: "**/test-result.xml"  # Path to test results
-        reporter: jest-junit        # Format of test results
+      run: dotnet test 
+        --no-build 
+        --verbosity normal 
+        --collect:"XPlat Code Coverage" 
+        --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+#    - name: Publish Test Report
+#      uses: dorny/test-reporter@v1
+#      if: always()                  # run this step even if previous step failed
+#      with:
+#        name: JEST Tests            # Name of the check run which will be created
+#        path: "**/test-result.xml"  # Path to test results
+#        reporter: jest-junit        # Format of test results
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
