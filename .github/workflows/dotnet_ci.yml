@@ -34,7 +34,7 @@ jobs:
 #        --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
 
     - name: Test Report
-      uses: dorny/test-reporter@v2
+      uses: dorny/test-reporter@v1
       if: always()
       with:
         name: DotNET Tests
