@@ -48,7 +48,7 @@ public abstract class ReverseBits
 
             // bitwise right shift  
             // 'num' by 1 
-            num >>= 1; // divide num by 2
+            num >>= 1; // divide num by 2 
         }
 
         return result;
