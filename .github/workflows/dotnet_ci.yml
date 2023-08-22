@@ -34,23 +34,15 @@ jobs:
         --no-build 
         --verbosity normal 
         --collect:"XPlat Code Coverage" 
-        --logger:"junit;LogFilePath=..\artifacts\{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
-
-    - name: Publish Test Report
-      uses: mikepenz/action-junit-report@v3
-      if: success() || failure() # always run even if the previous step fails
-      with:
-        report_paths: ./**/*test-result.xml
-
-#        --logger "trx;LogFileName=test-results.trx"       
+        --logger "trx;LogFileName=test-results.trx"       
   
-#    - name: Report test results
-#      uses: dorny/test-reporter@v1
-#      if: always()
-#      with:
-#        name: Unit Tests
-#        path: ./**/*test-result.xml                           
-#        reporter: dotnet-trx
+    - name: Publish test report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Unit Tests
+        path: ./**/*test-result.xml                           
+        reporter: dotnet-trx
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
