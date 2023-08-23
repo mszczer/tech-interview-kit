@@ -5,12 +5,14 @@ namespace Coding.Challenges;
 public abstract class ReverseBits
 {
     /*
-     * Given a non-negative integer num, write a program to return the number obtained after reversing the bits of num.
-     * The actual binary representation of the number is being considered for reversing the bits, no leading 0’s are being considered.
-     * Example: 
-     *  Input: 13
-     *  Output: 11
-     *  Explanation: Binary representation of 13 is 1101. After reversing the bits we get 1011 which is equal to 11.
+     * Difficulty: Easy
+     * Problem:
+     *  Given a non-negative integer num, write a program to return the number obtained after reversing the bits of num.
+     *  The actual binary representation of the number is being considered for reversing the bits, no leading 0’s are being considered.
+     *  Example: 
+     *   Input: 13
+     *   Output: 11
+     *   Explanation: Binary representation of 13 is 1101. After reversing the bits we get 1011 which is equal to 11.
      */
     public static int GetReverseBitNumber(int num)
     {
@@ -22,7 +24,7 @@ public abstract class ReverseBits
 
     /*
      * Bitwise and shift operators:
-     *  https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-and-operator-
+     *  https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#logical-and-operator
      * Step 1: Create a variable result and initialize it with 0
      * Step 2: If num > 0
      *  Multiply res with 2
