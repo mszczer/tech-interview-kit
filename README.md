@@ -2,6 +2,8 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/931411cd0c0c4a88a7fbd8dc6cac812b)](https://app.codacy.com/gh/mszczer/tech-interview-kit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![Build and Test](https://github.com/mszczer/tech-interview-kit/actions/workflows/dotnet_ci.yml/badge.svg)](https://github.com/mszczer/tech-interview-kit/actions/workflows/dotnet_ci.yml)
 
+https://codecov.io/gh/mszczer/tech-interview-kit/graphs/sunburst.svg?token=FVY8DVJ0K6
+
 # Data Structures and Algorithms Challenges Repository
 
 ## Description
