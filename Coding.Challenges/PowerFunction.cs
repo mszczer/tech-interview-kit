@@ -15,6 +15,16 @@ public abstract class PowerFunction
         for (var i = 0; i < Math.Abs(exponent); i++)
             power *= baseNumber;
 
-        return (exponent < 0) ? 1 / power : power;
+        return exponent < 0 ? 1 / power : power;
+    }
+
+    public static double ComputePowerDivideAndConquer(int baseNumber, int exponent)
+    {
+        throw new NotImplementedException();
+    }
+
+    public static double ComputePowerDivideAndConquerOptimized(int baseNumber, int exponent)
+    {
+        throw new NotImplementedException();
     }
 }
