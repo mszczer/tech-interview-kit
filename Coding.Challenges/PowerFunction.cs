@@ -18,9 +18,27 @@ public abstract class PowerFunction
         return exponent < 0 ? 1 / power : power;
     }
 
+    /*
+     * 1. Check if the exponent is 0 then return 1 otherwise
+     * 2. if exponent is even: power(base, expo) = power(base, expo/2) * power(base, expo/2)
+     * 3. if exponent is odd : power(base, expo) = base * power(base, expo/2)*power(base, expo/2)
+     */
     public static double ComputePowerDivideAndConquer(int baseNumber, int exponent)
     {
-        throw new NotImplementedException();
+        if (exponent == 0) return 1;
+
+        if (exponent % 2 == 0)  // exponent is even
+            return ComputePowerDivideAndConquer(baseNumber, exponent / 2) *
+                   ComputePowerDivideAndConquer(baseNumber, exponent / 2);
+        else                    // exponent is odd
+        {
+            if (exponent > 0)
+                return baseNumber * ComputePowerDivideAndConquer(baseNumber, exponent / 2) * 
+                       ComputePowerDivideAndConquer(baseNumber, exponent / 2);
+            else 
+                return 1/(ComputePowerDivideAndConquer(baseNumber, exponent / 2) * 
+                          ComputePowerDivideAndConquer(baseNumber, exponent / 2));
+        }
     }
 
     public static double ComputePowerDivideAndConquerOptimized(int baseNumber, int exponent)

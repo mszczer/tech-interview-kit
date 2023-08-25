@@ -13,4 +13,15 @@ public class PowerFunctionTests
     {
         Assert.That(PowerFunction.ComputePowerIteratively(baseNumber, exponent), Is.EqualTo(expected));
     }
+
+    [Test]
+    [TestCase(4, 2, 16.00)]
+    [TestCase(2, -3, 0.125)]
+    [TestCase(-7, 3, -343.00)]
+    [TestCase(1, 4, 1.00)]
+    [TestCase(4, 0, 1.00)]
+    public void ComputePowerDivideAndConquer_ReturnsThePower(int baseNumber, int exponent, double expected)
+    {
+        Assert.That(PowerFunction.ComputePowerIteratively(baseNumber, exponent), Is.EqualTo(expected));
+    }
 }
