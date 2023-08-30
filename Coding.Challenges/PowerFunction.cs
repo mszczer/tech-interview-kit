@@ -5,6 +5,8 @@
  * Problem:
  *  Given two integers k and n , write a function to compute k^n.
  *  You can assume that k and n are small and overflow cannot happen.
+ * Ideas to think:
+ *  Complexity analysis
  */
 public abstract class PowerFunction
 {
@@ -33,16 +35,25 @@ public abstract class PowerFunction
         else                    // exponent is odd
         {
             if (exponent > 0)
-                return baseNumber * ComputePowerDivideAndConquer(baseNumber, exponent / 2) * 
+                return baseNumber * ComputePowerDivideAndConquer(baseNumber, exponent / 2) *
                        ComputePowerDivideAndConquer(baseNumber, exponent / 2);
-            else 
-                return 1/(ComputePowerDivideAndConquer(baseNumber, exponent / 2) * 
-                          ComputePowerDivideAndConquer(baseNumber, exponent / 2));
+            else
+                return 1 / ComputePowerDivideAndConquer(baseNumber, Math.Abs(exponent));
         }
     }
 
     public static double ComputePowerDivideAndConquerOptimized(int baseNumber, int exponent)
     {
-        throw new NotImplementedException();
+        if (exponent == 0) return 1;
+
+        var temp = ComputePowerDivideAndConquerOptimized(baseNumber, exponent / 2);
+
+        if (exponent % 2 == 0) // exponent is even
+            return temp * temp;
+        else                   // exponent is odd
+            if (exponent > 0)
+                return baseNumber * temp * temp;
+            else
+                return 1 / ComputePowerDivideAndConquerOptimized(baseNumber, Math.Abs(exponent));
     }
 }
