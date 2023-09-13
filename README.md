@@ -13,6 +13,13 @@ This repository contains solutions to various coding problems presented on the [
 - The entire codebase is written in C# .NET Core, providing a consistent environment for all solutions.
 - Code coverage metrics and Codacy analyses are in place to maintain code quality and readability.
 - Continuous Integration/Continuous Deployment (CI/CD) is configured to automatically run tests and generate detailed reports, making it easier to track code changes and their impacts on the overall codebase.
+## Algorithms Problem Set
+### Easy
+- [Reverse Bits](Coding.Challenges/ReverseBits.cs)
+- [Calcualte Power Function](Coding.Challenges/PowerFunction.cs)
+- [Wave Array](Coding.Challenges/WaveArray.cs)
+### Medium
+### Hard
 
 ## Tech Stack
 - This repository includes code written in .NET core.
