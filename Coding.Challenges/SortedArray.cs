@@ -1,4 +1,6 @@
-﻿namespace Coding.Challenges
+﻿using System.Runtime.InteropServices.JavaScript;
+
+namespace Coding.Challenges
 {
     public abstract class SortedArray
     {
@@ -37,11 +39,33 @@
 
             return arr;
         }
+
+        /*
+         * Selection sort start from the first element and checks through other elements to find the minimum value.
+         * After the end of the first iteration, the minimum value is swapped with the current element.
+         * The iteration then continues from the 2nd element and so on.
+         */
+        public static int[] SelectionSort(int[] arr)
+        {
+            for (var i = 0; i < arr.Length - 1; i++)
+            {
+                var minIdx = i;
+
+                for (var j = i + 1; j < arr.Length; j++)
+                    if (arr[j] < arr[minIdx])
+                        minIdx = j;
+
+                if (minIdx != i)
+                    (arr[i], arr[minIdx]) = (arr[minIdx], arr[i]);
+            }
+
+            return arr;
+        }
     }
 }
 /*
  * Simple Sorts:
- *  Selection Sort program in C# (ToDo)
+ *  Selection Sort program in C# (Done)
  *  Insertion Sort program in C# (ToDo)
  *
  * Efficient Sorts:
