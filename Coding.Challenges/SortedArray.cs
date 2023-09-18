@@ -61,12 +61,39 @@ namespace Coding.Challenges
 
             return arr;
         }
+
+        /*
+         * We assume that the first card is already sorted then, we select an unsorted card.
+         * If the unsorted card is greater than the card in hand, it is placed on the right otherwise, to the left.
+         * In the same way, other unsorted cards are taken and put in their right place.
+         * A similar approach is used by insertion sort:
+         * To sort an array of size N in ascending order iterate over the array and compare the current element (key) to its predecessor,
+         * if the key element is smaller than its predecessor, compare it to the elements before.
+         * Move the greater elements one position up to make space for the swapped element.
+         */
+        public static int[] InsertionSort(int[] arr)
+        {
+            for (var i = 1; i < arr.Length; i++)
+            {
+                var key = arr[i];
+
+                for (var j = i - 1; j >= 0 && arr[j] > key; j--)
+                    if (arr[j] > key)
+                    {
+                        arr[j + 1] = arr[j];
+                        arr[j] = key;
+                    }
+            }
+
+            return arr;
+        }
     }
 }
+
 /*
  * Simple Sorts:
  *  Selection Sort program in C# (Done)
- *  Insertion Sort program in C# (ToDo)
+ *  Insertion Sort program in C# (Done)
  *
  * Efficient Sorts:
  *  Heap Sort program in C# (ToDo)
@@ -82,7 +109,3 @@ namespace Coding.Challenges
  *  Bucket Sort program in C# (ToDo)
  *  Radix Sort program in C# (ToDo)
  */
-
-
-
-
