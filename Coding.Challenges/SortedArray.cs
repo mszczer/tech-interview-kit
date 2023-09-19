@@ -87,6 +87,22 @@ namespace Coding.Challenges
 
             return arr;
         }
+
+        /*
+         * Shell sort is a generalized version of the insertion sort algorithm. It first sorts elements that are
+         * far apart from each other and successively reduces the interval between the elements to be sorted.
+         */
+        public static int[] ShellSort(int[] arr)
+        {
+            // Start with half of array, then reduces to its half
+            for (var interval = arr.Length / 2; interval > 0; interval /= 2)
+                // Interval insertion sort for specific interval size
+                for (var i = interval; i < arr.Length; i++)
+                    if (arr[i - interval] > arr[i])
+                        (arr[i - interval], arr[i]) = (arr[i], arr[i - interval]);
+
+            return arr;
+        }
     }
 }
 
@@ -102,7 +118,7 @@ namespace Coding.Challenges
  *
  * Bubble Sorts and Variant:
  *  Bubble Sort program  in C# (Done)
- *  Shell Sort program in C# (ToDo)
+ *  Shell Sort program in C# (Done)
  *  Comb Sort program in C# (ToDo)
  *
  * Distribution Sorts:

@@ -30,4 +30,11 @@ public class SortedArrayTests
     {
         Assert.That(SortedArray.InsertionSort(input), Is.EqualTo(expected));
     }
+
+    [Test]
+    [TestCase(new[] { 4, 2, 9, 1, 21, 43, 24 }, new[] { 1, 2, 4, 9, 21, 24, 43 })]
+    public void ShellSort_ReturnsSortedArray(int[] input, int[] expected)
+    {
+        Assert.That(SortedArray.ShellSort(input), Is.EqualTo(expected));
+    }
 }
