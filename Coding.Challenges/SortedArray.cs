@@ -41,6 +41,29 @@ namespace Coding.Challenges
         }
 
         /*
+         * Comb sort works as Bubble Sort but uses a gap larger than 1.
+         * The inner loop of bubble sort, where swaps happen, is modified such that gap between swapped elements decreases
+         * by a shrink factor k for each iteration of outer loop. This shrink factor is usually taken as 1.3.
+         */
+        public static int[] CombSort(int[] arr)
+        {
+            var swapFlag = true;
+
+            for (var gap = (int)(arr.Length / 1.3); gap > 0 || swapFlag; gap = (int)(gap / 1.3))
+                for (var i = gap; i < arr.Length; i++)
+                {
+                    swapFlag = false;
+                    if (arr[i - gap] > arr[i])
+                    {
+                        (arr[i - gap], arr[i]) = (arr[i], arr[i - gap]);
+                        swapFlag = true;
+                    }
+                }
+
+            return arr;
+        }
+
+        /*
          * Selection sort start from the first element and checks through other elements to find the minimum value.
          * After the end of the first iteration, the minimum value is swapped with the current element.
          * The iteration then continues from the 2nd element and so on.
@@ -103,6 +126,7 @@ namespace Coding.Challenges
 
             return arr;
         }
+        
     }
 }
 
@@ -119,7 +143,7 @@ namespace Coding.Challenges
  * Bubble Sorts and Variant:
  *  Bubble Sort program  in C# (Done)
  *  Shell Sort program in C# (Done)
- *  Comb Sort program in C# (ToDo)
+ *  Comb Sort program in C# (Done)
  *
  * Distribution Sorts:
  *  Bucket Sort program in C# (ToDo)
