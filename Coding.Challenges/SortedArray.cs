@@ -126,7 +126,77 @@ namespace Coding.Challenges
 
             return arr;
         }
-        
+
+        /*
+         * Merge sort is a recursive algorithm that continuously splits the array in half until it cannot be further divided
+         * i.e., the array has only one element left (an array with one element is always sorted).
+         * Then the sorted subarrays are merged into one sorted array.
+         * Credits: https://www.c-sharpcorner.com/blogs/a-simple-merge-sort-implementation-c-sharp 
+         */
+        public static int[] MergeSort(int[] arr)
+        {
+            if (arr.Length <= 1)
+                return arr;
+            
+            // Create duplicate copies of sub-arrays to be sorted
+            var mid = arr.Length / 2;
+
+            var left = new int[mid];
+            var right = new int[arr.Length - mid];
+
+            for (var i = 0; i < mid; i++)
+                left[i] = arr[i];
+            for (var i = mid; i < arr.Length; i++)
+                right[i - mid] = arr[i];
+
+            left = MergeSort(left);
+            right = MergeSort(right);
+
+            return Merge(left, right);
+        }
+
+        private static int[] Merge(IReadOnlyList<int> left, IReadOnlyList<int> right)
+        {
+            var mergedArr = new int[left.Count + right.Count];
+
+            var idxLeft = 0;
+            var idxRight = 0;
+            var idxMerged = 0;
+
+            // while there is element to check in any array
+            while (idxLeft < left.Count || idxRight < right.Count)
+                // until we reach the end of either arrays, larger element is placed at merged array
+                if (idxLeft < left.Count && idxRight < right.Count)
+                {
+                    if (left[idxLeft] <= right[idxRight])
+                    {
+                        mergedArr[idxMerged] = left[idxLeft];
+                        idxLeft++;
+                    }
+                    else
+                    {
+                        mergedArr[idxMerged] = right[idxRight];
+                        idxRight++;
+                    }
+                    idxMerged++;
+                }
+                // if the left array still has elements, add them to the merged array
+                else if (idxLeft < left.Count)
+                {
+                    mergedArr[idxMerged] = left[idxLeft];
+                    idxLeft++;
+                    idxMerged++;
+                }
+                // if the right array still has elements, add them to the merged array
+                else if (idxRight < right.Count)
+                {
+                    mergedArr[idxMerged] = right[idxRight];
+                    idxRight++;
+                    idxMerged++;
+                }
+
+            return mergedArr;
+        }
     }
 }
 
@@ -137,7 +207,7 @@ namespace Coding.Challenges
  *
  * Efficient Sorts:
  *  Heap Sort program in C# (ToDo)
- *  Merge Sort program in C# (ToDo)
+ *  Merge Sort program in C# (Done)
  *  Quick Sort program in C# (ToDo)
  *
  * Bubble Sorts and Variant:
