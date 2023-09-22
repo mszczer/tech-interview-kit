@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.JavaScript;
+﻿using System.Collections.Concurrent;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace Coding.Challenges
 {
@@ -197,6 +198,47 @@ namespace Coding.Challenges
 
             return mergedArr;
         }
+
+        /*
+         * Quicksort is a sorting algorithm based on the divide and conquer approach where:
+         * 1. An array is divided into subarrays by selecting a pivot element (element selected from the array).
+         *    The pivot element should be positioned in such a way that elements less than pivot are kept on the left
+         *    side and elements greater than pivot are on the right side of the pivot.
+         * 2. The left and right subarrays are also divided using the same approach. This process continues until
+         *    each sub array contains a single element.
+         * 3. Elements are combined to form a sorted array.
+         * Credits: https://www.programiz.com/dsa/quick-sort
+         */
+        public static int[] QuickSort(int[] arr, int start, int end)
+        {
+            if (start < end)
+            {
+                var pIdx = Partition(arr, start, end);
+                QuickSort(arr, start, pIdx - 1);
+                QuickSort(arr, pIdx + 1, end);
+            }
+
+            return arr;
+        }
+
+        private static int Partition(IList<int> arr, int start, int end)
+        {
+            var pivot = arr[end];   // select pivot element
+            
+            var idx = start - 1;    // index of greater element
+
+            for (var i = start; i <= end - 1; i++)
+                // swap elements if current element is smaller than the pivot element
+                if (arr[i] < pivot)
+                {
+                    idx++;
+                    (arr[i], arr[idx]) = (arr[idx], arr[i]);
+                }
+
+            (arr[idx + 1], arr[end]) = (arr[end], arr[idx + 1]);
+            
+            return idx + 1;
+        }
     }
 }
 
@@ -208,7 +250,7 @@ namespace Coding.Challenges
  * Efficient Sorts:
  *  Heap Sort program in C# (ToDo)
  *  Merge Sort program in C# (Done)
- *  Quick Sort program in C# (ToDo)
+ *  Quick Sort program in C# (Done)
  *
  * Bubble Sorts and Variant:
  *  Bubble Sort program  in C# (Done)
