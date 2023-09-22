@@ -1,6 +1,7 @@
 ﻿namespace Coding.Challenges.Tests;
 
 [TestFixture]
+[Parallelizable(ParallelScope.All)]
 public class SortedArrayTests
 {
     [Test]
