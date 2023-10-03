@@ -59,4 +59,11 @@ public class SortedArrayTests
     {
         Assert.That(SortedArray.QuickSort(input,0,input.Length-1), Is.EqualTo(expected));
     }
+
+    [Test]
+    [TestCase(new[] { 4, 2, 9, 1, 21, 43, 24 }, new[] { 1, 2, 4, 9, 21, 24, 43 })]
+    public void HeapSort_ReturnsSortedArray(int[] input, int[] expected)
+    {
+        Assert.That(SortedArray.HeapSort(input), Is.EqualTo(expected));
+    }
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Runtime.InteropServices.JavaScript;
-
-namespace Coding.Challenges
+﻿namespace Coding.Challenges
 {
     public abstract class SortedArray
     {
@@ -130,7 +127,7 @@ namespace Coding.Challenges
 
         /*
          * Merge sort is a recursive algorithm that continuously splits the array in half until it cannot be further divided
-         * i.e., the array has only one element left (an array with one element is always sorted).
+         * idx.e., the array has only one element left (an array with one element is always sorted).
          * Then the sorted subarrays are merged into one sorted array.
          * Credits: https://www.c-sharpcorner.com/blogs/a-simple-merge-sort-implementation-c-sharp 
          */
@@ -239,6 +236,59 @@ namespace Coding.Challenges
             
             return idx + 1;
         }
+
+        /*
+         * Heap sort divides its input into a sorted and an unsorted region, and it iteratively shrinks
+         * the unsorted region by extracting the largest element and moving that to the sorted region:
+         * 1. Build Max-Heap: Since the tree satisfies Max-Heap property, then the largest item is
+         * stored at the root node.
+         * 2. Swap elements: Remove the root element and put at the end of the array (last position). Put the last
+         * item of the tree (heap) at the vacant place.
+         * 3. Remove the last element: Reduce the size of the heap by 1.
+         * 4. Heapify: Heapify the root element again so that we have the highest element at root.
+         * 5. The process is repeated until all the items of the list are sorted.
+         * Credits: https://www.programiz.com/dsa/heap-sort
+         */
+        public static int[] HeapSort(int[] arr)
+        {
+            var size = arr.Length;
+
+            // build max heap 
+            for (var i = size / 2 - 1; i >= 0; i--) // the first index of a non-leaf node: size/2 - 1
+                Heapify(arr, size, i);
+
+            // heap sort
+            for (var i = size - 1; i >= 0; i--)
+            {
+                (arr[0], arr[i]) = (arr[i], arr[0]);
+
+                // heapify the root
+                Heapify(arr, i, 0);
+            }
+
+            return arr;
+        }
+
+        private static void Heapify(int[] arr, int size, int idx)
+        {
+            // find the largest from root and it's direct children
+            var largestIdx = idx;
+            var leftChild = 2 * idx + 1; // the element at the index 2i+1 is the left child
+            var rightChild = 2 * idx + 2; // the element at the index 2i+2 is the right child
+
+            if (leftChild < size && arr[leftChild] > arr[largestIdx])
+                largestIdx = leftChild;
+
+            if (rightChild < size && arr[rightChild] > arr[largestIdx])
+                largestIdx = rightChild;
+
+            // swap and continue heapifying if root is not largest
+            if (largestIdx != idx)
+            {
+                (arr[idx], arr[largestIdx]) = (arr[largestIdx], arr[idx]);
+                Heapify(arr, size, largestIdx);
+            }
+        }
     }
 }
 
@@ -248,7 +298,7 @@ namespace Coding.Challenges
  *  Insertion Sort program in C# (Done)
  *
  * Efficient Sorts:
- *  Heap Sort program in C# (ToDo)
+ *  Heap Sort program in C# (Done)
  *  Merge Sort program in C# (Done)
  *  Quick Sort program in C# (Done)
  *
