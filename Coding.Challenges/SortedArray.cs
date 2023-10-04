@@ -269,12 +269,12 @@
             return arr;
         }
 
-        private static void Heapify(int[] arr, int size, int idx)
+        private static void Heapify(IList<int> arr, int size, int idx)
         {
             // find the largest from root and it's direct children
             var largestIdx = idx;
-            var leftChild = 2 * idx + 1; // the element at the index 2i+1 is the left child
-            var rightChild = 2 * idx + 2; // the element at the index 2i+2 is the right child
+            var leftChild = 2 * idx + 1;    // the element at the index 2i+1 is the left child
+            var rightChild = 2 * idx + 2;   // the element at the index 2i+2 is the right child
 
             if (leftChild < size && arr[leftChild] > arr[largestIdx])
                 largestIdx = leftChild;
@@ -288,6 +288,45 @@
                 (arr[idx], arr[largestIdx]) = (arr[largestIdx], arr[idx]);
                 Heapify(arr, size, largestIdx);
             }
+        }
+
+        /*
+         * Bucket Sort divides the unsorted array elements into several groups called buckets.
+         * Each bucket is then sorted by using any of the suitable sorting algorithms or recursively
+         * applying the same bucket algorithm. Finally, the sorted buckets are combined to form
+         * a final sorted array:
+         * 1. create n empty buckets
+         * 2. add array elements in different buckets
+         * 3. sort individual buckets
+         * 4. merge all buckets into final array
+         */
+        public static double[] BucketSort(double[] arr)
+        {
+            var size = arr.Length;
+
+            // create empty buckets
+            var buckets = new List<double>[size];
+            for (var i = 0; i < size; i++)
+                buckets[i] = new List<double>();
+
+            // add elements to the different buckets
+            for (var i = 0; i < size; i++)
+            {
+                var bucketIdx = arr[i] * size;
+                buckets[(int)bucketIdx].Add(arr[i]);
+            }
+
+            // sort elements in each buckets
+            for (var i = 0; i < size; i++)
+                buckets[i].Sort();
+
+            // merge all buckets into arr[]
+            var idx = 0;
+            for (var i = 0; i < size; i++)                  // for each bucket
+                for (var j = 0; j < buckets[i].Count; j++)  // check every number in bucket
+                    arr[idx++] = buckets[i][j];
+
+            return arr;
         }
     }
 }
@@ -308,6 +347,6 @@
  *  Comb Sort program in C# (Done)
  *
  * Distribution Sorts:
- *  Bucket Sort program in C# (ToDo)
+ *  Bucket Sort program in C# (Done)
  *  Radix Sort program in C# (ToDo)
  */

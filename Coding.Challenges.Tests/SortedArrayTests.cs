@@ -66,4 +66,11 @@ public class SortedArrayTests
     {
         Assert.That(SortedArray.HeapSort(input), Is.EqualTo(expected));
     }
+
+    [Test]
+    [TestCase(new[] { 0.78, 0.17, 0.39, 0.26, 0.72, 0.94, 0.21, 0.12, 0.23, 0.68 }, new[] { 0.12, 0.17, 0.21, 0.23, 0.26, 0.39, 0.68, 0.72, 0.78, 0.94 })]
+    public void BucketSort_ReturnsSortedArray(double[] input, double[] expected)
+    {
+        Assert.That(SortedArray.BucketSort(input), Is.EqualTo(expected));
+    }
 }
