@@ -328,8 +328,56 @@
 
             return arr;
         }
+
+        /*
+         * Counting sort algorithm:
+         * 1. Declare an auxiliary array count array of size max(input array+1 and initialize it with 0.
+         * 2. Count each element of inputArray[] as an index of count array
+         * 3. Calculate the prefix sum at every index of input array
+         * 4. Create an array outputArray[] of size N.
+         * 5. Traverse array inputArray[] from end and update outputArray[ countArray[ inputArray[i] ] – 1] = inputArray[i].
+         *  Also, update countArray[ inputArray[i] ] = countArray[ inputArray[i] ]–-.
+         * Credits: https://www.geeksforgeeks.org/counting-sort/
+         */
+        public static int[] CountingSort(int[] arr)
+        {
+            var size = arr.Length;
+
+            // find the largest element in arr
+            var max = arr[0];
+            for (var i = 0; i < size; i++)
+                if (arr[i] > max)
+                    max = arr[i];
+
+            // initialize count array with all zeros
+            var countArr = new int[max + 1];
+            for (var i = 0; i < countArr.Length; i++)
+                countArr[i] = 0;
+
+            // count of each element in input array and store in count array
+            for (var i = 0; i < size; i++)
+                countArr[arr[i]]++;
+
+            // Store the cumulative count of each element
+            for (var i = 1; i <= max; i++)
+                countArr[i] += countArr[i - 1];
+
+            // create output array and place elements there
+            var outputArr = new int[size];
+            for (var i = size - 1; i >= 0; i--)
+            {
+                outputArr[countArr[arr[i]] - 1] = arr[i];
+                countArr[arr[i]]--;
+            }
+
+            return outputArr;
+        }
+
     }
 }
+
+
+
 
 /*
  * Simple Sorts:
