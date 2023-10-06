@@ -1,4 +1,4 @@
-﻿namespace Coding.Challenges
+﻿namespace Coding.Challenges.Medium
 {
     public abstract class SortedArray
     {
@@ -135,7 +135,7 @@
         {
             if (arr.Length <= 1)
                 return arr;
-            
+
             // Create duplicate copies of sub-arrays to be sorted
             var mid = arr.Length / 2;
 
@@ -221,7 +221,7 @@
         private static int Partition(IList<int> arr, int start, int end)
         {
             var pivot = arr[end];   // select pivot element
-            
+
             var idx = start - 1;    // index of greater element
 
             for (var i = start; i <= end - 1; i++)
@@ -233,7 +233,7 @@
                 }
 
             (arr[idx + 1], arr[end]) = (arr[end], arr[idx + 1]);
-            
+
             return idx + 1;
         }
 

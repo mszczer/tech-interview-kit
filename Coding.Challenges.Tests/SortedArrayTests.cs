@@ -1,4 +1,6 @@
-﻿namespace Coding.Challenges.Tests;
+﻿using Coding.Challenges.Medium;
+
+namespace Coding.Challenges.Tests;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
