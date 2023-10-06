@@ -25,7 +25,7 @@ This repository contains solutions to various coding problems presented on the [
 - This repository includes code written in .NET core.
 
 ## Acknowledgments
-- Thanks to the [Data Structures and Algorithms Challenges](https://afteracademy.com/tech-interview/) platform for providing these challenges and helping developers prepare for technical interviews.
+- [Data Structures and Algorithms Challenges](https://afteracademy.com/tech-interview/) platform providing these challenges with comments.
 
 ## License
 
