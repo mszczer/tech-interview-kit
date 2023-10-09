@@ -15,10 +15,13 @@ This repository contains solutions to various coding problems presented on the [
 - Continuous Integration/Continuous Deployment (CI/CD) is configured to automatically run tests and generate detailed reports, making it easier to track code changes and their impacts on the overall codebase.
 ## Algorithms Problem Set
 ### Easy
-- [Reverse Bits](Coding.Challenges/ReverseBits.cs)
-- [Calcualte Power Function](Coding.Challenges/PowerFunction.cs)
-- [Wave Array](Coding.Challenges/WaveArray.cs)
+- [Bitonic Array](Coding.Challenges/Easy/BitonicArray.cs)
+- [Calculate Power Function](Coding.Challenges/Easy/PowerFunction.cs)
+- [Reverse Bits](Coding.Challenges/Easy/ReverseBits.cs)
+- [Wave Array](Coding.Challenges/Easy/WaveArray.cs)
+- [Zeroes to end](Coding.Challenges/Easy/ZeroesToEnd.cs)
 ### Medium
+- [Sorting algorithms](Coding.Challenges/Medium/SortedArray.cs)
 ### Hard
 
 ## Tech Stack
