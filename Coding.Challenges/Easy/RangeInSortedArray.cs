@@ -66,12 +66,24 @@ public static class RangeInSortedArray
         else 
             return GetRightIdx(arr, medIdx, maxIdx, target);
     }
-}
 
+    public static int[] GetElementsAppearingOnce(int[] arr)
+    {
+        var countElements = new Dictionary<int, int>();
+
+        foreach (var element in arr)
+            if (countElements.ContainsKey(element))
+                countElements[element]++;
+            else
+                countElements.Add(element, 1);
+
+        return (from element in countElements where element.Value == 1 select element.Key).ToArray();
+    }
+}
 
 /*
  * ToDo:
- *  Find the element that appears once in a sorted array
+ *  Find the element that appears once in a sorted array (Done)
  *  Find the minimum element in a sorted and rotated array
  *  Find the only repeating element in a sorted array of size n
  *  Find the Kth smallest element in the sorted generated array

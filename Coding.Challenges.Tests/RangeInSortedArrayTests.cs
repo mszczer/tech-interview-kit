@@ -23,4 +23,13 @@ public class RangeInSortedArrayTests
     {
         Assert.That(RangeInSortedArray.GetRangeIndexes_BinarySearch(input, target), Is.EqualTo(output));
     }
+
+    [Test]
+    [TestCase(new[] { 1, 3, 5, 5, 5, 5, 7, 28, 37 }, new[] { 1,3,7,28,37})]
+    [TestCase(new[] { 5, 7, 7, 8, 8, 10 }, new[] {5,10})]
+    [TestCase(new[] { 7, 7, 8, 8}, new int[0])]
+    public void GetElementsAppearingOnce_ReturnsArrayOfElements(int[] input, int[] expected)
+    {
+        Assert.That(RangeInSortedArray.GetElementsAppearingOnce(input), Is.EqualTo(expected));
+    }
 }
