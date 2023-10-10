@@ -403,4 +403,9 @@
  * Distribution Sorts:
  *  Bucket Sort program in C# (Done)
  *  Radix Sort program in C# (ToDo)
+ *
+ * ***************************************
+ * Search algorithms
+ *  Binary search (ToDo)
+ *
  */
