@@ -17,6 +17,7 @@ This repository contains solutions to various coding problems presented on the [
 ### Easy
 - [Bitonic Array](Coding.Challenges/Easy/BitonicArray.cs)
 - [Calculate Power Function](Coding.Challenges/Easy/PowerFunction.cs)
+- [Range in a Sorted Array](Coding.Challenges/Easy/RangeInSortedArray.cs)
 - [Reverse Bits](Coding.Challenges/Easy/ReverseBits.cs)
 - [Wave Array](Coding.Challenges/Easy/WaveArray.cs)
 - [Zeroes to end](Coding.Challenges/Easy/ZeroesToEnd.cs)
