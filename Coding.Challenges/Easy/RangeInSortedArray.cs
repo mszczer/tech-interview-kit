@@ -79,13 +79,43 @@ public static class RangeInSortedArray
 
         return (from element in countElements where element.Value == 1 select element.Key).ToArray();
     }
-}
 
-/*
- * ToDo:
- *  Find the element that appears once in a sorted array (Done)
- *  Find the minimum element in a sorted and rotated array
- *  Find the only repeating element in a sorted array of size n
- *  Find the Kth smallest element in the sorted generated array
- *  Find the missing element in a sorted array of consecutive numbers
- */
+    public static int FindIdxOfTheMinimumInSortedArray(int[] arr)
+    {
+        var maxIdx = arr.Length - 1;
+
+        if (maxIdx < 0)     
+            return maxIdx;
+        else if (maxIdx == 0 || arr[maxIdx] >= arr[0])
+            return arr[0];
+        else
+            return arr[maxIdx];
+    }
+
+    public static int FindOnlyRepeatingElementInSortedArray(int[] arr)
+    {
+        var countElements = new Dictionary<int, int>();
+
+        foreach (var element in arr)
+            if (countElements.ContainsKey(element))
+                return element;
+            else
+                countElements.Add(element, 1);
+
+        return int.MinValue;
+    }
+
+    public static int FindFirstMissingElementInSortedArray(int[] arr)
+    {
+        var maxIdx = arr.Length - 1;
+        if (maxIdx <= 0)
+            return int.MinValue;
+
+        for (var i = 1; i <= maxIdx; i++)
+            if (Math.Abs(arr[i] - arr[i - 1]) > 1)
+                return arr[i - 1] < arr[i] ? arr[i - 1] + 1 : arr[i] + 1;
+
+        return int.MinValue;
+    }
+
+}

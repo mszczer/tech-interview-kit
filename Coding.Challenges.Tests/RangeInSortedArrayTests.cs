@@ -1,4 +1,5 @@
-﻿using Coding.Challenges.Easy;
+﻿using System;
+using Coding.Challenges.Easy;
 
 namespace Coding.Challenges.Tests;
 
@@ -32,4 +33,35 @@ public class RangeInSortedArrayTests
     {
         Assert.That(RangeInSortedArray.GetElementsAppearingOnce(input), Is.EqualTo(expected));
     }
+
+    [Test]
+    [TestCase(new[] { 1, 3, 5, 5, 5, 5, 7, 28, 37 }, 1)]
+    [TestCase(new[] { 10, 8,8,7,7, 5 }, 5)]
+    [TestCase(new[] { 8}, 8)]
+    [TestCase(new int[0], -1)]
+    public void FindIdxOfTheMinimumInSortedArray_ReturnsIdx(int[] input, int expected)
+    {
+        Assert.That(RangeInSortedArray.FindIdxOfTheMinimumInSortedArray(input), Is.EqualTo(expected));
+    }
+
+    [Test]
+    [TestCase(new[] { 1, 3, 5, 5, 5, 5, 7, 28, 37 }, 5)]
+    [TestCase(new[] { 10, 8, 7, 5 }, int.MinValue)]
+    [TestCase(new int[0], int.MinValue)]
+    public void FindOnlyRepeatingElementInSortedArray_ReturnsRepeatingElement(int[] input, int expected)
+    {
+        Assert.That(RangeInSortedArray.FindOnlyRepeatingElementInSortedArray(input), Is.EqualTo(expected));
+    }
+
+    [Test]
+    [TestCase(new[] { 1, 3, 5, 5, 5, 5, 7, 28, 37 }, 2)]
+    [TestCase(new[] { 10, 9, 7, 5 }, 8)]
+    [TestCase(new[] { 1, 2, 3 }, int.MinValue)]
+    [TestCase(new[] { 12 }, int.MinValue)]
+    [TestCase(new int[0], int.MinValue)]
+    public void FindFirstMissingElementInSortedArray_ReturnsFirstMissingNumber(int[] input, int expected)
+    {
+        Assert.That(RangeInSortedArray.FindFirstMissingElementInSortedArray(input), Is.EqualTo(expected));
+    }
+
 }
