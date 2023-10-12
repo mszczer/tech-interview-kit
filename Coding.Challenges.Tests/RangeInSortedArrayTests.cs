@@ -1,5 +1,4 @@
 ﻿using System;
-using Coding.Challenges.Easy;
 
 namespace Coding.Challenges.Tests;
 

@@ -67,7 +67,7 @@ public static class RangeInSortedArray
             return GetRightIdx(arr, medIdx, maxIdx, target);
     }
 
-    public static int[] GetElementsAppearingOnce(int[] arr)
+    public static int[] GetElementsAppearingOnce(IEnumerable<int> arr)
     {
         var countElements = new Dictionary<int, int>();
 
@@ -92,7 +92,7 @@ public static class RangeInSortedArray
             return arr[maxIdx];
     }
 
-    public static int FindOnlyRepeatingElementInSortedArray(int[] arr)
+    public static int FindOnlyRepeatingElementInSortedArray(IEnumerable<int> arr)
     {
         var countElements = new Dictionary<int, int>();
 
