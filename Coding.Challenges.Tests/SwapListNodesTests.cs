@@ -6,14 +6,21 @@ namespace Coding.Challenges.Tests;
 [Parallelizable(ParallelScope.All)]
 public class SwapListNodesTests
 {
-    [Test]
-    public void SwapNodes_SwapsListNodesInPairs()
+    private static IEnumerable<TestCaseData> TestData()
     {
-        var inputData = new[] { 80, 20, 5, 9, 2 };
-        var input = new LinkedList<int>(inputData);
-        var outputData = new[] { 20, 80, 9, 5, 2 };
-        var expected = new List<int>(outputData);
+        yield return new TestCaseData(new[] { 10, 20, 30, 40 }, new[] { 20, 10, 40, 30 });
+        yield return new TestCaseData(new[] { 80, 20, 5, 9, 2 }, new[] { 20, 80, 9, 5, 2 });
+    }
 
-        Assert.That(SwapListNodes.SwapNodes(input), Is.EqualTo(expected));
+    [Test]
+    [TestCaseSource(nameof(TestData))]
+    public void SwapNodes_SwapsListNodesInPairs(int[] inputData, int[] expectedOutput)
+    {
+        var inputList = new LinkedList<int>(inputData);
+        var expectedList = new List<int>(expectedOutput);
+
+        var result = SwapListNodes.SwapNodes(inputList);
+
+        Assert.That(result, Is.EqualTo(expectedList));
     }
 }

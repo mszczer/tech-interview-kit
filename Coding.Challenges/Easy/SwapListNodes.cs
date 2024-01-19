@@ -6,7 +6,7 @@
  *  Given the head of a linked list, write a program to swap each pair of adjacent nodes.
  *      Linked List can be of even or odd size.
  *      You shouldn't modify the values of nodes, rather swap the nodes itself.
- *          Note: LinkedLst node properties Next and Previous are ReadOnly.
+ *          Note: LinkedLst node properties Next and Previous are ReadOnly in .net.
  */
 public static class SwapListNodes
 {
