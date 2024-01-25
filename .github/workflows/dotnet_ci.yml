@@ -13,7 +13,7 @@ jobs:
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
@@ -34,7 +34,7 @@ jobs:
         --logger "trx;LogFileName=test-results.trx"    
   
     - name: Publish test report
-      uses: dorny/test-reporter@v1.7.0
+      uses: dorny/test-reporter@v1
       if: always()
       with:
         name: Unit Tests
