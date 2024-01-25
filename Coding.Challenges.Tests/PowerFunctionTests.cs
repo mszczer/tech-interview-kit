@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Coding.Challenges.Tests;
+﻿namespace Coding.Challenges.Tests;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]

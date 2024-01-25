@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Coding.Challenges.Tests;
 
 [TestFixture]

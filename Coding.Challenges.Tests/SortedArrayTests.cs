@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Coding.Challenges.Medium;
+﻿using Coding.Challenges.Medium;
 
 namespace Coding.Challenges.Tests;
 

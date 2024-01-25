@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Coding.Challenges.Tests;
+﻿namespace Coding.Challenges.Tests;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
@@ -17,7 +15,7 @@ public class SwapListNodesTests
     public void SwapNodes_SwapsListNodesInPairs(int[] inputData, int[] expectedOutput)
     {
         var inputList = new LinkedList<int>(inputData);
-        var expectedList = new List<int>(expectedOutput);
+        var expectedList = new LinkedList<int>(expectedOutput);
 
         var result = SwapListNodes.SwapNodes(inputList);
 
