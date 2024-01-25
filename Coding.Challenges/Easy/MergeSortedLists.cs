@@ -10,7 +10,7 @@
  * Note:
  *      LinkedLst node properties Next and Previous are ReadOnly in .net.
  */
-public class MergeSortedLists
+public static class MergeSortedLists
 {
     public static LinkedList<int>? MergeSortedListsAndSort(LinkedList<int>? list1, LinkedList<int>? list2)
     {
