@@ -21,6 +21,7 @@ This repository contains solutions to various coding problems presented on the [
 - [Reverse Bits](Coding.Challenges/Easy/ReverseBits.cs)
 - [Wave Array](Coding.Challenges/Easy/WaveArray.cs)
 - [Zeroes to end](Coding.Challenges/Easy/ZeroesToEnd.cs)
+- [Merge Two Sorted Lists](Coding.Challenges/Easy/MergeSortedLists.cs)
 ### Medium
 - [Sorting algorithms](Coding.Challenges/Medium/SortedArray.cs)
 ### Hard
