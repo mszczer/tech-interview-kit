@@ -9,16 +9,14 @@ on:
 jobs:
   build-and-test:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
+      uses: actions/setup-dotnet@v4
     
     - name: Restore dependencies
       run: dotnet restore
@@ -34,15 +32,15 @@ jobs:
         --logger "trx;LogFileName=test-results.trx"    
   
     - name: Publish test report
-      uses: dorny/test-reporter@v1
+      uses: dorny/test-reporter@v1.9.1
       if: always()
       with:
         name: Unit Tests
         path: "**/test-results.trx"                             
         reporter: dotnet-trx
 
-    - name: Upload coverage report to Codacy
-      uses: codacy/codacy-coverage-reporter-action@v1
-      with:
-        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        coverage-reports: "**/*coverage.cobertura.xml"
+    # - name: Upload coverage report to Codacy
+    #   uses: codacy/codacy-coverage-reporter-action@v1
+    #   with:
+    #     project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+    #     coverage-reports: "**/*coverage.cobertura.xml"
