@@ -12,7 +12,7 @@
         public static int[] BubbleSort(int[] arr)
         {
             for (var i = 0; i < arr.Length - 1; i++)
-                for (var j = 0; j < arr.Length - 1; j++)
+                for (var j = 0; j < arr.Length - 1 - i; j++)
                     if (arr[j] > arr[j + 1])
                         (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
 
@@ -24,15 +24,15 @@
             for (var i = 0; i < arr.Length - 1; i++)
             {
                 var swapFlag = false;
-                for (var j = 0; j < arr.Length - 1; j++)
+                for (var j = 0; j < arr.Length - 1 - i; j++)
                     if (arr[j] > arr[j + 1])
                     {
                         (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
                         swapFlag = true;
                     }
 
-                if (swapFlag == false)
-                    break; // If no two elements were swapped by inner loop there is no need to check remaining elements
+                if (!swapFlag)
+                    break;
             }
 
             return arr;
@@ -115,13 +115,19 @@
          */
         public static int[] ShellSort(int[] arr)
         {
-            // Start with half of array, then reduces to its half
-            for (var interval = arr.Length / 2; interval > 0; interval /= 2)
-                // Interval insertion sort for specific interval size
-                for (var i = interval; i < arr.Length; i++)
-                    if (arr[i - interval] > arr[i])
-                        (arr[i - interval], arr[i]) = (arr[i], arr[i - interval]);
-
+            for (var gap = arr.Length / 2; gap > 0; gap /= 2)
+            {
+                for (var i = gap; i < arr.Length; i++)
+                {
+                    var temp = arr[i];
+                    int j;
+                    for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                    {
+                        arr[j] = arr[j - gap];
+                    }
+                    arr[j] = temp;
+                }
+            }
             return arr;
         }
 
@@ -312,7 +318,7 @@
             // add elements to the different buckets
             for (var i = 0; i < size; i++)
             {
-                var bucketIdx = arr[i] * size;
+                    var bucketIdx = arr[i] * size;
                 buckets[(int)bucketIdx].Add(arr[i]);
             }
 
