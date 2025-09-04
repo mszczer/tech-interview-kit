@@ -21,58 +21,60 @@ public static class BitonicArray
 
     public static int GetIdxInBitonicArray_Optimized(int[] arr, int k)
     {
-        // find the idx of max element of the bitonic array
-        var maxIdx = FindMaxIdx(arr);
-
-        // if the element is equal to the max element then return its index
-        if (k == arr[maxIdx])
-            return maxIdx;
-        // if the element is greater than the element at max point then the element does not exist in the array
-        if (k > arr[maxIdx])
+        if (arr == null || arr.Length == 0)
             return -1;
 
-        // if the element is less than the max element search in both halves of the array using binary search
-        // search in ascending part of array
-        var result = SearchInAscendingPartOfBitonicArray(arr, k, maxIdx);
-        // search in descending part of array
-        if (result == -1)
-            result = SearchInDescendingPartOfBitonicArray(arr, k, maxIdx);
+        var maxIdx = FindMaxIdx(arr);
 
-        return result;
+        if (arr[maxIdx] == k)
+            return maxIdx;
+
+        var left = BinarySearch(arr, 0, maxIdx - 1, k, ascending: true);
+        if (left != -1)
+            return left;
+
+        return BinarySearch(arr, maxIdx + 1, arr.Length - 1, k, ascending: false);
     }
 
-    private static int SearchInDescendingPartOfBitonicArray(IReadOnlyList<int> arr, int k, int maxIdx)
+    // Binary search for both ascending and descending order
+    private static int BinarySearch(int[] arr, int low, int high, int k, bool ascending)
     {
-        for (var i = maxIdx + 1; i < arr.Count; i++)
-            if (arr[i] < k)
-                return -1;
-            else if (arr[i] == k)
-                return i;
+        while (low <= high)
+        {
+            var mid = low + (high - low) / 2;
+            if (arr[mid] == k)
+                return mid;
 
-        return -1;
-    }
-
-    private static int SearchInAscendingPartOfBitonicArray(IReadOnlyList<int> arr, int k, int maxIdx)
-    {
-        for (var i = 0; i < maxIdx; i++)
-            if (arr[i] > k)
-                return -1;
-            else if (arr[i] == k)
-                return i;
-
-        return -1;
-    }
-
-    private static int FindMaxIdx(IReadOnlyList<int> arr)
-    {
-        var max = 0;
-
-        for (var i = 1; i < arr.Count; i++)
-            if (arr[i] > arr[i - 1])
-                max = i;
+            if (ascending)
+            {
+                if (arr[mid] < k)
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
             else
-                break;
+            {
+                if (arr[mid] < k)
+                    high = mid - 1;
+                else
+                    low = mid + 1;
+            }
+        }
+        return -1;
+    }
 
-        return max;
+    // Binary search to find the peak (max element) in bitonic array
+    private static int FindMaxIdx(int[] arr)
+    {
+        int low = 0, high = arr.Length - 1;
+        while (low < high)
+        {
+            var mid = low + (high - low) / 2;
+            if (arr[mid] < arr[mid + 1])
+                low = mid + 1;
+            else
+                high = mid;
+        }
+        return low;
     }
 }
