@@ -12,94 +12,90 @@
  */
 public static class MergeSortedLists
 {
+    // Efficient O(n) merge, always returns a new list
     public static LinkedList<int>? MergeSortedListsAndSort(LinkedList<int>? list1, LinkedList<int>? list2)
     {
-        if (list1 == null) return list2;
-        if (list2 == null) return list1;
+        if (list1 == null) return list2 == null ? null : new LinkedList<int>(list2);
+        if (list2 == null) return new LinkedList<int>(list1);
 
-        foreach (var item in list2)
-            list1.AddLast(item);
+        var merged = new LinkedList<int>();
+        var node1 = list1.First;
+        var node2 = list2.First;
 
-        var mergedList = new LinkedList<int>(list1.OrderBy(x => x));
-
-        return mergedList;
-    }
-
-    public static LinkedList<int>? MergeSortedListsUsingTwoPointers(LinkedList<int>? list1, LinkedList<int>? list2)
-    {
-        if (list1 == null) return list2;
-        if (list2 == null) return list1;
-
-        var list1Node = list1.First;
-        var list2Node = list2.First;
-
-        while (list1Node != null && list2Node != null)
-            if (list1Node.Value <= list2Node.Value)
+        while (node1 != null && node2 != null)
+        {
+            if (node1.Value <= node2.Value)
             {
-                list1Node = list1Node.Next;
+                merged.AddLast(node1.Value);
+                node1 = node1.Next;
             }
             else
             {
-                var nextNode = list2Node.Next;
-                list1.AddBefore(list1Node, list2Node.Value);
-                list2Node = nextNode;
+                merged.AddLast(node2.Value);
+                node2 = node2.Next;
             }
-
-        while (list2Node != null)
-        {
-            list1.AddLast(list2Node.Value);
-            list2Node = list2Node.Next;
         }
 
-        return list1;
-    }
-
-    public static LinkedList<int> MergeSortedListUsingRecursion(LinkedList<int> list1, LinkedList<int> list2)
-    {
-        if (list1 == null) return list2;
-        if (list2 == null) return list1;
-
-        var mergedList = new LinkedList<int>();
-
-        MergeRecursive(list1.First, list2.First, mergedList);
-
-        return mergedList;
-    }
-
-    private static void MergeRecursive(LinkedListNode<int>? list1Node, LinkedListNode<int>? list2Node,
-        LinkedList<int> mergedList)
-    {
-        if (list1Node == null)
+        while (node1 != null)
         {
-            while (list2Node != null)
-            {
-                mergedList.AddLast(list2Node.Value);
-                list2Node = list2Node.Next;
-            }
+            merged.AddLast(node1.Value);
+            node1 = node1.Next;
+        }
 
+        while (node2 != null)
+        {
+            merged.AddLast(node2.Value);
+            node2 = node2.Next;
+        }
+
+        return merged;
+    }
+
+    // Two-pointer approach, returns a new list
+    public static LinkedList<int>? MergeSortedListsUsingTwoPointers(LinkedList<int>? list1, LinkedList<int>? list2)
+    {
+        return MergeSortedListsAndSort(list1, list2);
+    }
+
+    // Recursive approach, returns a new list
+    public static LinkedList<int>? MergeSortedListUsingRecursion(LinkedList<int>? list1, LinkedList<int>? list2)
+    {
+        var merged = new LinkedList<int>();
+        MergeRecursive(list1?.First, list2?.First, merged);
+        return merged;
+    }
+
+    private static void MergeRecursive(LinkedListNode<int>? node1, LinkedListNode<int>? node2, LinkedList<int> merged)
+    {
+        if (node1 == null)
+        {
+            while (node2 != null)
+            {
+                merged.AddLast(node2.Value);
+                node2 = node2.Next;
+            }
             return;
         }
 
-        if (list2Node == null)
+        if (node2 == null)
         {
-            while (list1Node != null)
+            while (node1 != null)
             {
-                mergedList.AddLast(list1Node.Value);
-                list1Node = list1Node.Next;
+                merged.AddLast(node1.Value);
+                node1 = node1.Next;
             }
-
             return;
         }
 
-        if (list1Node.Value <= list2Node.Value)
+        if (node1.Value <= node2.Value)
         {
-            mergedList.AddLast(list1Node.Value);
-            MergeRecursive(list1Node.Next, list2Node, mergedList);
+            merged.AddLast(node1.Value);
+            MergeRecursive(node1.Next, node2, merged);
         }
         else
         {
-            mergedList.AddLast(list2Node.Value);
-            MergeRecursive(list1Node, list2Node.Next, mergedList);
+            merged.AddLast(node2.Value);
+            MergeRecursive(node1, node2.Next, merged);
         }
     }
 }
