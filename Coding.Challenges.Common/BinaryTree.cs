@@ -19,6 +19,8 @@ public class TreeNode<T>
 public class BinaryTree<T>
 {
     public TreeNode<T>? Root { get; private set; }
+    private int _count;
+    public int Count => _count;
 
     public BinaryTree()
     {
@@ -31,6 +33,7 @@ public class BinaryTree<T>
         if (Root == null)
         {
             Root = new TreeNode<T>(value);
+            _count = 1;
             return;
         }
 
@@ -44,6 +47,7 @@ public class BinaryTree<T>
             if (currentNode.LeftNode == null)
             {
                 currentNode.LeftNode = new TreeNode<T>(value);
+                _count++;
                 return;
             }
             else 
@@ -52,6 +56,7 @@ public class BinaryTree<T>
             if (currentNode.RightNode == null)
             {
                 currentNode.RightNode = new TreeNode<T>(value);
+                _count++;
                 return;
             }
             else 
