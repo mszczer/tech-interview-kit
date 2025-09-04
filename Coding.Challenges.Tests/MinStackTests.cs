@@ -30,7 +30,7 @@ public class MinStackTests
     }
 
     [Test]
-    public void Pop_AfterPushingSingleElement_ReturnsNegativeOneForMin()
+        public void Pop_AfterPushingSingleElement_ReturnsNegativeOneForMin()
     {
         var minStack = new MinStack();
         minStack.Push(3);
@@ -51,5 +51,66 @@ public class MinStackTests
             Assert.AreEqual(2, minStack.Top());
             Assert.AreEqual(2, minStack.GetMin());
         });
+    }
+
+    [Test]
+    public void Pop_OnEmptyStack_DoesNotThrow()
+    {
+        var minStack = new MinStack();
+        Assert.DoesNotThrow(() => minStack.Pop());
+        Assert.AreEqual(-1, minStack.Top());
+        Assert.AreEqual(-1, minStack.GetMin());
+    }
+
+    [Test]
+    public void Top_OnEmptyStack_ReturnsNegativeOne()
+    {
+        var minStack = new MinStack();
+        Assert.AreEqual(-1, minStack.Top());
+    }
+
+    [Test]
+    public void GetMin_OnEmptyStack_ReturnsNegativeOne()
+    {
+        var minStack = new MinStack();
+        Assert.AreEqual(-1, minStack.GetMin());
+    }
+
+    [Test]
+    public void Push_DuplicateMinimums_PopOne_MinRemains()
+    {
+        var minStack = new MinStack();
+        minStack.Push(2);
+        minStack.Push(2);
+        minStack.Pop();
+        Assert.AreEqual(2, minStack.GetMin());
+    }
+
+    [Test]
+    public void Push_DecreasingSequence_MinUpdatesCorrectly()
+    {
+        var minStack = new MinStack();
+        minStack.Push(5);
+        minStack.Push(4);
+        minStack.Push(3);
+        Assert.AreEqual(3, minStack.GetMin());
+        minStack.Pop();
+        Assert.AreEqual(4, minStack.GetMin());
+        minStack.Pop();
+        Assert.AreEqual(5, minStack.GetMin());
+    }
+
+    [Test]
+    public void Push_IncreasingSequence_MinRemainsFirst()
+    {
+        var minStack = new MinStack();
+        minStack.Push(1);
+        minStack.Push(2);
+        minStack.Push(3);
+        Assert.AreEqual(1, minStack.GetMin());
+        minStack.Pop();
+        Assert.AreEqual(1, minStack.GetMin());
+        minStack.Pop();
+        Assert.AreEqual(1, minStack.GetMin());
     }
 }

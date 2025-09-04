@@ -14,44 +14,33 @@
  */
 public class MinStack
 {
-    private readonly List<int> _minArray;
-    private readonly List<int> _stack;
+    private readonly Stack<int> _stack = new();
+    private readonly Stack<int> _minStack = new();
 
-    public MinStack()
-    {
-        _stack = new List<int>();
-        _minArray = new List<int>();
-    }
-
-    // push(elem) pushes an element elem in the stack
     public void Push(int elem)
     {
-        if (_minArray.Count == 0 || elem <= _minArray[^1])
-            _minArray.Add(elem);
-
-        _stack.Add(elem);
+        _stack.Push(elem);
+        if (_minStack.Count == 0 || elem <= _minStack.Peek())
+            _minStack.Push(elem);
     }
 
-    // pop() removes the top element
     public void Pop()
     {
-        if (_stack.Count > 0)
-        {
-            if (_stack[^1] == _minArray[^1])
-                _minArray.RemoveAt(_minArray.Count - 1);
-            _stack.RemoveAt(_stack.Count - 1);
-        }
+        if (_stack.Count == 0)
+            return;
+
+        if (_stack.Peek() == _minStack.Peek())
+            _minStack.Pop();
+        _stack.Pop();
     }
 
-    // top() gets the top element
     public int Top()
     {
-        return _stack.Count > 0 ? _stack[^1] : -1;
+        return _stack.Count == 0 ? -1 : _stack.Peek();
     }
 
-    // getMin() returns the minimum element in the stack
     public int GetMin()
     {
-        return _minArray.Count > 0 ? _minArray[^1] : -1;
+        return _minStack.Count == 0 ? -1 : _minStack.Peek();
     }
 }
