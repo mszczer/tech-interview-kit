@@ -1,4 +1,6 @@
-﻿namespace Coding.Challenges.Tests;
+﻿using System;
+
+namespace Coding.Challenges.Tests;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
@@ -51,5 +53,43 @@ public class WaveArrayTests
                 }
 
         Assert.That(checkResult, Is.True);
+    }
+
+    [Test]
+    public void GetWaveArrayComparingNeighbors_NullInput_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() => WaveArray.GetWaveArrayComparingNeighbors(null));
+    }
+
+    [Test]
+    public void GetWaveArrayComparingNeighbors_EmptyInput_ReturnsEmptyArray()
+    {
+        var result = WaveArray.GetWaveArrayComparingNeighbors([]);
+        Assert.That(result, Is.Empty);
+    }
+
+    [Test]
+    public void GetWaveArrayComparingNeighbors_SingleElement_ReturnsSameArray()
+    {
+        var input = new[] { 42 };
+        var result = WaveArray.GetWaveArrayComparingNeighbors(input);
+        Assert.That(result, Is.EqualTo(new[] { 42 }));
+    }
+
+    [Test]
+    public void GetWaveArrayComparingNeighbors_TwoElements_ReturnsWaveForm()
+    {
+        var input = new[] { 2, 1 };
+        var result = WaveArray.GetWaveArrayComparingNeighbors(input);
+        Assert.That(result, Is.EqualTo(new[] { 2, 1 }));
+    }
+
+    [Test]
+    public void GetWaveArrayComparingNeighbors_InputNotMutated()
+    {
+        var input = new[] { 4, 2, 9, 1, 21, 43, 24 };
+        var inputCopy = (int[])input.Clone();
+        WaveArray.GetWaveArrayComparingNeighbors(input);
+        Assert.That(input, Is.EqualTo(inputCopy));
     }
 }

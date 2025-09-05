@@ -13,25 +13,40 @@ public abstract class WaveArray
 {
     public static int[] GetWaveArray(int[] arr)
     {
-        Array.Sort(arr);
+        if (arr == null)
+            throw new ArgumentNullException(nameof(arr));
 
-        for (var i = 1; i < arr.Length; i++)
+        if (arr.Length == 0)
+            return [];
+
+        var result = (int[])arr.Clone();
+        Array.Sort(result);
+
+        for (var i = 1; i < result.Length; i++)
             if ((i + 1) % 2 == 0)
-                (arr[i], arr[i - 1]) = (arr[i - 1], arr[i]);
+                (result[i], result[i - 1]) = (result[i - 1], result[i]);
 
-        return arr;
+        return result;
     }
 
     public static int[] GetWaveArrayComparingNeighbors(int[] arr)
     {
-        for (var i = 0; i < arr.Length; i += 2)             // traverse all even positioned elements of the input array
+        if (arr == null)
+            throw new ArgumentNullException(nameof(arr));
+
+        if (arr.Length == 0)
+            return [];
+
+        var result = (int[])arr.Clone();
+
+        for (var i = 0; i < result.Length; i += 2)                      // traverse all even positioned elements of the input array
         {
-            if (i > 0 && arr[i - 1] > arr[i])               // If current even index element is smaller than previous 
-                (arr[i], arr[i - 1]) = (arr[i - 1], arr[i]);
-            if (i < arr.Length - 1 && arr[i] < arr[i + 1])  // If current even index element is smaller than next 
-                (arr[i], arr[i + 1]) = (arr[i + 1], arr[i]);
+            if (i > 0 && result[i - 1] > result[i])                     // If current even index element is smaller than previous 
+                (result[i], result[i - 1]) = (result[i - 1], result[i]);
+            if (i < result.Length - 1 && result[i] < result[i + 1])     // If current even index element is smaller than next 
+                (result[i], result[i + 1]) = (result[i + 1], result[i]);
         }
 
-        return arr;
+        return result;
     }
 }
