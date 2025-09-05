@@ -13,17 +13,21 @@ public static class SwapListNodes
 {
     public static LinkedList<int> SwapNodes(LinkedList<int> ll)
     {
-        if (ll.First?.Next == null)
+        if (ll == null || ll.Count < 2)
             return ll;
 
-        var currentNode = ll.First;
-        var nextNode = currentNode.Next;
-
-        while (currentNode != null && nextNode != null)
+        var current = ll.First;
+        while (current != null && current.Next != null)
         {
-            (currentNode.Value, nextNode.Value) = (nextNode.Value, currentNode.Value);
-            currentNode = nextNode.Next;
-            nextNode = nextNode.Next?.Next;
+            var first = current;
+            var second = current.Next;
+
+            // Remove second node and re-insert before first
+            ll.Remove(second);
+            ll.AddBefore(first, second);
+
+            // Move to the next pair
+            current = first.Next;
         }
 
         return ll;
