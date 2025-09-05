@@ -38,6 +38,11 @@ jobs:
         name: Unit Tests
         path: "**/test-results.trx"                             
         reporter: dotnet-trx
+        
+    - name: Upload Codecov coverage report
+      uses: codecov/codecov-action@v5.5.1
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     # - name: Upload coverage report to Codacy
     #   uses: codacy/codacy-coverage-reporter-action@v1
