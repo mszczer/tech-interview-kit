@@ -28,43 +28,55 @@ public static class RangeInSortedArray
 
     public static int[] GetRangeIndexes_BinarySearch(int[] arr, int target)
     {
-        var range = new int[2];
-        var minIdx = 0;
-        var maxIdx = arr.Length - 1;
-
-        var leftIdx = GetLeftIdx(arr, minIdx, maxIdx, target);
-        var rightIdx = GetRightIdx(arr, minIdx, maxIdx, target);
-
-        range[0] = leftIdx;
-        range[1] = rightIdx;
-
-        return range;
+        var first = FindFirst(arr, target);
+        var last = FindLast(arr, target);
+        return [first, last];
     }
 
-    private static int GetLeftIdx(IReadOnlyList<int> arr, int minIdx, int maxIdx, int target)
+    private static int FindFirst(int[] arr, int target)
     {
-        if (minIdx == maxIdx)
-            return arr[minIdx] == target ? minIdx : -1;
-
-        var medIdx = (minIdx + maxIdx) / 2;
-
-        if (arr[medIdx] < target)
-            return GetLeftIdx(arr, medIdx + 1, maxIdx, target);
-        else
-            return GetLeftIdx(arr, minIdx, medIdx, target);
+        int left = 0, right = arr.Length - 1, result = -1;
+        while (left <= right)
+        {
+            var mid = left + (right - left) / 2;
+            if (arr[mid] == target)
+            {
+                result = mid;
+                right = mid - 1; // search left part for earlier occurrence
+            }
+            else if (arr[mid] < target)
+            {
+                left = mid + 1;
+            }
+            else
+            {
+                right = mid - 1;
+            }
+        }
+        return result;
     }
 
-    private static int GetRightIdx(IReadOnlyList<int> arr, int minIdx, int maxIdx, int target)
+    private static int FindLast(int[] arr, int target)
     {
-        if (minIdx == maxIdx)
-            return arr[minIdx] == target ? minIdx : -1;
-
-        var medIdx = (minIdx + maxIdx + 1) / 2;
-
-        if (arr[medIdx] > target)
-            return GetRightIdx(arr, minIdx, medIdx - 1, target);
-        else 
-            return GetRightIdx(arr, medIdx, maxIdx, target);
+        int left = 0, right = arr.Length - 1, result = -1;
+        while (left <= right)
+        {
+            var mid = left + (right - left) / 2;
+            if (arr[mid] == target)
+            {
+                result = mid;
+                left = mid + 1; // search right part for later occurrence
+            }
+            else if (arr[mid] < target)
+            {
+                left = mid + 1;
+            }
+            else
+            {
+                right = mid - 1;
+            }
+        }
+        return result;
     }
 
     public static int[] GetElementsAppearingOnce(IEnumerable<int> arr)
@@ -72,10 +84,8 @@ public static class RangeInSortedArray
         var countElements = new Dictionary<int, int>();
 
         foreach (var element in arr)
-            if (countElements.ContainsKey(element))
+            if (!countElements.TryAdd(element, 1))
                 countElements[element]++;
-            else
-                countElements.Add(element, 1);
 
         return (from element in countElements where element.Value == 1 select element.Key).ToArray();
     }
@@ -97,10 +107,8 @@ public static class RangeInSortedArray
         var countElements = new Dictionary<int, int>();
 
         foreach (var element in arr)
-            if (countElements.ContainsKey(element))
+            if (!countElements.TryAdd(element, 1))
                 return element;
-            else
-                countElements.Add(element, 1);
 
         return int.MinValue;
     }
