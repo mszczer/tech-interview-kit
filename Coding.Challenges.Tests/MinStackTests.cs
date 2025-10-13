@@ -9,7 +9,7 @@ public class MinStackTests
     {
         var minStack = new MinStack();
         minStack.Push(3);
-        Assert.AreEqual(3, minStack.Top());
+        Assert.That(minStack.Top(), Is.EqualTo(3));
     }
 
     [Test]
@@ -17,7 +17,7 @@ public class MinStackTests
     {
         var minStack = new MinStack();
         minStack.Push(3);
-        Assert.AreEqual(3, minStack.GetMin());
+        Assert.That(minStack.GetMin(), Is.EqualTo(3));
     }
 
     [Test]
@@ -26,7 +26,7 @@ public class MinStackTests
         var minStack = new MinStack();
         minStack.Push(3);
         minStack.Pop();
-        Assert.AreEqual(-1, minStack.Top());
+        Assert.That(minStack.Top(), Is.EqualTo(-1));
     }
 
     [Test]
@@ -35,22 +35,27 @@ public class MinStackTests
         var minStack = new MinStack();
         minStack.Push(3);
         minStack.Pop();
-        Assert.AreEqual(-1, minStack.GetMin());
+        Assert.That(minStack.GetMin(), Is.EqualTo(-1));
     }
 
     [Test]
-    public void PushMultiple_ReturnsTopAndMinCorrectly()
+    public void PushMultiple_TopIsCorrect()
     {
         var minStack = new MinStack();
         minStack.Push(3);
         minStack.Push(5);
         minStack.Push(2);
+        Assert.That(minStack.Top(), Is.EqualTo(2));
+    }
 
-        Assert.Multiple(() =>
-        {
-            Assert.AreEqual(2, minStack.Top());
-            Assert.AreEqual(2, minStack.GetMin());
-        });
+    [Test]
+    public void PushMultiple_MinIsCorrect()
+    {
+        var minStack = new MinStack();
+        minStack.Push(3);
+        minStack.Push(5);
+        minStack.Push(2);
+        Assert.That(minStack.GetMin(), Is.EqualTo(2));
     }
 
     [Test]
@@ -58,22 +63,22 @@ public class MinStackTests
     {
         var minStack = new MinStack();
         Assert.DoesNotThrow(() => minStack.Pop());
-        Assert.AreEqual(-1, minStack.Top());
-        Assert.AreEqual(-1, minStack.GetMin());
     }
 
     [Test]
-    public void Top_OnEmptyStack_ReturnsNegativeOne()
+    public void Top_OnEmptyStack_AfterPop_ReturnsNegativeOne()
     {
         var minStack = new MinStack();
-        Assert.AreEqual(-1, minStack.Top());
+        minStack.Pop();
+        Assert.That(minStack.Top(), Is.EqualTo(-1));
     }
 
     [Test]
-    public void GetMin_OnEmptyStack_ReturnsNegativeOne()
+    public void GetMin_OnEmptyStack_AfterPop_ReturnsNegativeOne()
     {
         var minStack = new MinStack();
-        Assert.AreEqual(-1, minStack.GetMin());
+        minStack.Pop();
+        Assert.That(minStack.GetMin(), Is.EqualTo(-1));
     }
 
     [Test]
@@ -83,34 +88,72 @@ public class MinStackTests
         minStack.Push(2);
         minStack.Push(2);
         minStack.Pop();
-        Assert.AreEqual(2, minStack.GetMin());
+        Assert.That(minStack.GetMin(), Is.EqualTo(2));
     }
 
     [Test]
-    public void Push_DecreasingSequence_MinUpdatesCorrectly()
+    public void Push_DecreasingSequence_MinIsCorrectAfterPush3()
     {
         var minStack = new MinStack();
         minStack.Push(5);
         minStack.Push(4);
         minStack.Push(3);
-        Assert.AreEqual(3, minStack.GetMin());
-        minStack.Pop();
-        Assert.AreEqual(4, minStack.GetMin());
-        minStack.Pop();
-        Assert.AreEqual(5, minStack.GetMin());
+        Assert.That(minStack.GetMin(), Is.EqualTo(3));
     }
 
     [Test]
-    public void Push_IncreasingSequence_MinRemainsFirst()
+    public void Push_DecreasingSequence_MinIsCorrectAfterPop3()
+    {
+        var minStack = new MinStack();
+        minStack.Push(5);
+        minStack.Push(4);
+        minStack.Push(3);
+        minStack.Pop();
+        Assert.That(minStack.GetMin(), Is.EqualTo(4));
+    }
+
+    [Test]
+    public void Push_DecreasingSequence_MinIsCorrectAfterPop4()
+    {
+        var minStack = new MinStack();
+        minStack.Push(5);
+        minStack.Push(4);
+        minStack.Push(3);
+        minStack.Pop();
+        minStack.Pop();
+        Assert.That(minStack.GetMin(), Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Push_IncreasingSequence_MinIsCorrectAfterPush3()
     {
         var minStack = new MinStack();
         minStack.Push(1);
         minStack.Push(2);
         minStack.Push(3);
-        Assert.AreEqual(1, minStack.GetMin());
+        Assert.That(minStack.GetMin(), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Push_IncreasingSequence_MinIsCorrectAfterPop3()
+    {
+        var minStack = new MinStack();
+        minStack.Push(1);
+        minStack.Push(2);
+        minStack.Push(3);
         minStack.Pop();
-        Assert.AreEqual(1, minStack.GetMin());
+        Assert.That(minStack.GetMin(), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Push_IncreasingSequence_MinIsCorrectAfterPop2()
+    {
+        var minStack = new MinStack();
+        minStack.Push(1);
+        minStack.Push(2);
+        minStack.Push(3);
         minStack.Pop();
-        Assert.AreEqual(1, minStack.GetMin());
+        minStack.Pop();
+        Assert.That(minStack.GetMin(), Is.EqualTo(1));
     }
 }
