@@ -1,4 +1,4 @@
-﻿namespace Coding.Challenges.Common;
+﻿        namespace Coding.Challenges.Common;
 
 // TreeNode class to represent a node in the tree
 public class TreeNode<T>(T value)
@@ -11,7 +11,7 @@ public class TreeNode<T>(T value)
 // BinaryTree class to represent the entire binary tree
 public class BinaryTree<T>
 {
-    public TreeNode<T>? Root { get; private set; }
+    public TreeNode<T>? Root { get; set; } 
     public int Count { get; private set; }
 
     public BinaryTree()

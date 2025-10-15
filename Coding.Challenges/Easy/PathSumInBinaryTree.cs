@@ -7,26 +7,33 @@ namespace Coding.Challenges.Easy;
  *  Given the root node of a binary tree and a sum, write a program
  *  to determine if there exists a path in the tree from root-to-leaf
  *  such that the sum of all the values along the path equals the given sum.
+ *
+ * Solution:
+ *  Method HasPathSum that performs recursive DFS.
+ *  Checks for null node (base case).
+ *  Checks if the node is a leaf and compares its value to the remaining sum.
+ *  Recursively calls itself for left and right children, subtracting the current node's value from the target sum.
+ *  The main method delegates to this helper, starting from the tree's root.
  */
 
 public abstract class PathSumInBinaryTree
 {
     public static bool IsTargetSumInAnyPath(BinaryTree<int> tree, int sum)
     {
-        throw new NotImplementedException();
+        return HasPathSum(tree.Root, sum);
+    }
+
+    private static bool HasPathSum(TreeNode<int>? node, int targetSum)
+    {
+        if (node == null)
+            return false;
+
+        // Check if it's a leaf node
+        if (node.LeftNode == null && node.RightNode == null)
+            return node.Value == targetSum;
+
+        // Recursively check the left and right subtrees with the updated target sum
+        var remainingSum = targetSum - node.Value;
+        return HasPathSum(node.LeftNode, remainingSum) || HasPathSum(node.RightNode, remainingSum);
     }
 }
-
-/*
- * solution 1: recursive depth-first search (DFS)
- * function that takes a TreeNode and an integer sum as input
- * checks if the current node is null
- * if it is, returns false
- * if not, checks if the current node is a leaf node
- * sums the value of the current node to the sum
- * until it reaches a leaf node
- * compares the sum to the target sum
- * if not a leaf node, recursively calls itself on the left and right child nodes
- * and returns true if either call returns true
- *
- */
