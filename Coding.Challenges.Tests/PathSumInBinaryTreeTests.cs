@@ -18,25 +18,26 @@ public class PathSumInBinaryTreeTests
 
     private static BinaryTree<int> BuildSampleTree()
     {
-        var tree = new BinaryTree<int>();
-        tree.Root = new TreeNode<int>(6)
+        var tree = new BinaryTree<int>
         {
-            LeftNode = new TreeNode<int>(4)
+            Root = new TreeNode<int>(6)
             {
-                LeftNode = new TreeNode<int>(10)
+                LeftNode = new TreeNode<int>(4)
                 {
-                    LeftNode = new TreeNode<int>(8),
-                    RightNode = new TreeNode<int>(2)
+                    LeftNode = new TreeNode<int>(10)
+                    {
+                        LeftNode = new TreeNode<int>(8),
+                        RightNode = new TreeNode<int>(2)
+                    }
+                },
+                RightNode = new TreeNode<int>(8)
+                {
+                    LeftNode = new TreeNode<int>(14),
+                    RightNode = new TreeNode<int>(3)
+                    {
+                        RightNode = new TreeNode<int>(1)
+                    }
                 }
-            }
-        };
-
-        tree.Root.RightNode = new TreeNode<int>(8)
-        {
-            LeftNode = new TreeNode<int>(14),
-            RightNode = new TreeNode<int>(3)
-            {
-                RightNode = new TreeNode<int>(1)
             }
         };
 
