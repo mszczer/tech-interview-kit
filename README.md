@@ -23,6 +23,8 @@ This repository contains solutions to various coding problems presented on the [
 - [Zeroes to end](Coding.Challenges/Easy/ZeroesToEnd.cs)
 - [Merge Two Sorted Lists](Coding.Challenges/Easy/MergeSortedLists.cs)
 - [Min Stack](Coding.Challenges/Easy/MinStack.cs)
+- [Path sum in binary tree](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
+- [Min Depth of Binary Tree](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
 ### Medium
 - [Sorting algorithms](Coding.Challenges/Medium/SortedArray.cs)
 ### Hard
