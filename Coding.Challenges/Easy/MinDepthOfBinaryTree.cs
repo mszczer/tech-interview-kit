@@ -9,7 +9,7 @@ namespace Coding.Challenges.Easy;
  *  A leaf is a node with no children.
  */
 
-public class MinDepthOfBinaryTree
+public static class MinDepthOfBinaryTree
 {
     public static int FindMinimumDepth(BinaryTree<int> tree)
     {
