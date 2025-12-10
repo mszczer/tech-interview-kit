@@ -1,4 +1,4 @@
-﻿        namespace Coding.Challenges.Common;
+﻿namespace Coding.Challenges.Common;
 
 // TreeNode class to represent a node in the tree
 public class TreeNode<T>(T value)
@@ -11,7 +11,7 @@ public class TreeNode<T>(T value)
 // BinaryTree class to represent the entire binary tree
 public class BinaryTree<T>
 {
-    public TreeNode<T>? Root { get; set; } 
+    public TreeNode<T>? Root { get; set; }
     public int Count { get; private set; }
 
     public BinaryTree()
@@ -100,5 +100,45 @@ public class BinaryTree<T>
 
         // Parent not found
         return false;
+    }
+
+    // Serializes the tree (or an arbitrary node) to a level-order list with null placeholders.
+    public static List<T?> SerializeLevelOrder(TreeNode<T>? root)
+    {
+        var result = new List<T?>();
+        if (root == null) return result;
+
+        var queue = new Queue<TreeNode<T>?>();
+        queue.Enqueue(root);
+
+        while (queue.Count > 0)
+        {
+            var node = queue.Dequeue();
+            if (node == null)
+            {
+                result.Add(default);
+                continue;
+            }
+
+            // Add the node value as nullable (T?)
+            result.Add((T?)node.Value);
+
+            // Enqueue children (even if null) so structure is preserved
+            queue.Enqueue(node.LeftNode);
+            queue.Enqueue(node.RightNode);
+        }
+
+        // Trim trailing nulls for a canonical representation
+        var defaultValue = default(T?);
+        for (var i = result.Count - 1; i >= 0 && EqualityComparer<T?>.Default.Equals(result[i], defaultValue); i--)
+            result.RemoveAt(i);
+
+        return result;
+    }
+
+    // Convenience instance wrapper for serializing the current tree.
+    public List<T?> SerializeLevelOrder()
+    {
+        return SerializeLevelOrder(Root);
     }
 }
