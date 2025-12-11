@@ -1,6 +1,6 @@
 ﻿using Coding.Challenges.Common;
 
-namespace Coding.Challenges.Tests;
+namespace Coding.Challenges.Tests.Easy;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
