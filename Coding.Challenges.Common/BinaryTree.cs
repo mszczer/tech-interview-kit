@@ -102,7 +102,7 @@ public class BinaryTree<T>
         return false;
     }
 
-    // Serializes the tree (or an arbitrary node) to a level-order list with null placeholders.
+    // Serializes the tree (or an arbitrary node) to a level-order list with default placeholders.
     public static List<T?> SerializeLevelOrder(TreeNode<T>? root)
     {
         var result = new List<T?>();
