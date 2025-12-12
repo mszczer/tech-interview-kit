@@ -72,6 +72,36 @@ public class MergeTwoBinaryTreesTests
         Assert.That(result, Is.SameAs(second));
     }
 
+    [Test]
+    public void MergeBinarySearchTrees_BothNull_ReturnsInstance()
+    {
+        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(null, null);
+        Assert.That(result, Is.Not.Null);
+    }
+
+    [Test]
+    public void MergeBinarySearchTrees_BothNull_RootIsNull()
+    {
+        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(null, null);
+        Assert.That(result?.Root, Is.Null);
+    }
+
+    [Test]
+    public void MergeBinarySearchTrees_FirstNull_ReturnsSecondInstance()
+    {
+        var second = BuildBstFromValues(new[] { 5 });
+        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(null, second);
+        Assert.That(result, Is.SameAs(second));
+    }
+
+    [Test]
+    public void MergeBinarySearchTrees_SecondNull_ReturnsFirstInstance()
+    {
+        var first = BuildBstFromValues(new[] { 7 });
+        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(first, null);
+        Assert.That(result, Is.SameAs(first));
+    }
+
     private static BinaryTree<int> BuildFirstTree()
     {
         var firstTree = new BinaryTree<int> { Root = new TreeNode<int>(1) };
@@ -101,5 +131,13 @@ public class MergeTwoBinaryTreesTests
         expectedTree.Root.RightNode.RightNode = new TreeNode<int>(7);
 
         return expectedTree.SerializeLevelOrder();
+    }
+
+    private static BinaryTree<int> BuildBstFromValues(IEnumerable<int> values)
+    {
+        var bst = new BinaryTree<int>();
+        foreach (var v in values)
+            bst.InsertBinarySearchAllowDuplicates(v);
+        return bst;
     }
 }

@@ -230,4 +230,34 @@ public static class MergeTwoBinaryTrees
 
         return newRoot;
     }
+
+    public static BinaryTree<int>? MergeBinarySearchTrees(BinaryTree<int>? firstBst, BinaryTree<int>? secondBst)
+    {
+        if (firstBst == null && secondBst == null)
+            return new BinaryTree<int>();
+        if (firstBst == null) return secondBst;
+        if (secondBst == null) return firstBst;
+
+        var firstTreeValues = firstBst.SerializeLevelOrder();
+        var secondTreeValues = secondBst.SerializeLevelOrder();
+        var resultList = new List<int>();
+        resultList.AddRange(firstTreeValues);
+        resultList.AddRange(secondTreeValues);
+        resultList.Sort();
+
+        var resultBst = new BinaryTree<int>();
+        foreach (var value in resultList) 
+            resultBst.InsertBinarySearchAllowDuplicates(value);
+        
+        return resultBst;
+    }
+
 }
+
+
+// ToDo:
+// Merge two binary search trees.
+// Check if two binary trees are mirrors of each other or not.
+// Iterative search for a key ‘x’ in a binary tree.
+// Check if two binary trees are identical or not? (Try doing it iteratively for sure)
+// Count the number of binary search trees present in a binary tree.
