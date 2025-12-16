@@ -41,7 +41,7 @@ public class MergeTwoBinaryTreesTests
     [Test]
     public void GetMergedTree_FirstNull_ReturnsSecondInstance()
     {
-        var second = new BinaryTree<int> { Root = new TreeNode<int>(42) };
+        var second = new BinaryTree<int> { Root = N(42) };
         var result = MergeTwoBinaryTrees.GetMergedTree(null, second);
         Assert.That(result, Is.SameAs(second));
     }
@@ -49,7 +49,7 @@ public class MergeTwoBinaryTreesTests
     [Test]
     public void GetMergedTree_SecondNull_ReturnsFirstInstance()
     {
-        var first = new BinaryTree<int> { Root = new TreeNode<int>(17) };
+        var first = new BinaryTree<int> { Root = N(17) };
         var result = MergeTwoBinaryTrees.GetMergedTree(first, null);
         Assert.That(result, Is.SameAs(first));
     }
@@ -57,8 +57,8 @@ public class MergeTwoBinaryTreesTests
     [Test]
     public void GetMergedTree_SingleNodeTrees_SumRoots()
     {
-        var a = new BinaryTree<int> { Root = new TreeNode<int>(3) };
-        var b = new BinaryTree<int> { Root = new TreeNode<int>(4) };
+        var a = new BinaryTree<int> { Root = N(3) };
+        var b = new BinaryTree<int> { Root = N(4) };
         var merged = MergeTwoBinaryTrees.GetMergedTree(a, b);
         var serialized = BinaryTree<int>.SerializeLevelOrder(merged?.Root);
         Assert.That(serialized, Is.EqualTo(new List<int> { 7 }));
@@ -67,7 +67,7 @@ public class MergeTwoBinaryTreesTests
     [Test]
     public void GetMergedTreeIterative_FirstNull_ReturnsSecondInstance()
     {
-        var second = new BinaryTree<int> { Root = new TreeNode<int>(9) };
+        var second = new BinaryTree<int> { Root = N(9) };
         var result = MergeTwoBinaryTrees.GetMergedTreeIterative(null, second);
         Assert.That(result, Is.SameAs(second));
     }
@@ -102,33 +102,110 @@ public class MergeTwoBinaryTreesTests
         Assert.That(result, Is.SameAs(first));
     }
 
+    [Test]
+    public void AreTwoBinaryTreesMirrors_ReturnsTrue()
+    {
+        var tree = BuildFirstTree();
+        var mirrorTree = BuildMirrorTree();
+        var result = MergeTwoBinaryTrees.AreTwoBinaryTreesMirrors(tree, mirrorTree);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void AreTwoBinaryTreesMirrors_ReturnsFalse_WhenNotMirrors()
+    {
+        var tree = BuildFirstTree();
+        var notMirror = BuildNonMirrorTree();
+        var result = MergeTwoBinaryTrees.AreTwoBinaryTreesMirrors(tree, notMirror);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void AreTwoBinaryTreesIdentical_ReturnsTrue()
+    {
+        var tree = BuildFirstTree();
+        var identicalTree = BuildFirstTree();
+        var result = MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(tree, identicalTree);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void AreTwoBinaryTreesIdentical_ReturnsFalse_WhenNotIdentical()
+    {
+        var tree = BuildFirstTree();
+        var notIdenticalTree = BuildSecondTree();
+        var result = MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(tree, notIdenticalTree);
+        Assert.That(result, Is.False);
+    }
+
+    // Helper to create nodes more concisely and make tree construction easier to read.
+    private static TreeNode<int> N(int value, TreeNode<int>? left = null, TreeNode<int>? right = null)
+    {
+        var node = new TreeNode<int>(value);
+        node.LeftNode = left;
+        node.RightNode = right;
+        return node;
+    }
+
     private static BinaryTree<int> BuildFirstTree()
     {
-        var firstTree = new BinaryTree<int> { Root = new TreeNode<int>(1) };
-        firstTree.Root.LeftNode = new TreeNode<int>(6);
-        firstTree.Root.RightNode = new TreeNode<int>(2);
-        firstTree.Root.LeftNode.LeftNode = new TreeNode<int>(5);
-        return firstTree;
+        // Structure:
+        //       1
+        //      / \
+        //     6   2
+        //    /
+        //   5
+        return new BinaryTree<int> { Root = N(1, N(6, N(5)), N(2)) };
     }
 
     private static BinaryTree<int> BuildSecondTree()
     {
-        var secondTree = new BinaryTree<int> { Root = new TreeNode<int>(2) };
-        secondTree.Root.LeftNode = new TreeNode<int>(1);
-        secondTree.Root.RightNode = new TreeNode<int>(3);
-        secondTree.Root.LeftNode.RightNode = new TreeNode<int>(4);
-        secondTree.Root.RightNode.RightNode = new TreeNode<int>(7);
-        return secondTree;
+        // Structure:
+        //       2
+        //      / \
+        //     1   3
+        //      \   \
+        //       4   7
+        return new BinaryTree<int>
+        {
+            Root = N(2,
+                N(1, null, N(4)),
+                N(3, null, N(7)))
+        };
+    }
+
+    private static BinaryTree<int> BuildMirrorTree()
+    {
+        // Mirror of BuildFirstTree:
+        //       1
+        //      / \
+        //     2   6
+        //          \
+        //           5
+        return new BinaryTree<int> { Root = N(1, N(2), N(6, null, N(5))) };
+    }
+
+    private static BinaryTree<int> BuildNonMirrorTree()
+    {
+        var t = BuildMirrorTree();
+        t.Root.LeftNode.Value = 999;
+        return t;
     }
 
     private static List<int> GetExpectedSerialized()
     {
-        var expectedTree = new BinaryTree<int> { Root = new TreeNode<int>(3) };
-        expectedTree.Root.LeftNode = new TreeNode<int>(7);
-        expectedTree.Root.RightNode = new TreeNode<int>(5);
-        expectedTree.Root.LeftNode.LeftNode = new TreeNode<int>(5);
-        expectedTree.Root.LeftNode.RightNode = new TreeNode<int>(4);
-        expectedTree.Root.RightNode.RightNode = new TreeNode<int>(7);
+        // Expected merged structure:
+        //       3
+        //      / \
+        //     7   5
+        //    / \   \
+        //   5   4   7
+        var expectedTree = new BinaryTree<int>
+        {
+            Root = N(3,
+                N(7, N(5), N(4)),
+                N(5, null, N(7)))
+        };
 
         return expectedTree.SerializeLevelOrder();
     }

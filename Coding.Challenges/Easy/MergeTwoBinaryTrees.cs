@@ -231,6 +231,19 @@ public static class MergeTwoBinaryTrees
         return newRoot;
     }
 
+    /// <summary>
+    /// Merge two binary search trees into a new binary search tree containing all values from both inputs.
+    /// </summary>
+    /// <param name="firstBst">First BST or null.</param>
+    /// <param name="secondBst">Second BST or null.</param>
+    /// <returns>
+    /// A merged <see cref="BinaryTree{int}"/> containing all values from both trees. If one argument is null, returns the non-null reference.
+    /// If both are null returns an empty tree.
+    /// </returns>
+    /// <remarks>
+    /// This implementation serializes both trees in level-order, concatenates and sorts values, then inserts them into a new BST allowing duplicates.
+    /// Time complexity is O(N log N) dominated by sorting and insertions; additional space O(N) is used for the value lists.
+    /// </remarks>
     public static BinaryTree<int>? MergeBinarySearchTrees(BinaryTree<int>? firstBst, BinaryTree<int>? secondBst)
     {
         if (firstBst == null && secondBst == null)
@@ -246,18 +259,98 @@ public static class MergeTwoBinaryTrees
         resultList.Sort();
 
         var resultBst = new BinaryTree<int>();
-        foreach (var value in resultList) 
+        foreach (var value in resultList)
             resultBst.InsertBinarySearchAllowDuplicates(value);
-        
+
         return resultBst;
     }
 
+    /// <summary>
+    /// Determines whether two binary trees are mirror images of each other.
+    /// </summary>
+    /// <param name="firstTree">First tree or null.</param>
+    /// <param name="secondTree">Second tree or null.</param>
+    /// <returns>True if both trees are mirrors; otherwise false.</returns>
+    /// <remarks>
+    /// Null trees are considered mirrors when both are null. Uses a recursive helper to compare mirrored children.
+    /// </remarks>
+    public static bool AreTwoBinaryTreesMirrors(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree)
+    {
+        if (firstTree == null && secondTree == null) return true;
+        if (firstTree == null || secondTree == null) return false;
+
+        var firstRoot = firstTree.Root;
+        var secondRoot = secondTree.Root;
+        if (firstRoot == null && secondRoot == null) return true;
+        if (firstRoot == null || secondRoot == null) return false;
+
+        return CompareMirrorNodes(firstRoot, secondRoot);
+    }
+
+    /// <summary>
+    /// Recursively compares two nodes to determine mirror symmetry.
+    /// </summary>
+    /// <param name="firstNode">Node from the first tree (may be null).</param>
+    /// <param name="secondNode">Node from the second tree (may be null).</param>
+    /// <returns>True if the subtrees rooted at the nodes are mirrors; otherwise false.</returns>
+    /// <remarks>
+    /// Compares node values and then compares the left subtree of the first node with the right subtree of the second node (and vice versa).
+    /// </remarks>
+    private static bool CompareMirrorNodes(TreeNode<int>? firstNode, TreeNode<int>? secondNode)
+    {
+        if (firstNode == null && secondNode == null) return true;
+        if (firstNode == null || secondNode == null) return false;
+        if (firstNode.Value != secondNode.Value) return false;
+
+        return CompareMirrorNodes(firstNode.LeftNode, secondNode.RightNode) &&
+               CompareMirrorNodes(firstNode.RightNode, secondNode.LeftNode);
+    }
+
+
+    /// <summary>
+    /// Determines whether two binary trees are identical in structure and node values.
+    /// </summary>
+    /// <param name="firstTree">The first tree to compare, or null.</param>
+    /// <param name="secondTree">The second tree to compare, or null.</param>
+    /// <returns>
+    /// True if both trees are structurally identical and every corresponding node has the same value; otherwise false.
+    /// </returns>
+    /// <remarks>
+    /// Null trees are considered identical when both are null. Uses <see cref="CompareNodes"/> to perform a recursive node-by-node comparison.
+    /// </remarks>
+    public static bool AreTwoBinaryTreeIdentical(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree)
+    {
+        if (firstTree == null && secondTree == null) return true;
+        if (firstTree == null || secondTree == null) return false;
+
+        var firstRoot = firstTree.Root;
+        var secondRoot = secondTree.Root;
+        if (firstRoot == null && secondRoot == null) return true;
+        if (firstRoot == null || secondRoot == null) return false;
+
+        return CompareNodes(firstRoot, secondRoot);
+    }
+
+    /// <summary>
+    /// Recursively compares two nodes for structural and value equality.
+    /// </summary>
+    /// <param name="firstNode">Node from the first tree (may be null).</param>
+    /// <param name="secondNode">Node from the second tree (may be null).</param>
+    /// <returns>True if both subtrees are identical in structure and values; otherwise false.</returns>
+    /// <remarks>
+    /// This helper is used by <see cref="AreTwoBinaryTreeIdentical"/> and compares node values then recurses on corresponding children.
+    /// </remarks>
+    private static bool CompareNodes(TreeNode<int>? firstNode, TreeNode<int>? secondNode)
+    {
+        if (firstNode == null && secondNode == null) return true;
+        if (firstNode == null || secondNode == null) return false;
+        if (firstNode.Value != secondNode.Value) return false;
+
+        return CompareNodes(firstNode.LeftNode, secondNode.LeftNode) &&
+               CompareNodes(firstNode.RightNode, secondNode.RightNode);
+    }
 }
 
-
 // ToDo:
-// Merge two binary search trees.
-// Check if two binary trees are mirrors of each other or not.
 // Iterative search for a key ‘x’ in a binary tree.
-// Check if two binary trees are identical or not? (Try doing it iteratively for sure)
 // Count the number of binary search trees present in a binary tree.
