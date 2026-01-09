@@ -138,12 +138,74 @@ public class MergeTwoBinaryTreesTests
         Assert.That(result, Is.False);
     }
 
+    [Test]
+    public void IsTreeBinarySearchTree_ReturnsTrue_ForValidBst()
+    {
+        var bst = BuildBstFromValues(new[] { 6, 2, 8, 1 });
+        var result = MergeTwoBinaryTrees.IsTreeBinarySearchTree(bst);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void IsTreeBinarySearchTree_ReturnsFalse_ForNonBst()
+    {
+        var nonBst = BuildFirstTree(); // intentionally not a BST
+        var result = MergeTwoBinaryTrees.IsTreeBinarySearchTree(nonBst);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void CountBinarySearchTreesInTree_Null_ReturnsZero()
+    {
+        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(null), Is.EqualTo(0));
+    }
+
+    [Test]
+    public void CountBinarySearchTreesInTree_Empty_ReturnsZero()
+    {
+        var empty = new BinaryTree<int>();
+        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(empty), Is.EqualTo(0));
+    }
+
+    [Test]
+    public void CountBinarySearchTreesInTree_SingleNode_ReturnsOne()
+    {
+        var single = new BinaryTree<int> { Root = N(42) };
+        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(single), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void CountBinarySearchTreesInTree_ValidBst_AllSubtreesCounted()
+    {
+        // BST built as: Insert 6,2,8,1 -> every subtree rooted at any node is a BST => count == nodes (4)
+        var bst = BuildBstFromValues(new[] { 6, 2, 8, 1 });
+        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(bst), Is.EqualTo(4));
+    }
+
+    [Test]
+    public void CountBinarySearchTreesInTree_NonBst_PartialSubtreesCounted()
+    {
+        // BuildFirstTree is not a BST as a whole, but has BST subtrees at nodes 6 (with 5), 5 and 2 => count 3
+        var nonBst = BuildFirstTree();
+        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(nonBst), Is.EqualTo(3));
+    }
+
+    [Test]
+    public void CountBinarySearchTreesInTree_SecondTree_PartialRootInvalid()
+    {
+        // BuildSecondTree has a non-BST root but all child-rooted subtrees are BST => count 4 (out of 5 nodes)
+        var t = BuildSecondTree();
+        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(t), Is.EqualTo(4));
+    }
+
     // Helper to create nodes more concisely and make tree construction easier to read.
     private static TreeNode<int> N(int value, TreeNode<int>? left = null, TreeNode<int>? right = null)
     {
-        var node = new TreeNode<int>(value);
-        node.LeftNode = left;
-        node.RightNode = right;
+        var node = new TreeNode<int>(value)
+        {
+            LeftNode = left,
+            RightNode = right
+        };
         return node;
     }
 
@@ -213,8 +275,8 @@ public class MergeTwoBinaryTreesTests
     private static BinaryTree<int> BuildBstFromValues(IEnumerable<int> values)
     {
         var bst = new BinaryTree<int>();
-        foreach (var v in values)
-            bst.InsertBinarySearchAllowDuplicates(v);
+        foreach (var v in values) bst.InsertBinarySearchAllowDuplicates(v);
+
         return bst;
     }
 }

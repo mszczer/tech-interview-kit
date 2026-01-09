@@ -30,7 +30,7 @@ namespace Coding.Challenges.Easy;
  * Solution:
  *  1. Call GetMergedTree(BinaryTree<int>?, BinaryTree<int>?) (or GetMergedTreeIterative(BinaryTree<int>?, BinaryTree<int>?)) with two BinaryTree<int>? inputs.
  *  2. If both inputs are null it returns an empty BinaryTree<int>(). If one is null it returns the other (note: it returns the same reference).
- *  3. Otherwise it merges starting from both roots and returns a new BinaryTree<int> whose Root is the merged root.
+ *  3. Otherwise, it merges starting from both roots and returns a new BinaryTree<int> whose Root is the merged root.
  */
 
 public static class MergeTwoBinaryTrees
@@ -39,7 +39,7 @@ public static class MergeTwoBinaryTrees
     /// Merge two binary trees using a recursive approach.
     /// If both inputs are null, returns an empty <see cref="BinaryTree{int}"/>.
     /// If one input is null, returns the non-null tree instance (no cloning in that branch).
-    /// Otherwise merges starting from both roots and returns a new <see cref="BinaryTree{int}"/> whose root is the merged root.
+    /// Otherwise, merges starting from both roots and returns a new <see cref="BinaryTree{int}"/> whose root is the merged root.
     /// </summary>
     /// <param name="firstTree">First binary tree or null.</param>
     /// <param name="secondTree">Second binary tree or null.</param>
@@ -125,7 +125,7 @@ public static class MergeTwoBinaryTrees
     /// Merge two binary trees using an iterative (stack-based) approach.
     /// If both inputs are null, returns an empty <see cref="BinaryTree{int}"/>.
     /// If one input is null, returns the non-null tree instance (no cloning in that branch).
-    /// Otherwise builds a new merged tree using an explicit stack to avoid recursion.
+    /// Otherwise, builds a new merged tree using an explicit stack to avoid recursion.
     /// </summary>
     /// <param name="firstTree">First binary tree or null.</param>
     /// <param name="secondTree">Second binary tree or null.</param>
@@ -349,8 +349,86 @@ public static class MergeTwoBinaryTrees
         return CompareNodes(firstNode.LeftNode, secondNode.LeftNode) &&
                CompareNodes(firstNode.RightNode, secondNode.RightNode);
     }
+
+    /// <summary>
+    /// Determines whether the specified <see cref="BinaryTree{int}"/> is a binary search tree (BST).
+    /// </summary>
+    /// <param name="tree">The tree to validate, or <c>null</c>.</param>
+    /// <returns>
+    /// <c>true</c> when <paramref name="tree"/> is <c>null</c> or its nodes satisfy BST ordering
+    /// (every left subtree node &lt; parent &lt; every right subtree node); otherwise <c>false</c>.
+    /// </returns>
+    /// <remarks>
+    /// Uses a range-check helper that enforces strict ordering (no duplicate keys are allowed).
+    /// The helper uses 64-bit bounds to avoid integer overflow when propagating limits.
+    /// </remarks>
+    public static bool IsTreeBinarySearchTree(BinaryTree<int>? tree)
+    {
+        return tree?.Root == null || IsBstNode(tree.Root, long.MinValue, long.MaxValue);
+    }
+
+    /// <summary>
+    /// Recursively validates that the subtree rooted at <paramref name="node"/> satisfies BST ordering
+    /// with all values in the exclusive range (<paramref name="min"/>, <paramref name="max"/>).
+    /// </summary>
+    /// <param name="node">Root node of the subtree to validate (may be <c>null</c>).</param>
+    /// <param name="min">Exclusive lower bound for node values.</param>
+    /// <param name="max">Exclusive upper bound for node values.</param>
+    /// <returns><c>true</c> if the subtree is a BST within the provided exclusive bounds; otherwise <c>false</c>.</returns>
+    /// <remarks>
+    /// Uses strict comparisons so duplicates are not allowed in the resulting BST.
+    /// Bounds are 64-bit to prevent overflow when comparing against <see cref="int.MinValue"/> or <see cref="int.MaxValue"/>.
+    /// </remarks>
+    private static bool IsBstNode(TreeNode<int>? node, long min, long max)
+    {
+        if (node == null) return true;
+        if (node.Value <= min || node.Value >= max) return false;
+        return IsBstNode(node.LeftNode, min, node.Value) &&
+               IsBstNode(node.RightNode, node.Value, max);
+    }
+
+    /// <summary>
+    /// Count all rooted subtrees within <paramref name="tree"/> that are valid binary search trees (BST).
+    /// </summary>
+    /// <param name="tree">Binary tree to inspect, or <c>null</c>.</param>
+    /// <returns>
+    /// Number of nodes in <paramref name="tree"/> that serve as a root of a subtree which is a valid BST.
+    /// Returns 0 when <paramref name="tree"/> is <c>null</c> or empty.
+    /// </returns>
+    /// <remarks>
+    /// This implementation visits every node and validates each rooted subtree with <see cref="IsBstNode(TreeNode{int}?, long, long)"/>.
+    /// </remarks>
+    public static int CountBinarySearchTreesInTree(BinaryTree<int>? tree)
+    {
+        if (tree?.Root == null) return 0;
+
+        return CountBinarySearchTrees(tree.Root);
+    }
+
+    /// <summary>
+    /// Recursive helper that counts how many rooted subtrees in the subtree under <paramref name="node"/> are BSTs.
+    /// </summary>
+    /// <param name="node">Current subtree root to evaluate (may be <c>null</c>).</param>
+    /// <returns>Number of BST-rooted subtrees contained within the subtree rooted at <paramref name="node"/>.</returns>
+    /// <remarks>
+    /// For each visited node this helper calls <see cref="IsBstNode(TreeNode{int}?, long, long)"/> with full long bounds
+    /// to determine whether the subtree rooted at the node satisfies BST ordering. This validation makes the helper O(N^2) in the worst case.
+    /// </remarks>
+    private static int CountBinarySearchTrees(TreeNode<int>? node)
+    {
+        if (node == null) return 0;
+
+        var count = IsBstNode(node, long.MinValue, long.MaxValue) ? 1 : 0;
+
+        count += CountBinarySearchTrees(node.LeftNode);
+        count += CountBinarySearchTrees(node.RightNode);
+
+        return count;
+    }
 }
 
 // ToDo:
 // Iterative search for a key ‘x’ in a binary tree.
-// Count the number of binary search trees present in a binary tree.
+// Find the lowest common ancestor in a binary tree.
+// Find the distance between two nodes in a binary tree.
+// Flip/Invert a binary tree.
