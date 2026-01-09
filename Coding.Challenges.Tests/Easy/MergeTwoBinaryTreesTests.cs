@@ -198,6 +198,31 @@ public class MergeTwoBinaryTreesTests
         Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(t), Is.EqualTo(4));
     }
 
+    // FlipBinaryTree tests
+    [Test]
+    public void FlipBinaryTree_Null_ReturnsNull()
+    {
+        var result = MergeTwoBinaryTrees.FlipBinaryTree(null);
+        Assert.That(result, Is.Null);
+    }
+
+    [Test]
+    public void FlipBinaryTree_Empty_ReturnsSameInstance()
+    {
+        var empty = new BinaryTree<int>();
+        var result = MergeTwoBinaryTrees.FlipBinaryTree(empty);
+        Assert.That(result, Is.SameAs(empty));
+    }
+
+    [Test]
+    public void FlipBinaryTree_BuildFirst_MatchesMirrorTree()
+    {
+        var tree = BuildFirstTree();
+        var flipped = MergeTwoBinaryTrees.FlipBinaryTree(tree);
+        var expected = BuildMirrorTree();
+        Assert.That(MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(flipped, expected), Is.True);
+    }
+
     // Helper to create nodes more concisely and make tree construction easier to read.
     private static TreeNode<int> N(int value, TreeNode<int>? left = null, TreeNode<int>? right = null)
     {

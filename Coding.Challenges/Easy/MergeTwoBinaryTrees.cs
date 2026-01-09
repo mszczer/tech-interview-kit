@@ -81,8 +81,8 @@ public static class MergeTwoBinaryTrees
     /// - If one node is null, return a deep clone of the other node (so merged tree does not share nodes).
     /// - If both nodes are non-null, create a new node with the summed value and recurse for left/right children.
     /// </summary>
-    /// <param name="firstTreeNode">Node from the first tree (may be null).</param>
-    /// <param name="secondTreeNode">Node from the second tree (may be null).</param>
+    /// <param name="firstTreeNode">Node from the first tree (it may be null).</param>
+    /// <param name="secondTreeNode">Node from the second tree (it may be null).</param>
     /// <returns>A new merged <see cref="TreeNode{int}"/> or null.</returns>
     /// <remarks>
     /// Produces a freshly allocated subtree when merging overlapping nodes or cloning a single-side subtree.
@@ -108,7 +108,7 @@ public static class MergeTwoBinaryTrees
     /// Deep-clone the provided node and its entire subtree (recursive).
     /// If <paramref name="node"/> is null, returns null.
     /// </summary>
-    /// <param name="node">Source node to clone (may be null).</param>
+    /// <param name="node">Source node to clone (it may be null).</param>
     /// <returns>A deep copy of <paramref name="node"/> or null.</returns>
     private static TreeNode<int>? CloneNode(TreeNode<int>? node)
     {
@@ -196,7 +196,7 @@ public static class MergeTwoBinaryTrees
     /// Iteratively deep-clone a subtree using an explicit stack.
     /// Returns null if <paramref name="node"/> is null.
     /// </summary>
-    /// <param name="node">Source subtree root to clone (may be null).</param>
+    /// <param name="node">Source subtree root to clone (it may be null).</param>
     /// <returns>A deep copy of the source subtree root or null.</returns>
     /// <remarks>
     /// This non-recursive clone is used by the iterative merge to attach an entire subtree when the other side is missing.
@@ -274,38 +274,21 @@ public static class MergeTwoBinaryTrees
     /// <remarks>
     /// Null trees are considered mirrors when both are null. Uses a recursive helper to compare mirrored children.
     /// </remarks>
-    public static bool AreTwoBinaryTreesMirrors(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree)
-    {
-        if (firstTree == null && secondTree == null) return true;
-        if (firstTree == null || secondTree == null) return false;
-
-        var firstRoot = firstTree.Root;
-        var secondRoot = secondTree.Root;
-        if (firstRoot == null && secondRoot == null) return true;
-        if (firstRoot == null || secondRoot == null) return false;
-
-        return CompareMirrorNodes(firstRoot, secondRoot);
-    }
+    public static bool AreTwoBinaryTreesMirrors(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree) =>
+        (firstTree?.Root, secondTree?.Root) switch
+        {
+            (null, null) => true,
+            (null, _) or (_, null) => false,
+            (TreeNode<int> f, TreeNode<int> s) => CompareMirrorNodes(f, s)
+        };
 
     /// <summary>
     /// Recursively compares two nodes to determine mirror symmetry.
     /// </summary>
-    /// <param name="firstNode">Node from the first tree (may be null).</param>
-    /// <param name="secondNode">Node from the second tree (may be null).</param>
-    /// <returns>True if the subtrees rooted at the nodes are mirrors; otherwise false.</returns>
-    /// <remarks>
-    /// Compares node values and then compares the left subtree of the first node with the right subtree of the second node (and vice versa).
-    /// </remarks>
-    private static bool CompareMirrorNodes(TreeNode<int>? firstNode, TreeNode<int>? secondNode)
-    {
-        if (firstNode == null && secondNode == null) return true;
-        if (firstNode == null || secondNode == null) return false;
-        if (firstNode.Value != secondNode.Value) return false;
-
-        return CompareMirrorNodes(firstNode.LeftNode, secondNode.RightNode) &&
-               CompareMirrorNodes(firstNode.RightNode, secondNode.LeftNode);
-    }
-
+    private static bool CompareMirrorNodes(TreeNode<int>? firstNode, TreeNode<int>? secondNode) =>
+        (firstNode == null && secondNode == null) || (firstNode != null && secondNode != null && (firstNode.Value == secondNode.Value &&
+            CompareMirrorNodes(firstNode.LeftNode, secondNode.RightNode) &&
+            CompareMirrorNodes(firstNode.RightNode, secondNode.LeftNode)));
 
     /// <summary>
     /// Determines whether two binary trees are identical in structure and node values.
@@ -315,40 +298,21 @@ public static class MergeTwoBinaryTrees
     /// <returns>
     /// True if both trees are structurally identical and every corresponding node has the same value; otherwise false.
     /// </returns>
-    /// <remarks>
-    /// Null trees are considered identical when both are null. Uses <see cref="CompareNodes"/> to perform a recursive node-by-node comparison.
-    /// </remarks>
-    public static bool AreTwoBinaryTreeIdentical(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree)
-    {
-        if (firstTree == null && secondTree == null) return true;
-        if (firstTree == null || secondTree == null) return false;
-
-        var firstRoot = firstTree.Root;
-        var secondRoot = secondTree.Root;
-        if (firstRoot == null && secondRoot == null) return true;
-        if (firstRoot == null || secondRoot == null) return false;
-
-        return CompareNodes(firstRoot, secondRoot);
-    }
+    public static bool AreTwoBinaryTreeIdentical(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree) =>
+        (firstTree?.Root, secondTree?.Root) switch
+        {
+            (null, null) => true,
+            (null, _) or (_, null) => false,
+            (TreeNode<int> f, TreeNode<int> s) => CompareNodes(f, s)
+        };
 
     /// <summary>
     /// Recursively compares two nodes for structural and value equality.
     /// </summary>
-    /// <param name="firstNode">Node from the first tree (may be null).</param>
-    /// <param name="secondNode">Node from the second tree (may be null).</param>
-    /// <returns>True if both subtrees are identical in structure and values; otherwise false.</returns>
-    /// <remarks>
-    /// This helper is used by <see cref="AreTwoBinaryTreeIdentical"/> and compares node values then recurses on corresponding children.
-    /// </remarks>
-    private static bool CompareNodes(TreeNode<int>? firstNode, TreeNode<int>? secondNode)
-    {
-        if (firstNode == null && secondNode == null) return true;
-        if (firstNode == null || secondNode == null) return false;
-        if (firstNode.Value != secondNode.Value) return false;
-
-        return CompareNodes(firstNode.LeftNode, secondNode.LeftNode) &&
-               CompareNodes(firstNode.RightNode, secondNode.RightNode);
-    }
+    private static bool CompareNodes(TreeNode<int>? firstNode, TreeNode<int>? secondNode) =>
+        (firstNode == null && secondNode == null) || (firstNode != null && secondNode != null && (firstNode.Value == secondNode.Value &&
+            CompareNodes(firstNode.LeftNode, secondNode.LeftNode) &&
+            CompareNodes(firstNode.RightNode, secondNode.RightNode)));
 
     /// <summary>
     /// Determines whether the specified <see cref="BinaryTree{int}"/> is a binary search tree (BST).
@@ -362,23 +326,13 @@ public static class MergeTwoBinaryTrees
     /// Uses a range-check helper that enforces strict ordering (no duplicate keys are allowed).
     /// The helper uses 64-bit bounds to avoid integer overflow when propagating limits.
     /// </remarks>
-    public static bool IsTreeBinarySearchTree(BinaryTree<int>? tree)
-    {
-        return tree?.Root == null || IsBstNode(tree.Root, long.MinValue, long.MaxValue);
-    }
+    public static bool IsTreeBinarySearchTree(BinaryTree<int>? tree) =>
+        tree?.Root == null || IsBstNode(tree.Root, long.MinValue, long.MaxValue);
 
     /// <summary>
     /// Recursively validates that the subtree rooted at <paramref name="node"/> satisfies BST ordering
     /// with all values in the exclusive range (<paramref name="min"/>, <paramref name="max"/>).
     /// </summary>
-    /// <param name="node">Root node of the subtree to validate (may be <c>null</c>).</param>
-    /// <param name="min">Exclusive lower bound for node values.</param>
-    /// <param name="max">Exclusive upper bound for node values.</param>
-    /// <returns><c>true</c> if the subtree is a BST within the provided exclusive bounds; otherwise <c>false</c>.</returns>
-    /// <remarks>
-    /// Uses strict comparisons so duplicates are not allowed in the resulting BST.
-    /// Bounds are 64-bit to prevent overflow when comparing against <see cref="int.MinValue"/> or <see cref="int.MaxValue"/>.
-    /// </remarks>
     private static bool IsBstNode(TreeNode<int>? node, long min, long max)
     {
         if (node == null) return true;
@@ -395,35 +349,51 @@ public static class MergeTwoBinaryTrees
     /// Number of nodes in <paramref name="tree"/> that serve as a root of a subtree which is a valid BST.
     /// Returns 0 when <paramref name="tree"/> is <c>null</c> or empty.
     /// </returns>
-    /// <remarks>
-    /// This implementation visits every node and validates each rooted subtree with <see cref="IsBstNode(TreeNode{int}?, long, long)"/>.
-    /// </remarks>
     public static int CountBinarySearchTreesInTree(BinaryTree<int>? tree)
     {
-        if (tree?.Root == null) return 0;
-
-        return CountBinarySearchTrees(tree.Root);
+        return tree?.Root == null ? 0 : CountBinarySearchTrees(tree.Root);
     }
 
     /// <summary>
     /// Recursive helper that counts how many rooted subtrees in the subtree under <paramref name="node"/> are BSTs.
     /// </summary>
-    /// <param name="node">Current subtree root to evaluate (may be <c>null</c>).</param>
-    /// <returns>Number of BST-rooted subtrees contained within the subtree rooted at <paramref name="node"/>.</returns>
-    /// <remarks>
-    /// For each visited node this helper calls <see cref="IsBstNode(TreeNode{int}?, long, long)"/> with full long bounds
-    /// to determine whether the subtree rooted at the node satisfies BST ordering. This validation makes the helper O(N^2) in the worst case.
-    /// </remarks>
     private static int CountBinarySearchTrees(TreeNode<int>? node)
     {
         if (node == null) return 0;
 
         var count = IsBstNode(node, long.MinValue, long.MaxValue) ? 1 : 0;
-
         count += CountBinarySearchTrees(node.LeftNode);
         count += CountBinarySearchTrees(node.RightNode);
 
         return count;
+    }
+
+    /// <summary>
+    /// Return a new tree that is the mirror (left/right inverted) of the provided tree.
+    /// If <paramref name="tree"/> is null or empty returns the same reference.
+    /// The returned tree is a deep-clone — no nodes are shared with the source.
+    /// </summary>
+    public static BinaryTree<int>? FlipBinaryTree(BinaryTree<int>? tree)
+    {
+        if (tree?.Root == null)
+            return tree;
+
+        return new BinaryTree<int> { Root = MirrorClone(tree.Root) };
+    }
+
+    /// <summary>
+    /// Deep-clone the subtree rooting at <paramref name="node"/> while swapping left and right children,
+    /// producing the mirrored subtree root or null if <paramref name="node"/> is null.
+    /// </summary>
+    private static TreeNode<int>? MirrorClone(TreeNode<int>? node)
+    {
+        if (node == null) return null;
+
+        return new TreeNode<int>(node.Value)
+        {
+            LeftNode = MirrorClone(node.RightNode),
+            RightNode = MirrorClone(node.LeftNode)
+        };
     }
 }
 
@@ -431,4 +401,3 @@ public static class MergeTwoBinaryTrees
 // Iterative search for a key ‘x’ in a binary tree.
 // Find the lowest common ancestor in a binary tree.
 // Find the distance between two nodes in a binary tree.
-// Flip/Invert a binary tree.
