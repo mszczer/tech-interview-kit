@@ -223,6 +223,61 @@ public class MergeTwoBinaryTreesTests
         Assert.That(MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(flipped, expected), Is.True);
     }
 
+    [Test]
+    public void SearchForValueInTree_NullTree_ReturnsFalse()
+    {
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(null, 1);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void SearchForValueInTree_EmptyTree_ReturnsFalse()
+    {
+        var empty = new BinaryTree<int>();
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(empty, 42);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void SearchForValueInTree_ValueAtRoot_ReturnsTrue()
+    {
+        var tree = new BinaryTree<int> { Root = N(99) };
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 99);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void SearchForValueInTree_ValueInLeftSubtree_ReturnsTrue()
+    {
+        var tree = BuildFirstTree(); // contains 5 in left-left
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 5);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void SearchForValueInTree_ValueInRightSubtree_ReturnsTrue()
+    {
+        var tree = BuildSecondTree(); // contains 7 in right-right
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 7);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void SearchForValueInTree_ValueNotPresent_ReturnsFalse()
+    {
+        var tree = BuildFirstTree();
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 999);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void SearchForValueInTree_MultipleOccurrences_ReturnsTrue()
+    {
+        var bstWithDuplicates = BuildBstFromValues(new[] { 5, 3, 7, 3 });
+        var result = MergeTwoBinaryTrees.SearchForValueInTree(bstWithDuplicates, 3);
+        Assert.That(result, Is.True);
+    }
+
     // Helper to create nodes more concisely and make tree construction easier to read.
     private static TreeNode<int> N(int value, TreeNode<int>? left = null, TreeNode<int>? right = null)
     {

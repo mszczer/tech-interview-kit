@@ -395,9 +395,60 @@ public static class MergeTwoBinaryTrees
             RightNode = MirrorClone(node.LeftNode)
         };
     }
+
+    /// <summary>
+    /// Determine whether the specified <see cref="BinaryTree{int}"/> contains a node with the given value.
+    /// </summary>
+    /// <param name="tree">Tree to search or <c>null</c>. If <c>null</c> the method returns <c>false</c>.</param>
+    /// <param name="value">Value to search for.</param>
+    /// <returns><c>true</c> when any node in <paramref name="tree"/> has <paramref name="value"/>; otherwise <c>false</c>.</returns>
+    /// <remarks>
+    /// Time complexity: O(N) where N is the number of nodes visited.
+    /// Space complexity: O(H) where H is the tree height due to the explicit stack used by the helper.
+    /// </remarks>
+    public static bool SearchForValueInTree(BinaryTree<int>? tree, int value) =>
+        tree?.Root != null && IsValueInTree(tree.Root, value);
+
+    /// <summary>
+    /// Iteratively searches the subtree rooted at <paramref name="node"/> for <paramref name="value"/>.
+    /// </summary>
+    /// <param name="node">Root of the subtree to search. Passing <c>null</c> returns <c>false</c>.</param>
+    /// <param name="value">Value to find.</param>
+    /// <returns><c>true</c> if a node with <paramref name="value"/> is found; otherwise <c>false</c>.</returns>
+    /// <remarks>
+    /// This implementation uses an explicit stack (DFS) instead of recursion to avoid potential stack-overflow
+    /// on very deep trees and to keep the search iterative. Nodes are visited in preorder order (root, left, right).
+    /// Time complexity: O(N). Space complexity: O(H).
+    /// </remarks>
+    private static bool IsValueInTree(TreeNode<int>? node, int value)
+    {
+        if (node == null)
+            return false;
+
+        var stack = new Stack<TreeNode<int>>();
+        stack.Push(node);
+
+        while (stack.Count > 0)
+        {
+            var curr = stack.Pop();
+            if (curr.Value == value)
+                return true;
+
+            // Push right first so left is processed next (preorder).
+            if (curr.RightNode != null)
+                stack.Push(curr.RightNode);
+            if (curr.LeftNode != null)
+                stack.Push(curr.LeftNode);
+        }
+
+        return false;
+    }
+
+
+    // ToDo:
+    // public static TreeNode<int>? LowestCommonAncestor(BinaryTree<int>? tree, int value1, int value2);
+    // public static int DistanceBetweenNodes(BinaryTree<int>? tree, int value1, int value2);
+
 }
 
-// ToDo:
-// Iterative search for a key ‘x’ in a binary tree.
-// Find the lowest common ancestor in a binary tree.
-// Find the distance between two nodes in a binary tree.
+
