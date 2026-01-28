@@ -29,16 +29,16 @@ This repository contains solutions to various coding problems presented on the [
 - [Path sum in binary tree](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
 - [Min Depth of Binary Tree](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
 - [Merge two binary trees](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
+- [Sorted Array to Balanced BST](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
 ### Medium
 - [Sorting algorithms](Coding.Challenges/Medium/SortedArray.cs)
 ### Hard
 
 ## Tech Stack
-- This repository includes code written in .NET core.
+This repository includes code written in .NET core.
 
 ## Acknowledgments
-- [Data Structures and Algorithms Challenges](https://afteracademy.com/tech-interview/) platform providing these challenges with comments.
+[Data Structures and Algorithms Challenges](https://afteracademy.com/tech-interview/) platform providing these challenges with comments.
 
 ## License
-
 The scripts and documentation in this project are released under the [MIT License](https://github.com/mszczer/tech-interview-kit/blob/main/LICENSE)
