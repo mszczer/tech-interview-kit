@@ -25,6 +25,7 @@ This repository contains solutions to various coding problems presented on the [
 - [Min Stack](Coding.Challenges/Easy/MinStack.cs)
 - [Path sum in binary tree](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
 - [Min Depth of Binary Tree](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
+- [Merge two binary trees](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
 ### Medium
 - [Sorting algorithms](Coding.Challenges/Medium/SortedArray.cs)
 ### Hard
