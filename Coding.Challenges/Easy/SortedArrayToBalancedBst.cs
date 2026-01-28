@@ -27,7 +27,7 @@ namespace Coding.Challenges.Easy;
  *    1
  */
 
-public class SortedArrayToBalancedBst
+public static class SortedArrayToBalancedBst
 {
     public static TestBinaryTree<int> ConvertArrToBst(int[]? sortedArr)
     {
