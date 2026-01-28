@@ -1,12 +1,9 @@
 [![Build and Test](https://github.com/mszczer/tech-interview-kit/actions/workflows/dotnet_ci.yml/badge.svg)](https://github.com/mszczer/tech-interview-kit/actions/workflows/dotnet_ci.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/931411cd0c0c4a88a7fbd8dc6cac812b)](https://app.codacy.com/gh/mszczer/tech-interview-kit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/931411cd0c0c4a88a7fbd8dc6cac812b)](https://app.codacy.com/gh/mszczer/tech-interview-kit/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
-[![codecov](https://codecov.io/gh/mszczer/tech-interview-kit/graph/badge.svg?token=FVY8DVJ0K6)](https://codecov.io/gh/mszczer/tech-interview-kit)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mszczer/tech-interview-kit)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mszczer/tech-interview-kit)
 ![GitHub top language](https://img.shields.io/github/languages/top/mszczer/tech-interview-kit)
-![GitHub License](https://img.shields.io/github/license/mszczer/tech-interview-kit)
-
 
 # Data Structures and Algorithms Challenges Repository
 
