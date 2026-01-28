@@ -2,7 +2,7 @@ namespace Coding.Challenges.Tests.Easy;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class ReverseBitsTests
+public class TestReverseBits
 {
     private static IEnumerable<TestCaseData> ReverseBitNumberTestCases()
     {
@@ -20,13 +20,13 @@ public class ReverseBitsTests
     [TestCaseSource(nameof(ReverseBitNumberTestCases))]
     public void GetReverseBitNumber_ReturnsTheReversedNumber(int input, int expected)
     {
-        Assert.That(ReverseBits.GetReverseBitNumber(input), Is.EqualTo(expected));
+        Assert.That(Challenges.ReverseBits.GetReverseBitNumber(input), Is.EqualTo(expected));
     }
 
     [Test]
     [TestCaseSource(nameof(ReverseBitNumberTestCases))]
     public void GetReverseBitNumberShiftingBits_ReturnsTheReversedNumber(int input, int expected)
     {
-        Assert.That(ReverseBits.GetReverseBitNumberShiftingBits(input), Is.EqualTo(expected));
+        Assert.That(Challenges.ReverseBits.GetReverseBitNumberShiftingBits(input), Is.EqualTo(expected));
     }
 }

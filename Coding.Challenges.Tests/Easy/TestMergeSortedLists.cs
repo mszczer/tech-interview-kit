@@ -2,7 +2,7 @@
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class MergeSortedListsTests
+public class TestMergeSortedLists
 {
     private static IEnumerable<TestCaseData> TestData()
     {
@@ -32,7 +32,7 @@ public class MergeSortedListsTests
         var secondList = new LinkedList<int>(secondInput);
         var expectedList = new LinkedList<int>(expectedResults);
 
-        var result = MergeSortedLists.MergeSortedListsAndSort(firstList, secondList);
+        var result = Challenges.Easy.MergeSortedLists.MergeSortedListsAndSort(firstList, secondList);
 
         Assert.That(result, Is.EqualTo(expectedList));
     }
@@ -45,7 +45,7 @@ public class MergeSortedListsTests
         var secondList = new LinkedList<int>(secondInput);
         var expectedList = new LinkedList<int>(expectedResults);
 
-        var result = MergeSortedLists.MergeSortedListsUsingTwoPointers(firstList, secondList);
+        var result = Challenges.Easy.MergeSortedLists.MergeSortedListsUsingTwoPointers(firstList, secondList);
 
         Assert.That(result, Is.EqualTo(expectedList));
     }
@@ -58,7 +58,7 @@ public class MergeSortedListsTests
         var secondList = new LinkedList<int>(secondInput);
         var expectedList = new LinkedList<int>(expectedResults);
 
-        var result = MergeSortedLists.MergeSortedListUsingRecursion(firstList, secondList);
+        var result = Challenges.Easy.MergeSortedLists.MergeSortedListUsingRecursion(firstList, secondList);
 
         Assert.That(result, Is.EqualTo(expectedList));
     }
@@ -69,9 +69,9 @@ public class MergeSortedListsTests
         LinkedList<int>? nullList = null;
         var nonEmpty = new LinkedList<int>(new[] { 1, 2, 3 });
 
-        Assert.That(MergeSortedLists.MergeSortedListsAndSort(nullList, nullList), Is.Null);
-        Assert.That(MergeSortedLists.MergeSortedListsAndSort(nonEmpty, nullList), Is.EqualTo(nonEmpty));
-        Assert.That(MergeSortedLists.MergeSortedListsAndSort(nullList, nonEmpty), Is.EqualTo(nonEmpty));
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListsAndSort(nullList, nullList), Is.Null);
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListsAndSort(nonEmpty, nullList), Is.EqualTo(nonEmpty));
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListsAndSort(nullList, nonEmpty), Is.EqualTo(nonEmpty));
     }
 
     [Test]
@@ -80,9 +80,9 @@ public class MergeSortedListsTests
         LinkedList<int>? nullList = null;
         var nonEmpty = new LinkedList<int>(new[] { 1, 2, 3 });
 
-        Assert.That(MergeSortedLists.MergeSortedListsUsingTwoPointers(nullList, nullList), Is.Null);
-        Assert.That(MergeSortedLists.MergeSortedListsUsingTwoPointers(nonEmpty, nullList), Is.EqualTo(nonEmpty));
-        Assert.That(MergeSortedLists.MergeSortedListsUsingTwoPointers(nullList, nonEmpty), Is.EqualTo(nonEmpty));
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListsUsingTwoPointers(nullList, nullList), Is.Null);
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListsUsingTwoPointers(nonEmpty, nullList), Is.EqualTo(nonEmpty));
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListsUsingTwoPointers(nullList, nonEmpty), Is.EqualTo(nonEmpty));
     }
 
     [Test]
@@ -91,8 +91,8 @@ public class MergeSortedListsTests
         LinkedList<int>? nullList = null;
         var nonEmpty = new LinkedList<int>(new[] { 1, 2, 3 });
 
-        Assert.That(MergeSortedLists.MergeSortedListUsingRecursion(nullList, nullList), Is.Empty);
-        Assert.That(MergeSortedLists.MergeSortedListUsingRecursion(nonEmpty, nullList), Is.EqualTo(nonEmpty));
-        Assert.That(MergeSortedLists.MergeSortedListUsingRecursion(nullList, nonEmpty), Is.EqualTo(nonEmpty));
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListUsingRecursion(nullList, nullList), Is.Empty);
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListUsingRecursion(nonEmpty, nullList), Is.EqualTo(nonEmpty));
+        Assert.That(Challenges.Easy.MergeSortedLists.MergeSortedListUsingRecursion(nullList, nonEmpty), Is.EqualTo(nonEmpty));
     }
 }

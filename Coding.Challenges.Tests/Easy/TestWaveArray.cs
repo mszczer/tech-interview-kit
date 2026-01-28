@@ -4,13 +4,13 @@ namespace Coding.Challenges.Tests.Easy;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class WaveArrayTests
+public class TestWaveArray
 {
     [Test]
     [TestCase(new[] { 4, 2, 9, 1, 21, 43, 24 }, new[] { 2, 1, 9, 4, 24, 21, 43 })]
     public void GetWaveArray_ReturnsLexicographicallySmallestWaveArray(int[] input, int[] expected)
     {
-        Assert.That(WaveArray.GetWaveArray(input), Is.EqualTo(expected));
+        Assert.That(Challenges.WaveArray.GetWaveArray(input), Is.EqualTo(expected));
     }
 
     [Test]
@@ -19,7 +19,7 @@ public class WaveArrayTests
     [TestCase(new[] { 4, 2, 9, 1, 21, 43, 24 })]
     public void GetWaveArray_ReturnsWaveArray(int[] input)
     {
-        var testArr = WaveArray.GetWaveArray(input);
+        var testArr = Challenges.WaveArray.GetWaveArray(input);
 
         var checkResult = true;
 
@@ -40,7 +40,7 @@ public class WaveArrayTests
     [TestCase(new[] { 4, 2, 9, 1, 21, 43, 24 })]
     public void GetWaveArrayComparingNeighbors_ReturnsWaveArray(int[] input)
     {
-        var testArr = WaveArray.GetWaveArrayComparingNeighbors(input);
+        var testArr = Challenges.WaveArray.GetWaveArrayComparingNeighbors(input);
 
         var checkResult = true;
 
@@ -58,13 +58,13 @@ public class WaveArrayTests
     [Test]
     public void GetWaveArrayComparingNeighbors_NullInput_ThrowsArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => WaveArray.GetWaveArrayComparingNeighbors(null));
+        Assert.Throws<ArgumentNullException>(() => Challenges.WaveArray.GetWaveArrayComparingNeighbors(null));
     }
 
     [Test]
     public void GetWaveArrayComparingNeighbors_EmptyInput_ReturnsEmptyArray()
     {
-        var result = WaveArray.GetWaveArrayComparingNeighbors([]);
+        var result = Challenges.WaveArray.GetWaveArrayComparingNeighbors([]);
         Assert.That(result, Is.Empty);
     }
 
@@ -72,7 +72,7 @@ public class WaveArrayTests
     public void GetWaveArrayComparingNeighbors_SingleElement_ReturnsSameArray()
     {
         var input = new[] { 42 };
-        var result = WaveArray.GetWaveArrayComparingNeighbors(input);
+        var result = Challenges.WaveArray.GetWaveArrayComparingNeighbors(input);
         Assert.That(result, Is.EqualTo(new[] { 42 }));
     }
 
@@ -80,7 +80,7 @@ public class WaveArrayTests
     public void GetWaveArrayComparingNeighbors_TwoElements_ReturnsWaveForm()
     {
         var input = new[] { 2, 1 };
-        var result = WaveArray.GetWaveArrayComparingNeighbors(input);
+        var result = Challenges.WaveArray.GetWaveArrayComparingNeighbors(input);
         Assert.That(result, Is.EqualTo(new[] { 2, 1 }));
     }
 
@@ -89,7 +89,7 @@ public class WaveArrayTests
     {
         var input = new[] { 4, 2, 9, 1, 21, 43, 24 };
         var inputCopy = (int[])input.Clone();
-        WaveArray.GetWaveArrayComparingNeighbors(input);
+        Challenges.WaveArray.GetWaveArrayComparingNeighbors(input);
         Assert.That(input, Is.EqualTo(inputCopy));
     }
 }

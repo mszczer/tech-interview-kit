@@ -4,85 +4,85 @@ namespace Coding.Challenges.Tests.Easy;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class MergeTwoBinaryTreesTests
+public class TestMergeTwoBinaryTrees
 {
     private static readonly List<int> ExpectedSerialized = GetExpectedSerialized();
 
     [Test]
     public void MergeResult_MatchesExpectedStructure_LevelOrder()
     {
-        var merged = MergeTwoBinaryTrees.GetMergedTree(BuildFirstTree(), BuildSecondTree());
-        var actual = BinaryTree<int>.SerializeLevelOrder(merged?.Root);
+        var merged = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(BuildFirstTree(), BuildSecondTree());
+        var actual = TestBinaryTree<int>.SerializeLevelOrder(merged?.Root);
         Assert.That(actual, Is.EqualTo(ExpectedSerialized));
     }
 
     [Test]
     public void MergeIterativeResult_MatchesExpectedStructure_LevelOrder()
     {
-        var mergedIterative = MergeTwoBinaryTrees.GetMergedTreeIterative(BuildFirstTree(), BuildSecondTree());
-        var actual = BinaryTree<int>.SerializeLevelOrder(mergedIterative?.Root);
+        var mergedIterative = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTreeIterative(BuildFirstTree(), BuildSecondTree());
+        var actual = TestBinaryTree<int>.SerializeLevelOrder(mergedIterative?.Root);
         Assert.That(actual, Is.EqualTo(ExpectedSerialized));
     }
 
     [Test]
     public void GetMergedTree_BothNull_ReturnsInstance()
     {
-        var result = MergeTwoBinaryTrees.GetMergedTree(null, null);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(null, null);
         Assert.That(result, Is.Not.Null);
     }
 
     [Test]
     public void GetMergedTree_BothNull_RootIsNull()
     {
-        var result = MergeTwoBinaryTrees.GetMergedTree(null, null);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(null, null);
         Assert.That(result?.Root, Is.Null);
     }
 
     [Test]
     public void GetMergedTree_FirstNull_ReturnsSecondInstance()
     {
-        var second = new BinaryTree<int> { Root = N(42) };
-        var result = MergeTwoBinaryTrees.GetMergedTree(null, second);
+        var second = new TestBinaryTree<int> { Root = N(42) };
+        var result = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(null, second);
         Assert.That(result, Is.SameAs(second));
     }
 
     [Test]
     public void GetMergedTree_SecondNull_ReturnsFirstInstance()
     {
-        var first = new BinaryTree<int> { Root = N(17) };
-        var result = MergeTwoBinaryTrees.GetMergedTree(first, null);
+        var first = new TestBinaryTree<int> { Root = N(17) };
+        var result = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(first, null);
         Assert.That(result, Is.SameAs(first));
     }
 
     [Test]
     public void GetMergedTree_SingleNodeTrees_SumRoots()
     {
-        var a = new BinaryTree<int> { Root = N(3) };
-        var b = new BinaryTree<int> { Root = N(4) };
-        var merged = MergeTwoBinaryTrees.GetMergedTree(a, b);
-        var serialized = BinaryTree<int>.SerializeLevelOrder(merged?.Root);
+        var a = new TestBinaryTree<int> { Root = N(3) };
+        var b = new TestBinaryTree<int> { Root = N(4) };
+        var merged = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(a, b);
+        var serialized = TestBinaryTree<int>.SerializeLevelOrder(merged?.Root);
         Assert.That(serialized, Is.EqualTo(new List<int> { 7 }));
     }
 
     [Test]
     public void GetMergedTreeIterative_FirstNull_ReturnsSecondInstance()
     {
-        var second = new BinaryTree<int> { Root = N(9) };
-        var result = MergeTwoBinaryTrees.GetMergedTreeIterative(null, second);
+        var second = new TestBinaryTree<int> { Root = N(9) };
+        var result = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTreeIterative(null, second);
         Assert.That(result, Is.SameAs(second));
     }
 
     [Test]
     public void MergeBinarySearchTrees_BothNull_ReturnsInstance()
     {
-        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(null, null);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.MergeBinarySearchTrees(null, null);
         Assert.That(result, Is.Not.Null);
     }
 
     [Test]
     public void MergeBinarySearchTrees_BothNull_RootIsNull()
     {
-        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(null, null);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.MergeBinarySearchTrees(null, null);
         Assert.That(result?.Root, Is.Null);
     }
 
@@ -90,7 +90,7 @@ public class MergeTwoBinaryTreesTests
     public void MergeBinarySearchTrees_FirstNull_ReturnsSecondInstance()
     {
         var second = BuildBstFromValues(new[] { 5 });
-        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(null, second);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.MergeBinarySearchTrees(null, second);
         Assert.That(result, Is.SameAs(second));
     }
 
@@ -98,7 +98,7 @@ public class MergeTwoBinaryTreesTests
     public void MergeBinarySearchTrees_SecondNull_ReturnsFirstInstance()
     {
         var first = BuildBstFromValues(new[] { 7 });
-        var result = MergeTwoBinaryTrees.MergeBinarySearchTrees(first, null);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.MergeBinarySearchTrees(first, null);
         Assert.That(result, Is.SameAs(first));
     }
 
@@ -107,7 +107,7 @@ public class MergeTwoBinaryTreesTests
     {
         var tree = BuildFirstTree();
         var mirrorTree = BuildMirrorTree();
-        var result = MergeTwoBinaryTrees.AreTwoBinaryTreesMirrors(tree, mirrorTree);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.AreTwoBinaryTreesMirrors(tree, mirrorTree);
         Assert.That(result, Is.True);
     }
 
@@ -116,7 +116,7 @@ public class MergeTwoBinaryTreesTests
     {
         var tree = BuildFirstTree();
         var notMirror = BuildNonMirrorTree();
-        var result = MergeTwoBinaryTrees.AreTwoBinaryTreesMirrors(tree, notMirror);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.AreTwoBinaryTreesMirrors(tree, notMirror);
         Assert.That(result, Is.False);
     }
 
@@ -125,7 +125,7 @@ public class MergeTwoBinaryTreesTests
     {
         var tree = BuildFirstTree();
         var identicalTree = BuildFirstTree();
-        var result = MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(tree, identicalTree);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(tree, identicalTree);
         Assert.That(result, Is.True);
     }
 
@@ -134,7 +134,7 @@ public class MergeTwoBinaryTreesTests
     {
         var tree = BuildFirstTree();
         var notIdenticalTree = BuildSecondTree();
-        var result = MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(tree, notIdenticalTree);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(tree, notIdenticalTree);
         Assert.That(result, Is.False);
     }
 
@@ -142,7 +142,7 @@ public class MergeTwoBinaryTreesTests
     public void IsTreeBinarySearchTree_ReturnsTrue_ForValidBst()
     {
         var bst = BuildBstFromValues(new[] { 6, 2, 8, 1 });
-        var result = MergeTwoBinaryTrees.IsTreeBinarySearchTree(bst);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.IsTreeBinarySearchTree(bst);
         Assert.That(result, Is.True);
     }
 
@@ -150,28 +150,28 @@ public class MergeTwoBinaryTreesTests
     public void IsTreeBinarySearchTree_ReturnsFalse_ForNonBst()
     {
         var nonBst = BuildFirstTree(); // intentionally not a BST
-        var result = MergeTwoBinaryTrees.IsTreeBinarySearchTree(nonBst);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.IsTreeBinarySearchTree(nonBst);
         Assert.That(result, Is.False);
     }
 
     [Test]
     public void CountBinarySearchTreesInTree_Null_ReturnsZero()
     {
-        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(null), Is.EqualTo(0));
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.CountBinarySearchTreesInTree(null), Is.EqualTo(0));
     }
 
     [Test]
     public void CountBinarySearchTreesInTree_Empty_ReturnsZero()
     {
-        var empty = new BinaryTree<int>();
-        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(empty), Is.EqualTo(0));
+        var empty = new TestBinaryTree<int>();
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.CountBinarySearchTreesInTree(empty), Is.EqualTo(0));
     }
 
     [Test]
     public void CountBinarySearchTreesInTree_SingleNode_ReturnsOne()
     {
-        var single = new BinaryTree<int> { Root = N(42) };
-        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(single), Is.EqualTo(1));
+        var single = new TestBinaryTree<int> { Root = N(42) };
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.CountBinarySearchTreesInTree(single), Is.EqualTo(1));
     }
 
     [Test]
@@ -179,7 +179,7 @@ public class MergeTwoBinaryTreesTests
     {
         // BST built as: Insert 6,2,8,1 -> every subtree rooted at any node is a BST => count == nodes (4)
         var bst = BuildBstFromValues(new[] { 6, 2, 8, 1 });
-        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(bst), Is.EqualTo(4));
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.CountBinarySearchTreesInTree(bst), Is.EqualTo(4));
     }
 
     [Test]
@@ -187,7 +187,7 @@ public class MergeTwoBinaryTreesTests
     {
         // BuildFirstTree is not a BST as a whole, but has BST subtrees at nodes 6 (with 5), 5 and 2 => count 3
         var nonBst = BuildFirstTree();
-        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(nonBst), Is.EqualTo(3));
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.CountBinarySearchTreesInTree(nonBst), Is.EqualTo(3));
     }
 
     [Test]
@@ -195,22 +195,22 @@ public class MergeTwoBinaryTreesTests
     {
         // BuildSecondTree has a non-BST root but all child-rooted subtrees are BST => count 4 (out of 5 nodes)
         var t = BuildSecondTree();
-        Assert.That(MergeTwoBinaryTrees.CountBinarySearchTreesInTree(t), Is.EqualTo(4));
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.CountBinarySearchTreesInTree(t), Is.EqualTo(4));
     }
 
     // FlipBinaryTree tests
     [Test]
     public void FlipBinaryTree_Null_ReturnsNull()
     {
-        var result = MergeTwoBinaryTrees.FlipBinaryTree(null);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.FlipBinaryTree(null);
         Assert.That(result, Is.Null);
     }
 
     [Test]
     public void FlipBinaryTree_Empty_ReturnsSameInstance()
     {
-        var empty = new BinaryTree<int>();
-        var result = MergeTwoBinaryTrees.FlipBinaryTree(empty);
+        var empty = new TestBinaryTree<int>();
+        var result = Challenges.Easy.MergeTwoBinaryTrees.FlipBinaryTree(empty);
         Assert.That(result, Is.SameAs(empty));
     }
 
@@ -218,31 +218,31 @@ public class MergeTwoBinaryTreesTests
     public void FlipBinaryTree_BuildFirst_MatchesMirrorTree()
     {
         var tree = BuildFirstTree();
-        var flipped = MergeTwoBinaryTrees.FlipBinaryTree(tree);
+        var flipped = Challenges.Easy.MergeTwoBinaryTrees.FlipBinaryTree(tree);
         var expected = BuildMirrorTree();
-        Assert.That(MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(flipped, expected), Is.True);
+        Assert.That(Challenges.Easy.MergeTwoBinaryTrees.AreTwoBinaryTreeIdentical(flipped, expected), Is.True);
     }
 
     [Test]
     public void SearchForValueInTree_NullTree_ReturnsFalse()
     {
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(null, 1);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(null, 1);
         Assert.That(result, Is.False);
     }
 
     [Test]
     public void SearchForValueInTree_EmptyTree_ReturnsFalse()
     {
-        var empty = new BinaryTree<int>();
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(empty, 42);
+        var empty = new TestBinaryTree<int>();
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(empty, 42);
         Assert.That(result, Is.False);
     }
 
     [Test]
     public void SearchForValueInTree_ValueAtRoot_ReturnsTrue()
     {
-        var tree = new BinaryTree<int> { Root = N(99) };
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 99);
+        var tree = new TestBinaryTree<int> { Root = N(99) };
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(tree, 99);
         Assert.That(result, Is.True);
     }
 
@@ -250,7 +250,7 @@ public class MergeTwoBinaryTreesTests
     public void SearchForValueInTree_ValueInLeftSubtree_ReturnsTrue()
     {
         var tree = BuildFirstTree(); // contains 5 in left-left
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 5);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(tree, 5);
         Assert.That(result, Is.True);
     }
 
@@ -258,7 +258,7 @@ public class MergeTwoBinaryTreesTests
     public void SearchForValueInTree_ValueInRightSubtree_ReturnsTrue()
     {
         var tree = BuildSecondTree(); // contains 7 in right-right
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 7);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(tree, 7);
         Assert.That(result, Is.True);
     }
 
@@ -266,7 +266,7 @@ public class MergeTwoBinaryTreesTests
     public void SearchForValueInTree_ValueNotPresent_ReturnsFalse()
     {
         var tree = BuildFirstTree();
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(tree, 999);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(tree, 999);
         Assert.That(result, Is.False);
     }
 
@@ -274,7 +274,7 @@ public class MergeTwoBinaryTreesTests
     public void SearchForValueInTree_MultipleOccurrences_ReturnsTrue()
     {
         var bstWithDuplicates = BuildBstFromValues(new[] { 5, 3, 7, 3 });
-        var result = MergeTwoBinaryTrees.SearchForValueInTree(bstWithDuplicates, 3);
+        var result = Challenges.Easy.MergeTwoBinaryTrees.SearchForValueInTree(bstWithDuplicates, 3);
         Assert.That(result, Is.True);
     }
 
@@ -289,7 +289,7 @@ public class MergeTwoBinaryTreesTests
         return node;
     }
 
-    private static BinaryTree<int> BuildFirstTree()
+    private static TestBinaryTree<int> BuildFirstTree()
     {
         // Structure:
         //       1
@@ -297,10 +297,10 @@ public class MergeTwoBinaryTreesTests
         //     6   2
         //    /
         //   5
-        return new BinaryTree<int> { Root = N(1, N(6, N(5)), N(2)) };
+        return new TestBinaryTree<int> { Root = N(1, N(6, N(5)), N(2)) };
     }
 
-    private static BinaryTree<int> BuildSecondTree()
+    private static TestBinaryTree<int> BuildSecondTree()
     {
         // Structure:
         //       2
@@ -308,7 +308,7 @@ public class MergeTwoBinaryTreesTests
         //     1   3
         //      \   \
         //       4   7
-        return new BinaryTree<int>
+        return new TestBinaryTree<int>
         {
             Root = N(2,
                 N(1, null, N(4)),
@@ -316,7 +316,7 @@ public class MergeTwoBinaryTreesTests
         };
     }
 
-    private static BinaryTree<int> BuildMirrorTree()
+    private static TestBinaryTree<int> BuildMirrorTree()
     {
         // Mirror of BuildFirstTree:
         //       1
@@ -324,10 +324,10 @@ public class MergeTwoBinaryTreesTests
         //     2   6
         //          \
         //           5
-        return new BinaryTree<int> { Root = N(1, N(2), N(6, null, N(5))) };
+        return new TestBinaryTree<int> { Root = N(1, N(2), N(6, null, N(5))) };
     }
 
-    private static BinaryTree<int> BuildNonMirrorTree()
+    private static TestBinaryTree<int> BuildNonMirrorTree()
     {
         var t = BuildMirrorTree();
         t.Root.LeftNode.Value = 999;
@@ -342,7 +342,7 @@ public class MergeTwoBinaryTreesTests
         //     7   5
         //    / \   \
         //   5   4   7
-        var expectedTree = new BinaryTree<int>
+        var expectedTree = new TestBinaryTree<int>
         {
             Root = N(3,
                 N(7, N(5), N(4)),
@@ -352,9 +352,9 @@ public class MergeTwoBinaryTreesTests
         return expectedTree.SerializeLevelOrder();
     }
 
-    private static BinaryTree<int> BuildBstFromValues(IEnumerable<int> values)
+    private static TestBinaryTree<int> BuildBstFromValues(IEnumerable<int> values)
     {
-        var bst = new BinaryTree<int>();
+        var bst = new TestBinaryTree<int>();
         foreach (var v in values) bst.InsertBinarySearchAllowDuplicates(v);
 
         return bst;

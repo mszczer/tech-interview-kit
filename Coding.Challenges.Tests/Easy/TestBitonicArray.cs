@@ -3,7 +3,7 @@ namespace Coding.Challenges.Tests.Easy;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class BitonicArrayTests
+public class TestBitonicArray
 {
     private static IEnumerable<TestCaseData> BitonicArrayTestCases()
     {
@@ -35,13 +35,13 @@ public class BitonicArrayTests
     [TestCaseSource(nameof(BitonicArrayTestCases))]
     public void GetIdxInBitonicArray_ReturnsIndexOfGivenElement(int[] inputSequence, int inputElement, int expected)
     {
-        Assert.That(BitonicArray.GetIdxInBitonicArray(inputSequence, inputElement), Is.EqualTo(expected));
+        Assert.That(Challenges.Easy.BitonicArray.GetIdxInBitonicArray(inputSequence, inputElement), Is.EqualTo(expected));
     }
 
     [Test]
     [TestCaseSource(nameof(BitonicArrayTestCases))]
     public void GetIdxInBitonicArray_Optimized_ReturnsIndexOfGivenElement(int[] inputSequence, int inputElement, int expected)
     {
-        Assert.That(BitonicArray.GetIdxInBitonicArray_Optimized(inputSequence, inputElement), Is.EqualTo(expected));
+        Assert.That(Challenges.Easy.BitonicArray.GetIdxInBitonicArray_Optimized(inputSequence, inputElement), Is.EqualTo(expected));
     }
 }

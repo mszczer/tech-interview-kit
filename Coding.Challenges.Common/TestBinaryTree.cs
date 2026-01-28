@@ -23,12 +23,12 @@ public class TreeNode<T>(T value)
     public TreeNode<T>? RightNode { get; set; }
 }
 
-// BinaryTree class to represent the entire binary tree
+// TestBinaryTree class to represent the entire binary tree
 /// <summary>
 /// Represents a binary tree structure with convenience insertion and serialization helpers.
 /// </summary>
 /// <typeparam name="T">The type of values stored in the tree.</typeparam>
-public class BinaryTree<T>
+public class TestBinaryTree<T>
 {
     /// <summary>
     /// The root node of the tree, or <c>null</c> when the tree is empty.
@@ -41,9 +41,9 @@ public class BinaryTree<T>
     public int Count { get; private set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class.
+    /// Initializes a new instance of the <see cref="TestTestBinaryTree{T}"/> class.
     /// </summary>
-    public BinaryTree()
+    public TestBinaryTree()
     {
         Root = null;
     }

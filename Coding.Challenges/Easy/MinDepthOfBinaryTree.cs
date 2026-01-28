@@ -11,7 +11,7 @@ namespace Coding.Challenges.Easy;
 
 public static class MinDepthOfBinaryTree
 {
-    public static int FindMinimumDepth(BinaryTree<int> tree)
+    public static int FindMinimumDepth(TestBinaryTree<int> tree)
     {
         return MinDepth(tree.Root);
     }

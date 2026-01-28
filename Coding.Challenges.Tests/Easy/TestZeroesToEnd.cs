@@ -4,7 +4,7 @@ namespace Coding.Challenges.Tests.Easy;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class ZeroesToEndTests
+public class TestZeroesToEnd
 {
     private static IEnumerable<TestCaseData> MoveZeroesToEndTestCases()
     {
@@ -22,7 +22,7 @@ public class ZeroesToEndTests
     [TestCaseSource(nameof(MoveZeroesToEndTestCases))]
     public void MoveZeroesToEnd_ReturnsArrayWithZeroesAtEnd(int[] input, int[] expected)
     {
-        Assert.That(ZeroesToEnd.MoveZeroesToEnd(input), Is.EqualTo(expected));
+        Assert.That(Challenges.Easy.TestZeroesToEnd.MoveZeroesToEnd(input), Is.EqualTo(expected));
     }
 
     [Test]
@@ -36,7 +36,7 @@ public class ZeroesToEndTests
     [TestCase(new[] { 1, 2, 3, 0, 0 })]
     public void NoNonZeroElementAfterZeroes(int[] array)
     {
-        var result = ZeroesToEnd.MoveZeroesToEnd(array);
+        var result = Challenges.Easy.TestZeroesToEnd.MoveZeroesToEnd(array);
 
         var nonZeroEncountered = false;
 
@@ -49,6 +49,6 @@ public class ZeroesToEndTests
     [Test]
     public void MoveZeroesToEnd_ThrowsOnNullInput()
     {
-        Assert.Throws<ArgumentNullException>(() => ZeroesToEnd.MoveZeroesToEnd(null));
+        Assert.Throws<ArgumentNullException>(() => Challenges.Easy.TestZeroesToEnd.MoveZeroesToEnd(null));
     }
 }

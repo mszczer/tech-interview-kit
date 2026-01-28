@@ -2,7 +2,7 @@
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
-public class SwapListNodesTests
+public class TestSwapListNodes
 {
     private static IEnumerable<TestCaseData> TestData()
     {
@@ -21,7 +21,7 @@ public class SwapListNodesTests
         var inputList = new LinkedList<int>(inputData);
         var expectedList = new LinkedList<int>(expectedOutput);
 
-        var result = SwapListNodes.SwapNodes(inputList);
+        var result = Challenges.Easy.SwapListNodes.SwapNodes(inputList);
 
         Assert.That(result, Is.EqualTo(expectedList));
     }

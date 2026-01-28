@@ -18,7 +18,7 @@ namespace Coding.Challenges.Easy;
 
 public abstract class PathSumInBinaryTree
 {
-    public static bool IsTargetSumInAnyPath(BinaryTree<int> tree, int sum)
+    public static bool IsTargetSumInAnyPath(TestBinaryTree<int> tree, int sum)
     {
         return HasPathSum(tree.Root, sum);
     }
