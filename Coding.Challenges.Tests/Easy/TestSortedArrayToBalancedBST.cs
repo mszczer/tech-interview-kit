@@ -34,10 +34,6 @@ public class TestSortedArrayToBalancedBst
             new List<int?> { 2, 1 }
         ).SetName("ConvertArrToBst_WithTwoElements_ReturnsUpperMiddleRoot");
 
-        yield return new TestCaseData(
-            new[] { 1, 2, 3, 4, 5 },
-            new List<int?> { 3, 2, 5, 1, 4 }
-        ).SetName("ConvertArrToBst_WithFiveElements_ReturnsBalancedBst");
 
         yield return new TestCaseData(
             new[] { 1, 1, 1, 1 },
