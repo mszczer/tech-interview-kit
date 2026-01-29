@@ -16,9 +16,9 @@ public class TestPathSumInBinaryTree
         Assert.That(result, Is.EqualTo(expected));
     }
 
-    private static TestBinaryTree<int> BuildSampleTree()
+    private static BinaryTree<int> BuildSampleTree()
     {
-        var tree = new TestBinaryTree<int>
+        var tree = new BinaryTree<int>
         {
             Root = new TreeNode<int>(6)
             {

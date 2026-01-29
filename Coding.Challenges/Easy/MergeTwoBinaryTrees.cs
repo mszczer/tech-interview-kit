@@ -28,32 +28,32 @@ namespace Coding.Challenges.Easy;
  *    	 5   4   7
  *
  * Solution:
- *  1. Call GetMergedTree(TestBinaryTree<int>?, TestBinaryTree<int>?) (or GetMergedTreeIterative(TestBinaryTree<int>?, TestBinaryTree<int>?)) with two TestBinaryTree<int>? inputs.
- *  2. If both inputs are null it returns an empty TestBinaryTree<int>(). If one is null it returns the other (note: it returns the same reference).
- *  3. Otherwise, it merges starting from both roots and returns a new TestBinaryTree<int> whose Root is the merged root.
+ *  1. Call GetMergedTree(BinaryTree<int>?, BinaryTree<int>?) (or GetMergedTreeIterative(BinaryTree<int>?, BinaryTree<int>?)) with two BinaryTree<int>? inputs.
+ *  2. If both inputs are null it returns an empty BinaryTree<int>(). If one is null it returns the other (note: it returns the same reference).
+ *  3. Otherwise, it merges starting from both roots and returns a new BinaryTree<int> whose Root is the merged root.
  */
 
 public static class MergeTwoBinaryTrees
 {
     /// <summary>
     /// Merge two binary trees using a recursive approach.
-    /// If both inputs are null, returns an empty <see cref="TestBinaryTree{T}"/>.
+    /// If both inputs are null, returns an empty <see cref="BinaryTree{T}"/>.
     /// If one input is null, returns the non-null tree instance (no cloning in that branch).
-    /// Otherwise, merges starting from both roots and returns a new <see cref="TestBinaryTree{T}"/> whose root is the merged root.
+    /// Otherwise, merges starting from both roots and returns a new <see cref="BinaryTree{T}"/> whose root is the merged root.
     /// </summary>
     /// <param name="firstTree">First binary tree or null.</param>
     /// <param name="secondTree">Second binary tree or null.</param>
     /// <returns>
-    /// A merged <see cref="TestBinaryTree{T}"/>. When one argument is null this method returns the non-null input reference.
+    /// A merged <see cref="BinaryTree{T}"/>. When one argument is null this method returns the non-null input reference.
     /// When both are null an empty tree is returned.
     /// </returns>
     /// <remarks>
     /// Complexity: visits at most all nodes from both trees (O(N) time). Recursive stack depth is O(H) where H is height.
     /// </remarks>
-    public static TestBinaryTree<int>? GetMergedTree(TestBinaryTree<int>? firstTree, TestBinaryTree<int>? secondTree)
+    public static BinaryTree<int>? GetMergedTree(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree)
     {
         if (firstTree == null && secondTree == null)
-            return new TestBinaryTree<int>();
+            return new BinaryTree<int>();
         if (firstTree == null) return secondTree;
         if (secondTree == null) return firstTree;
 
@@ -61,14 +61,14 @@ public static class MergeTwoBinaryTrees
     }
 
     /// <summary>
-    /// Create a new <see cref="TestBinaryTree{T}"/> with its root set to the merge of the two provided roots.
+    /// Create a new <see cref="BinaryTree{T}"/> with its root set to the merge of the two provided roots.
     /// </summary>
     /// <param name="firstRoot">Root node of the first tree (expected non-null).</param>
     /// <param name="secondRoot">Root node of the second tree (expected non-null).</param>
-    /// <returns>A new <see cref="TestBinaryTree{T}"/> whose Root is the merged node.</returns>
-    private static TestBinaryTree<int> MergeTreesFromRoots(TreeNode<int> firstRoot, TreeNode<int> secondRoot)
+    /// <returns>A new <see cref="BinaryTree{T}"/> whose Root is the merged node.</returns>
+    private static BinaryTree<int> MergeTreesFromRoots(TreeNode<int> firstRoot, TreeNode<int> secondRoot)
     {
-        return new TestBinaryTree<int>
+        return new BinaryTree<int>
         {
             Root = MergeNodes(firstRoot, secondRoot)
         };
@@ -123,21 +123,21 @@ public static class MergeTwoBinaryTrees
 
     /// <summary>
     /// Merge two binary trees using an iterative (stack-based) approach.
-    /// If both inputs are null, returns an empty <see cref="TestBinaryTree{T}"/>.
+    /// If both inputs are null, returns an empty <see cref="BinaryTree{T}"/>.
     /// If one input is null, returns the non-null tree instance (no cloning in that branch).
     /// Otherwise, builds a new merged tree using an explicit stack to avoid recursion.
     /// </summary>
     /// <param name="firstTree">First binary tree or null.</param>
     /// <param name="secondTree">Second binary tree or null.</param>
-    /// <returns>A merged <see cref="TestBinaryTree{T}"/>. When one argument is null this method returns the non-null input reference.</returns>
+    /// <returns>A merged <see cref="BinaryTree{T}"/>. When one argument is null this method returns the non-null input reference.</returns>
     /// <remarks>
     /// The algorithm creates summed nodes when both sides exist, and clones entire subtrees when only one side exists using <see cref="CloneNodeIterative"/>.
     /// Time complexity is O(N), uses O(H) auxiliary stack space.
     /// </remarks>
-    public static TestBinaryTree<int>? GetMergedTreeIterative(TestBinaryTree<int>? firstTree, TestBinaryTree<int>? secondTree)
+    public static BinaryTree<int>? GetMergedTreeIterative(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree)
     {
         if (firstTree == null && secondTree == null)
-            return new TestBinaryTree<int>();
+            return new BinaryTree<int>();
         if (firstTree == null) return secondTree;
         if (secondTree == null) return firstTree;
 
@@ -145,7 +145,7 @@ public static class MergeTwoBinaryTrees
         var secondRoot = secondTree.Root!;
 
         var newRoot = new TreeNode<int>(firstRoot.Value + secondRoot.Value);
-        var result = new TestBinaryTree<int> { Root = newRoot };
+        var result = new BinaryTree<int> { Root = newRoot };
 
         var stack = new Stack<(TreeNode<int> NewNode, TreeNode<int> FirstNode, TreeNode<int> SecondNode)>();
         stack.Push((newRoot, firstRoot, secondRoot));
@@ -237,17 +237,17 @@ public static class MergeTwoBinaryTrees
     /// <param name="firstBst">First BST or null.</param>
     /// <param name="secondBst">Second BST or null.</param>
     /// <returns>
-    /// A merged <see cref="TestBinaryTree{T}"/> containing all values from both trees. If one argument is null, returns the non-null reference.
+    /// A merged <see cref="BinaryTree{T}"/> containing all values from both trees. If one argument is null, returns the non-null reference.
     /// If both are null returns an empty tree.
     /// </returns>
     /// <remarks>
     /// This implementation serializes both trees in level-order, concatenates and sorts values, then inserts them into a new BST allowing duplicates.
     /// Time complexity is O(N log N) dominated by sorting and insertions; additional space O(N) is used for the value lists.
     /// </remarks>
-    public static TestBinaryTree<int>? MergeBinarySearchTrees(TestBinaryTree<int>? firstBst, TestBinaryTree<int>? secondBst)
+    public static BinaryTree<int>? MergeBinarySearchTrees(BinaryTree<int>? firstBst, BinaryTree<int>? secondBst)
     {
         if (firstBst == null && secondBst == null)
-            return new TestBinaryTree<int>();
+            return new BinaryTree<int>();
         if (firstBst == null) return secondBst;
         if (secondBst == null) return firstBst;
 
@@ -258,7 +258,7 @@ public static class MergeTwoBinaryTrees
         resultList.AddRange(secondTreeValues);
         resultList.Sort();
 
-        var resultBst = new TestBinaryTree<int>();
+        var resultBst = new BinaryTree<int>();
         foreach (var value in resultList)
             resultBst.InsertBinarySearchAllowDuplicates(value);
 
@@ -274,7 +274,7 @@ public static class MergeTwoBinaryTrees
     /// <remarks>
     /// Null trees are considered mirrors when both are null. Uses a recursive helper to compare mirrored children.
     /// </remarks>
-    public static bool AreTwoBinaryTreesMirrors(TestBinaryTree<int>? firstTree, TestBinaryTree<int>? secondTree) =>
+    public static bool AreTwoBinaryTreesMirrors(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree) =>
         (firstTree?.Root, secondTree?.Root) switch
         {
             (null, null) => true,
@@ -298,7 +298,7 @@ public static class MergeTwoBinaryTrees
     /// <returns>
     /// True if both trees are structurally identical and every corresponding node has the same value; otherwise false.
     /// </returns>
-    public static bool AreTwoBinaryTreeIdentical(TestBinaryTree<int>? firstTree, TestBinaryTree<int>? secondTree) =>
+    public static bool AreTwoBinaryTreeIdentical(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree) =>
         (firstTree?.Root, secondTree?.Root) switch
         {
             (null, null) => true,
@@ -315,7 +315,7 @@ public static class MergeTwoBinaryTrees
             CompareNodes(firstNode.RightNode, secondNode.RightNode)));
 
     /// <summary>
-    /// Determines whether the specified <see cref="TestBinaryTree{T}"/> is a binary search tree (BST).
+    /// Determines whether the specified <see cref="BinaryTree{T}"/> is a binary search tree (BST).
     /// </summary>
     /// <param name="tree">The tree to validate, or <c>null</c>.</param>
     /// <returns>
@@ -326,7 +326,7 @@ public static class MergeTwoBinaryTrees
     /// Uses a range-check helper that enforces strict ordering (no duplicate keys are allowed).
     /// The helper uses 64-bit bounds to avoid integer overflow when propagating limits.
     /// </remarks>
-    public static bool IsTreeBinarySearchTree(TestBinaryTree<int>? tree) =>
+    public static bool IsTreeBinarySearchTree(BinaryTree<int>? tree) =>
         tree?.Root == null || IsBstNode(tree.Root, long.MinValue, long.MaxValue);
 
     /// <summary>
@@ -349,7 +349,7 @@ public static class MergeTwoBinaryTrees
     /// Number of nodes in <paramref name="tree"/> that serve as a root of a subtree which is a valid BST.
     /// Returns 0 when <paramref name="tree"/> is <c>null</c> or empty.
     /// </returns>
-    public static int CountBinarySearchTreesInTree(TestBinaryTree<int>? tree)
+    public static int CountBinarySearchTreesInTree(BinaryTree<int>? tree)
     {
         return tree?.Root == null ? 0 : CountBinarySearchTrees(tree.Root);
     }
@@ -373,12 +373,12 @@ public static class MergeTwoBinaryTrees
     /// If <paramref name="tree"/> is null or empty returns the same reference.
     /// The returned tree is a deep-clone — no nodes are shared with the source.
     /// </summary>
-    public static TestBinaryTree<int>? FlipBinaryTree(TestBinaryTree<int>? tree)
+    public static BinaryTree<int>? FlipBinaryTree(BinaryTree<int>? tree)
     {
         if (tree?.Root == null)
             return tree;
 
-        return new TestBinaryTree<int> { Root = MirrorClone(tree.Root) };
+        return new BinaryTree<int> { Root = MirrorClone(tree.Root) };
     }
 
     /// <summary>
@@ -397,7 +397,7 @@ public static class MergeTwoBinaryTrees
     }
 
     /// <summary>
-    /// Determine whether the specified <see cref="TestBinaryTree{T}"/> contains a node with the given value.
+    /// Determine whether the specified <see cref="BinaryTree{T}"/> contains a node with the given value.
     /// </summary>
     /// <param name="tree">Tree to search or <c>null</c>. If <c>null</c> the method returns <c>false</c>.</param>
     /// <param name="value">Value to search for.</param>
@@ -406,7 +406,7 @@ public static class MergeTwoBinaryTrees
     /// Time complexity: O(N) where N is the number of nodes visited.
     /// Space complexity: O(H) where H is the tree height due to the explicit stack used by the helper.
     /// </remarks>
-    public static bool SearchForValueInTree(TestBinaryTree<int>? tree, int value) =>
+    public static bool SearchForValueInTree(BinaryTree<int>? tree, int value) =>
         tree?.Root != null && IsValueInTree(tree.Root, value);
 
     /// <summary>
@@ -446,7 +446,7 @@ public static class MergeTwoBinaryTrees
 
 
     // ToDo
-    // public static int DistanceBetweenNodes(TestBinaryTree<int>? tree, int value1, int value2);
+    // public static int DistanceBetweenNodes(BinaryTree<int>? tree, int value1, int value2);
 
 }
 

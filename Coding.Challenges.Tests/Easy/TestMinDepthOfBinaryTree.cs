@@ -17,7 +17,7 @@ public class TestMinDepthOfBinaryTree
     [Test]
     public void FindMinimumDepth_EmptyTree_ReturnsZero()
     {
-        var tree = new TestBinaryTree<int>();
+        var tree = new BinaryTree<int>();
         var result = Challenges.Easy.MinDepthOfBinaryTree.FindMinimumDepth(tree);
         Assert.That(result, Is.Zero);
     }
@@ -25,7 +25,7 @@ public class TestMinDepthOfBinaryTree
     [Test]
     public void FindMinimumDepth_SingleNodeTree_ReturnsOne()
     {
-        var tree = new TestBinaryTree<int> { Root = new TreeNode<int>(42) };
+        var tree = new BinaryTree<int> { Root = new TreeNode<int>(42) };
         var result = Challenges.Easy.MinDepthOfBinaryTree.FindMinimumDepth(tree);
         Assert.That(result, Is.EqualTo(1));
     }
@@ -33,7 +33,7 @@ public class TestMinDepthOfBinaryTree
     [Test]
     public void FindMinimumDepth_LeftSkewedTree_ReturnsDepth()
     {
-        var tree = new TestBinaryTree<int>
+        var tree = new BinaryTree<int>
         {
             Root = new TreeNode<int>(1)
             {
@@ -50,7 +50,7 @@ public class TestMinDepthOfBinaryTree
     [Test]
     public void FindMinimumDepth_RightSkewedTree_ReturnsDepth()
     {
-        var tree = new TestBinaryTree<int>
+        var tree = new BinaryTree<int>
         {
             Root = new TreeNode<int>(1)
             {
@@ -67,7 +67,7 @@ public class TestMinDepthOfBinaryTree
     [Test]
     public void FindMinimumDepth_UnbalancedTree_ReturnsShortestLeafDepth()
     {
-        var tree = new TestBinaryTree<int>
+        var tree = new BinaryTree<int>
         {
             Root = new TreeNode<int>(1)
             {
@@ -85,9 +85,9 @@ public class TestMinDepthOfBinaryTree
         Assert.That(result, Is.EqualTo(2));
     }
 
-    private static TestBinaryTree<int> BuildSampleTree()
+    private static BinaryTree<int> BuildSampleTree()
     {
-        var tree = new TestBinaryTree<int>
+        var tree = new BinaryTree<int>
         {
             Root = new TreeNode<int>(10)
             {
