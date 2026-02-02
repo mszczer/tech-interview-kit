@@ -101,4 +101,40 @@ public static class SortedArrayToBalancedBst
 
         return balancedBst;
     }
+
+    public static BinaryTree<int> SortedLinkedListToBalancedBst(LinkedList<int>? sortedList)
+    {
+        if (sortedList == null || sortedList.Count == 0)
+            return new BinaryTree<int>();
+
+        var current = sortedList.First;
+
+        TreeNode<int>? BuildFromRange(int left, int right)
+        {
+            if (left > right) return null;
+
+            var mid = GetMiddle(left, right);
+
+            // build left subtree
+            var leftNode = BuildFromRange(left, mid - 1);
+
+            // current node becomes root
+            if (current == null) return null; 
+            var node = new TreeNode<int>(current.Value)
+            {
+                LeftNode = leftNode
+            };
+
+            // advance the list pointer
+            current = current.Next;
+
+            // build right subtree
+            node.RightNode = BuildFromRange(mid + 1, right);
+
+            return node;
+        }
+
+        var root = BuildFromRange(0, sortedList.Count - 1);
+        return new BinaryTree<int> { Root = root };
+    }
 }

@@ -67,6 +67,17 @@ public class TestSortedArrayToBalancedBst
     }
 
     [Test]
+    [TestCaseSource(nameof(Cases))]
+    public void SortedLinkedListToBalancedBst_ReturnsExpectedLevelOrder(int[] arr, List<int?> expected)
+    {
+        System.Collections.Generic.LinkedList<int>? list = arr == null ? null : new System.Collections.Generic.LinkedList<int>(arr);
+        var tree = SortedArrayToBalancedBst.SortedLinkedListToBalancedBst(list);
+        var serialized = tree.SerializeLevelOrder();
+
+        Assert.That(serialized, Is.EqualTo(expected));
+    }
+
+    [Test]
     public void ConvertArrToBst_RecursiveAndIterative_AreConsistent()
     {
         var testArrays = new[]
