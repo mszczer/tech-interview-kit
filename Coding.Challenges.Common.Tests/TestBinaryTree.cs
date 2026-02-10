@@ -1,4 +1,5 @@
-﻿using Coding.Challenges.Common;
+﻿using System.Collections.Generic;
+using Coding.Challenges.Common;
 
 namespace Coding.Challenges.Common.Tests;
 
@@ -247,5 +248,23 @@ public class TestBinaryTree
         var tree = new BinaryTree<int>();
         tree.InsertChild(1, 2, insertRight: false);
         Assert.That(tree.Root, Is.Null);
+    }
+
+    [Test]
+    public void SerializeInOrderTraversal_ShouldReturnInOrderSequence_ForPerfectBinaryTree()
+    {
+        var tree = new BinaryTree<int>();
+        tree.Insert(1);
+        tree.InsertChild(1, 2, insertRight: false);
+        tree.InsertChild(1, 3, insertRight: true);
+        tree.InsertChild(2, 4, insertRight: false);
+        tree.InsertChild(2, 5, insertRight: true);
+        tree.InsertChild(3, 6, insertRight: false);
+        tree.InsertChild(3, 7, insertRight: true);
+
+        var result = tree.SerializeInOrderTraversal();
+
+        var expected = new List<int?> { 4, 2, 5, 1, 6, 3, 7 };
+        Assert.That(result, Is.EqualTo(expected));
     }
 }
