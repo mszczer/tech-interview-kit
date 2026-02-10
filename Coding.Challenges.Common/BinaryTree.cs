@@ -283,6 +283,38 @@ public class BinaryTree<T>
         return serializedTree;
     }
 
+    /// <summary>
+    ///     Serializes the current tree instance using a pre-order traversal.
+    ///     The sequence follows Root &gt; Left subtree &gt; Right subtree.
+    /// </summary>
+    /// <returns>
+    ///     A list of nullable values representing this tree in pre-order. If the tree is empty, an empty list is returned.
+    /// </returns>
+    public List<T?> SerializePreOrderTraversal()
+    {
+        return SerializePreOrderTraversal(Root);
+    }
+
+    /// <summary>
+    ///     Serializes the subtree rooted at <paramref name="node" /> using a pre-order traversal (Root &gt; Left &gt; Right).
+    ///     This static overload returns node values only (no placeholders). For a null node an empty list is returned.
+    /// </summary>
+    /// <param name="node">The subtree root to serialize.</param>
+    /// <returns>
+    ///     A list of nullable values for the subtree where only existing node values are included.
+    /// </returns>
+    private static List<T?> SerializePreOrderTraversal(TreeNode<T>? node)
+    {
+        var serializedTree = new List<T?>();
+        if (node == null) return serializedTree;
+
+        serializedTree.Add((T?)node.Value);
+        serializedTree.AddRange(SerializePreOrderTraversal(node.LeftNode));
+        serializedTree.AddRange(SerializePreOrderTraversal(node.RightNode));
+        
+        return serializedTree;
+    }
+
     // https://www.geeksforgeeks.org/dsa/tree-traversals-inorder-preorder-and-postorder/
     // https://www.geeksforgeeks.org/dsa/serialize-deserialize-binary-tree/
     // ToDo: Implement traversal methods (pre-order, post-order, level-order) as needed for testing or other purposes.
