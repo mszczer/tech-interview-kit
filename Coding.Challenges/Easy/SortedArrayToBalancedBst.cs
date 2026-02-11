@@ -137,4 +137,12 @@ public static class SortedArrayToBalancedBst
         var root = BuildFromRange(0, sortedList.Count - 1);
         return new BinaryTree<int> { Root = root };
     }
+
+
+
+    //ToDo:
+    //  Sorted order printing of a given array that represents a BST
+    //  Find kth smallest element in BST
+    //  Determine if a tree is a height-balanced tree or not
+    //  Construct a complete binary tree from the given array
 }

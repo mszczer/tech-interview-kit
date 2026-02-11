@@ -12,7 +12,7 @@ public class TestMergeTwoBinaryTrees
     public void MergeResult_MatchesExpectedStructure_LevelOrder()
     {
         var merged = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(BuildFirstTree(), BuildSecondTree());
-        var actual = BinaryTree<int>.SerializeLevelOrder(merged?.Root);
+        var actual = merged?.SerializeLevelOrderTraversal();
         Assert.That(actual, Is.EqualTo(ExpectedSerialized));
     }
 
@@ -20,7 +20,7 @@ public class TestMergeTwoBinaryTrees
     public void MergeIterativeResult_MatchesExpectedStructure_LevelOrder()
     {
         var mergedIterative = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTreeIterative(BuildFirstTree(), BuildSecondTree());
-        var actual = BinaryTree<int>.SerializeLevelOrder(mergedIterative?.Root);
+        var actual = mergedIterative?.SerializeLevelOrderTraversal();
         Assert.That(actual, Is.EqualTo(ExpectedSerialized));
     }
 
@@ -60,7 +60,7 @@ public class TestMergeTwoBinaryTrees
         var a = new BinaryTree<int> { Root = N(3) };
         var b = new BinaryTree<int> { Root = N(4) };
         var merged = Challenges.Easy.MergeTwoBinaryTrees.GetMergedTree(a, b);
-        var serialized = BinaryTree<int>.SerializeLevelOrder(merged?.Root);
+        var serialized = BinaryTree<int>.SerializeInOrderTraversal(merged?.Root);
         Assert.That(serialized, Is.EqualTo(new List<int> { 7 }));
     }
 
@@ -349,7 +349,7 @@ public class TestMergeTwoBinaryTrees
                 N(5, null, N(7)))
         };
 
-        return expectedTree.SerializeLevelOrder();
+        return expectedTree.SerializeLevelOrderTraversal();
     }
 
     private static BinaryTree<int> BuildBstFromValues(IEnumerable<int> values)

@@ -148,56 +148,56 @@ public class BinaryTree<T>
         return false;
     }
 
-    /// <summary>
-    ///     Serializes the subtree rooted at <paramref name="root" /> to a level-order list containing nullable values.
-    /// </summary>
-    /// <remarks>
-    ///     The returned list contains entries in level-order. Missing children are represented by <c>default(T?)</c>.
-    ///     Trailing default/null entries are trimmed to produce a canonical representation.
-    /// </remarks>
-    /// <param name="root">The node to serialize; when <c>null</c>, an empty list is returned.</param>
-    /// <returns>A <see cref="List{T}" /> of nullable values representing the tree in level-order.</returns>
-    public static List<T?> SerializeLevelOrder(TreeNode<T>? root)
-    {
-        var result = new List<T?>();
-        if (root == null) return result;
+    ///// <summary>
+    /////     Serializes the subtree rooted at <paramref name="root" /> to a level-order list containing nullable values.
+    ///// </summary>
+    ///// <remarks>
+    /////     The returned list contains entries in level-order. Missing children are represented by <c>default(T?)</c>.
+    /////     Trailing default/null entries are trimmed to produce a canonical representation.
+    ///// </remarks>
+    ///// <param name="root">The node to serialize; when <c>null</c>, an empty list is returned.</param>
+    ///// <returns>A <see cref="List{T}" /> of nullable values representing the tree in level-order.</returns>
+    //public static List<T?> SerializeLevelOrder(TreeNode<T>? root)
+    //{
+    //    var result = new List<T?>();
+    //    if (root == null) return result;
 
-        var queue = new Queue<TreeNode<T>?>();
-        queue.Enqueue(root);
+    //    var queue = new Queue<TreeNode<T>?>();
+    //    queue.Enqueue(root);
 
-        while (queue.Count > 0)
-        {
-            var node = queue.Dequeue();
-            if (node == null)
-            {
-                result.Add(default);
-                continue;
-            }
+    //    while (queue.Count > 0)
+    //    {
+    //        var node = queue.Dequeue();
+    //        if (node == null)
+    //        {
+    //            result.Add(default);
+    //            continue;
+    //        }
 
-            // Add the node value as nullable (T?)
-            result.Add((T?)node.Value);
+    //        // Add the node value as nullable (T?)
+    //        result.Add((T?)node.Value);
 
-            // Enqueue children (even if null) so structure is preserved
-            queue.Enqueue(node.LeftNode);
-            queue.Enqueue(node.RightNode);
-        }
+    //        // Enqueue children (even if null) so structure is preserved
+    //        queue.Enqueue(node.LeftNode);
+    //        queue.Enqueue(node.RightNode);
+    //    }
 
-        // Trim trailing nulls for a canonical representation
-        var defaultValue = default(T?);
-        for (var i = result.Count - 1; i >= 0 && EqualityComparer<T?>.Default.Equals(result[i], defaultValue); i--)
-            result.RemoveAt(i);
+    //    // Trim trailing nulls for a canonical representation
+    //    var defaultValue = default(T?);
+    //    for (var i = result.Count - 1; i >= 0 && EqualityComparer<T?>.Default.Equals(result[i], defaultValue); i--)
+    //        result.RemoveAt(i);
 
-        return result;
-    }
+    //    return result;
+    //}
 
-    /// <summary>
-    ///     Serializes the current tree instance to a level-order list containing nullable values.
-    /// </summary>
-    /// <returns>A list of nullable values representing this tree in level-order.</returns>
-    public List<T?> SerializeLevelOrder()
-    {
-        return SerializeLevelOrder(Root);
-    }
+    ///// <summary>
+    /////     Serializes the current tree instance to a level-order list containing nullable values.
+    ///// </summary>
+    ///// <returns>A list of nullable values representing this tree in level-order.</returns>
+    //public List<T?> SerializeLevelOrder()
+    //{
+    //    return SerializeLevelOrder(Root);
+    //}
 
     /// <summary>
     ///     Inserts a value into the tree using binary-search-tree ordering.
@@ -346,6 +346,51 @@ public class BinaryTree<T>
 
         return serializedTree;
     }
+
+    public List<T?> SerializeLevelOrderTraversal()
+    {
+        return SerializeLevelOrderTraversal(Root);
+    }
+
+    private static List<T?> SerializeLevelOrderTraversal(TreeNode<T>? node)
+    {
+        // LevelOrder(tree)
+        //  Create an empty queue Q
+        //  Enqueue the root node of the tree to Q
+        //  Loop while Q is not empty
+        //  Dequeue a node from Q and visit it 
+        //  Enqueue the left child of the dequeued node if it exists
+        //  Enqueue the right child of the dequeued node if it exists.
+
+        var serializedTree = new List<T?>();
+        if (node == null) return serializedTree;
+
+        var queue = new Queue<TreeNode<T>?>();
+        
+        queue.Enqueue(node);
+        
+        while (queue.Count > 0)
+        {
+            var currentNode = queue.Dequeue();
+            if (currentNode == null)
+            {
+                serializedTree.Add(default);
+                continue;
+            }
+            serializedTree.Add((T?)currentNode.Value);
+            queue.Enqueue(currentNode.LeftNode);
+            queue.Enqueue(currentNode.RightNode);
+        }
+
+        // Trim trailing nulls for a canonical representation
+        var defaultValue = default(T?);
+        for (var i = serializedTree.Count - 1; i >= 0 && EqualityComparer<T?>.Default.Equals(serializedTree[i], defaultValue); i--)
+            serializedTree.RemoveAt(i);
+
+        return serializedTree;
+
+    }
+
 
     // https://www.geeksforgeeks.org/dsa/tree-traversals-inorder-preorder-and-postorder/
     // https://www.geeksforgeeks.org/dsa/serialize-deserialize-binary-tree/

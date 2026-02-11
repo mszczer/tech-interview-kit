@@ -167,7 +167,8 @@ public static class MergeTwoBinaryTrees
                 }
                 else
                 {
-                    currNew.LeftNode = CloneNodeIterative(firstLeft ?? secondLeft);
+                    // Use the recursive CloneNode to match the behavior and structure produced by the recursive merge.
+                    currNew.LeftNode = CloneNode(firstLeft ?? secondLeft);
                 }
             }
 
@@ -184,7 +185,8 @@ public static class MergeTwoBinaryTrees
                 }
                 else
                 {
-                    currNew.RightNode = CloneNodeIterative(firstRight ?? secondRight);
+                    // Use the recursive CloneNode to match the behavior and structure produced by the recursive merge.
+                    currNew.RightNode = CloneNode(firstRight ?? secondRight);
                 }
             }
         }
@@ -251,8 +253,8 @@ public static class MergeTwoBinaryTrees
         if (firstBst == null) return secondBst;
         if (secondBst == null) return firstBst;
 
-        var firstTreeValues = firstBst.SerializeLevelOrder();
-        var secondTreeValues = secondBst.SerializeLevelOrder();
+        var firstTreeValues = firstBst.SerializeLevelOrderTraversal();
+        var secondTreeValues = secondBst.SerializeLevelOrderTraversal();
         var resultList = new List<int>();
         resultList.AddRange(firstTreeValues);
         resultList.AddRange(secondTreeValues);

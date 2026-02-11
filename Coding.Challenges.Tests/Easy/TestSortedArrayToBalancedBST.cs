@@ -51,7 +51,7 @@ public class TestSortedArrayToBalancedBst
     public void ConvertArrToBst_ReturnsExpectedLevelOrder(int[] arr, List<int?> expected)
     {
         var tree = SortedArrayToBalancedBst.ConvertArrToBst(arr);
-        var serialized = tree.SerializeLevelOrder();
+        var serialized = tree.SerializeLevelOrderTraversal();
 
         Assert.That(serialized, Is.EqualTo(expected));
     }
@@ -61,7 +61,7 @@ public class TestSortedArrayToBalancedBst
     public void ConvertArrToBstIterative_ReturnsExpectedLevelOrder(int[] arr, List<int?> expected)
     {
         var tree = SortedArrayToBalancedBst.ConvertArrToBstIterative(arr);
-        var serialized = tree.SerializeLevelOrder();
+        var serialized = tree.SerializeLevelOrderTraversal();
 
         Assert.That(serialized, Is.EqualTo(expected));
     }
@@ -72,7 +72,7 @@ public class TestSortedArrayToBalancedBst
     {
         System.Collections.Generic.LinkedList<int>? list = arr == null ? null : new System.Collections.Generic.LinkedList<int>(arr);
         var tree = SortedArrayToBalancedBst.SortedLinkedListToBalancedBst(list);
-        var serialized = tree.SerializeLevelOrder();
+        var serialized = tree.SerializeLevelOrderTraversal();
 
         Assert.That(serialized, Is.EqualTo(expected));
     }
@@ -93,8 +93,8 @@ public class TestSortedArrayToBalancedBst
 
         foreach (var arr in testArrays)
         {
-            var recursive = SortedArrayToBalancedBst.ConvertArrToBst(arr).SerializeLevelOrder();
-            var iterative = SortedArrayToBalancedBst.ConvertArrToBstIterative(arr).SerializeLevelOrder();
+            var recursive = SortedArrayToBalancedBst.ConvertArrToBst(arr).SerializeLevelOrderTraversal();
+            var iterative = SortedArrayToBalancedBst.ConvertArrToBstIterative(arr).SerializeLevelOrderTraversal();
             Assert.That(iterative, Is.EqualTo(recursive), $"Mismatch for input: [{string.Join(',', arr)}]");
         }
     }
@@ -106,8 +106,8 @@ public class TestSortedArrayToBalancedBst
         var arr = new int[n];
         for (var i = 0; i < n; i++) arr[i] = i;
 
-        var recursive = SortedArrayToBalancedBst.ConvertArrToBst(arr).SerializeLevelOrder();
-        var iterative = SortedArrayToBalancedBst.ConvertArrToBstIterative(arr).SerializeLevelOrder();
+        var recursive = SortedArrayToBalancedBst.ConvertArrToBst(arr).SerializeLevelOrderTraversal();
+        var iterative = SortedArrayToBalancedBst.ConvertArrToBstIterative(arr).SerializeLevelOrderTraversal();
 
         Assert.That(iterative, Is.EqualTo(recursive));
     }

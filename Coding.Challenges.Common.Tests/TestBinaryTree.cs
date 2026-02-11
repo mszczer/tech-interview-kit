@@ -303,4 +303,22 @@ public class TestBinaryTree
         var expected = new List<int?> { 4,5,2,6,7,3,1 };
         Assert.That(result, Is.EqualTo(expected));
     }
+
+    [Test]
+    public void SerializeLevelOrderTraversal_ShouldReturnInOrderSequence_ForPerfectBinaryTree()
+    {
+        var tree = new BinaryTree<int>();
+        tree.Insert(1);
+        tree.InsertChild(1, 2, insertRight: false);
+        tree.InsertChild(1, 3, insertRight: true);
+        tree.InsertChild(2, 4, insertRight: false);
+        tree.InsertChild(2, 5, insertRight: true);
+        tree.InsertChild(3, 6, insertRight: false);
+        tree.InsertChild(3, 7, insertRight: true);
+
+        var result = tree.SerializeLevelOrderTraversal();
+
+        var expected = new List<int?> { 1,2,3,4,5,6,7};
+        Assert.That(result, Is.EqualTo(expected));
+    }
 }
