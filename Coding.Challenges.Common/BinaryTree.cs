@@ -148,57 +148,6 @@ public class BinaryTree<T>
         return false;
     }
 
-    ///// <summary>
-    /////     Serializes the subtree rooted at <paramref name="root" /> to a level-order list containing nullable values.
-    ///// </summary>
-    ///// <remarks>
-    /////     The returned list contains entries in level-order. Missing children are represented by <c>default(T?)</c>.
-    /////     Trailing default/null entries are trimmed to produce a canonical representation.
-    ///// </remarks>
-    ///// <param name="root">The node to serialize; when <c>null</c>, an empty list is returned.</param>
-    ///// <returns>A <see cref="List{T}" /> of nullable values representing the tree in level-order.</returns>
-    //public static List<T?> SerializeLevelOrder(TreeNode<T>? root)
-    //{
-    //    var result = new List<T?>();
-    //    if (root == null) return result;
-
-    //    var queue = new Queue<TreeNode<T>?>();
-    //    queue.Enqueue(root);
-
-    //    while (queue.Count > 0)
-    //    {
-    //        var node = queue.Dequeue();
-    //        if (node == null)
-    //        {
-    //            result.Add(default);
-    //            continue;
-    //        }
-
-    //        // Add the node value as nullable (T?)
-    //        result.Add((T?)node.Value);
-
-    //        // Enqueue children (even if null) so structure is preserved
-    //        queue.Enqueue(node.LeftNode);
-    //        queue.Enqueue(node.RightNode);
-    //    }
-
-    //    // Trim trailing nulls for a canonical representation
-    //    var defaultValue = default(T?);
-    //    for (var i = result.Count - 1; i >= 0 && EqualityComparer<T?>.Default.Equals(result[i], defaultValue); i--)
-    //        result.RemoveAt(i);
-
-    //    return result;
-    //}
-
-    ///// <summary>
-    /////     Serializes the current tree instance to a level-order list containing nullable values.
-    ///// </summary>
-    ///// <returns>A list of nullable values representing this tree in level-order.</returns>
-    //public List<T?> SerializeLevelOrder()
-    //{
-    //    return SerializeLevelOrder(Root);
-    //}
-
     /// <summary>
     ///     Inserts a value into the tree using binary-search-tree ordering.
     ///     Duplicates are placed in the left subtree.
@@ -347,21 +296,36 @@ public class BinaryTree<T>
         return serializedTree;
     }
 
+    /// <summary>
+    ///     Serializes the current tree instance using a level-order traversal (breadth-first).
+    /// </summary>
+    /// <returns>
+    ///     A list of nullable values representing this tree in level-order. If the tree is empty, an empty list is returned.
+    /// </returns>
+    /// <remarks>
+    ///     Missing children are represented by <c>default(T?)</c> placeholders to preserve tree structure during traversal.
+    ///     Trailing placeholder values are trimmed to produce a canonical representation.
+    /// </remarks>
     public List<T?> SerializeLevelOrderTraversal()
     {
         return SerializeLevelOrderTraversal(Root);
     }
 
+    /// <summary>
+    ///     Serializes the subtree rooted at <paramref name="node" /> using a level-order traversal (breadth-first).
+    ///     Missing children are represented by <c>default(T?)</c> placeholders in the returned list.
+    /// </summary>
+    /// <param name="node">The subtree root to serialize, or <c>null</c> to indicate an empty subtree.</param>
+    /// <returns>
+    ///     A list of nullable values for the subtree where missing children are represented by <c>default(T?)</c> placeholders.
+    ///     Trailing placeholder values are removed from the returned list.
+    /// </returns>
+    /// <remarks>
+    ///     The method enqueues <c>null</c> placeholders while traversing to preserve the exact tree shape, then trims trailing
+    ///     <c>default(T?)</c> values for a canonical output suitable for comparisons and tests.
+    /// </remarks>
     private static List<T?> SerializeLevelOrderTraversal(TreeNode<T>? node)
     {
-        // LevelOrder(tree)
-        //  Create an empty queue Q
-        //  Enqueue the root node of the tree to Q
-        //  Loop while Q is not empty
-        //  Dequeue a node from Q and visit it 
-        //  Enqueue the left child of the dequeued node if it exists
-        //  Enqueue the right child of the dequeued node if it exists.
-
         var serializedTree = new List<T?>();
         if (node == null) return serializedTree;
 
