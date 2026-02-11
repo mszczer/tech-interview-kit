@@ -213,7 +213,8 @@ public class BinaryTree<T>
     }
 
     /// <summary>
-    ///     Serializes the subtree rooted at <paramref name="node" /> using an in-order traversal (Left subtree &gt; Root &gt; Right subtree).
+    ///     Serializes the subtree rooted at <paramref name="node" /> using an in-order traversal (Left subtree &gt; Root &gt;
+    ///     Right subtree).
     ///     This static overload returns node values only (no placeholders). For a null node an empty list is returned.
     /// </summary>
     /// <param name="node">The subtree root to serialize.</param>
@@ -260,7 +261,7 @@ public class BinaryTree<T>
         serializedTree.Add((T?)node.Value);
         serializedTree.AddRange(SerializePreOrderTraversal(node.LeftNode));
         serializedTree.AddRange(SerializePreOrderTraversal(node.RightNode));
-        
+
         return serializedTree;
     }
 
@@ -317,7 +318,8 @@ public class BinaryTree<T>
     /// </summary>
     /// <param name="node">The subtree root to serialize, or <c>null</c> to indicate an empty subtree.</param>
     /// <returns>
-    ///     A list of nullable values for the subtree where missing children are represented by <c>default(T?)</c> placeholders.
+    ///     A list of nullable values for the subtree where missing children are represented by <c>default(T?)</c>
+    ///     placeholders.
     ///     Trailing placeholder values are removed from the returned list.
     /// </returns>
     /// <remarks>
@@ -330,9 +332,9 @@ public class BinaryTree<T>
         if (node == null) return serializedTree;
 
         var queue = new Queue<TreeNode<T>?>();
-        
+
         queue.Enqueue(node);
-        
+
         while (queue.Count > 0)
         {
             var currentNode = queue.Dequeue();
@@ -341,6 +343,7 @@ public class BinaryTree<T>
                 serializedTree.Add(default);
                 continue;
             }
+
             serializedTree.Add((T?)currentNode.Value);
             queue.Enqueue(currentNode.LeftNode);
             queue.Enqueue(currentNode.RightNode);
@@ -348,15 +351,11 @@ public class BinaryTree<T>
 
         // Trim trailing nulls for a canonical representation
         var defaultValue = default(T?);
-        for (var i = serializedTree.Count - 1; i >= 0 && EqualityComparer<T?>.Default.Equals(serializedTree[i], defaultValue); i--)
+        for (var i = serializedTree.Count - 1;
+             i >= 0 && EqualityComparer<T?>.Default.Equals(serializedTree[i], defaultValue);
+             i--)
             serializedTree.RemoveAt(i);
 
         return serializedTree;
-
     }
-
-
-    // https://www.geeksforgeeks.org/dsa/tree-traversals-inorder-preorder-and-postorder/
-    // https://www.geeksforgeeks.org/dsa/serialize-deserialize-binary-tree/
-    // ToDo: Implement traversal methods (level-order) as needed for testing or other purposes.
 }
