@@ -31,6 +31,39 @@ public class TestBinaryTree
         return tree;
     }
 
+    // Helper to create a tree by manually wiring nodes.
+    // Usage: CreateTreeFromStructure(rootValue, (parent, value, insertRight), ...)
+    private static BinaryTree<int> CreateTreeFromStructure(int rootValue, params (int parent, int value, bool insertRight)[] edges)
+    {
+        var tree = new BinaryTree<int>();
+        tree.Root = new TreeNode<int>(rootValue);
+        var nodes = new Dictionary<int, TreeNode<int>> { [rootValue] = tree.Root };
+
+        foreach (var edge in edges)
+        {
+            if (!nodes.TryGetValue(edge.parent, out var parentNode))
+            {
+                // parent not yet created - create and add (this supports out-of-order edges if needed)
+                parentNode = new TreeNode<int>(edge.parent);
+                nodes[edge.parent] = parentNode;
+            }
+
+            var childNode = new TreeNode<int>(edge.value);
+            if (edge.insertRight)
+            {
+                parentNode.RightNode = childNode;
+            }
+            else
+            {
+                parentNode.LeftNode = childNode;
+            }
+
+            nodes[edge.value] = childNode;
+        }
+
+        return tree;
+    }
+
     [Test]
     public void Insert_ShouldSetRoot_WhenTreeIsEmpty_RootIsNotNull()
     {
@@ -266,5 +299,39 @@ public class TestBinaryTree
         var result = tree.SerializeLevelOrderTraversal();
         var expected = new List<int?> { 1, 2, 3, 4, 5, 6, 7 };
         Assert.That(result, Is.EqualTo(expected));
+    }
+
+    private static IEnumerable<TestCaseData> GetDepthCases()
+    {
+        yield return new TestCaseData(
+            CreateTreeFromStructure(
+                12,
+                (12, 8, false),
+                (12, 18, true),
+                (8, 5, false),
+                (8, 11, true)
+            ),
+            2
+        ).SetName("GetDepth_ShouldReturnTwo_ForGivenTree_Case1");
+
+        yield return new TestCaseData(
+            CreateTreeFromStructure(
+                1,
+                (1, 2, false),
+                (1, 3, true),
+                (2, 4, false),
+                (3, 5, true),
+                (5, 6, false),
+                (5, 7, true)
+            ),
+            3
+        ).SetName("GetDepth_ShouldReturnThree_ForGivenTree_Case2");
+    }
+
+    [Test]
+    [TestCaseSource(nameof(GetDepthCases))]
+    public void GetDepth_ShouldReturnExpected_ForGivenTree(BinaryTree<int> tree, int expected)
+    {
+        Assert.That(tree.GetDepth(), Is.EqualTo(expected));
     }
 }

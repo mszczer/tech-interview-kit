@@ -358,4 +358,20 @@ public class BinaryTree<T>
 
         return serializedTree;
     }
+
+    /// <summary>
+    ///     Returns the depth of the tree measured in edges (distance from root to the deepest leaf).
+    ///     For an empty tree this returns 0. A single-node tree returns 0.
+    /// </summary>
+    /// <returns>Depth measured in edges.</returns>
+    public int GetDepth()
+    {
+        return Root == null ? 0 : GetDepthInternal(Root);
+    }
+
+    private static int GetDepthInternal(TreeNode<T>? node)
+    {
+        if (node == null) return -1;
+        return Math.Max(GetDepthInternal(node.LeftNode), GetDepthInternal(node.RightNode)) + 1;
+    }
 }
