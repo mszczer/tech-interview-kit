@@ -70,7 +70,7 @@ public class TestSortedArrayToBalancedBst
     [TestCaseSource(nameof(Cases))]
     public void SortedLinkedListToBalancedBst_ReturnsExpectedLevelOrder(int[] arr, List<int?> expected)
     {
-        System.Collections.Generic.LinkedList<int>? list = arr == null ? null : new System.Collections.Generic.LinkedList<int>(arr);
+        var list = arr == null ? null : new LinkedList<int>(arr);
         var tree = SortedArrayToBalancedBst.SortedLinkedListToBalancedBst(list);
         var serialized = tree.SerializeLevelOrderTraversal();
 
@@ -110,5 +110,56 @@ public class TestSortedArrayToBalancedBst
         var iterative = SortedArrayToBalancedBst.ConvertArrToBstIterative(arr).SerializeLevelOrderTraversal();
 
         Assert.That(iterative, Is.EqualTo(recursive));
+    }
+
+    private static IEnumerable<TestCaseData> FindKthSuccessCases()
+    {
+        yield return new TestCaseData(new[] { 1, 2, 3, 4, 5 }, 1, 1).SetName("FindKth_FirstElement");
+        yield return new TestCaseData(new[] { 1, 2, 3, 4, 5 }, 3, 3).SetName("FindKth_MiddleElement");
+        yield return new TestCaseData(new[] { 1, 2, 3, 4, 5 }, 5, 5).SetName("FindKth_LastElement");
+
+        yield return new TestCaseData(new[] { 1, 1, 1, 1 }, 1, 1).SetName("FindKth_Duplicates_K1");
+        yield return new TestCaseData(new[] { 1, 1, 1, 1 }, 2, 1).SetName("FindKth_Duplicates_K2");
+        yield return new TestCaseData(new[] { 1, 1, 1, 1 }, 4, 1).SetName("FindKth_Duplicates_K4");
+
+        yield return new TestCaseData(new[] { -5, -3, 0, 2, 10 }, 3, 0).SetName("FindKth_MixedValues");
+    }
+
+    [Test]
+    [TestCaseSource(nameof(FindKthSuccessCases))]
+    public void FindKthSmallestElementInBst_Succeeds(int[] arr, int k, int expected)
+    {
+        var bst = SortedArrayToBalancedBst.ConvertArrToBst(arr);
+        var result = SortedArrayToBalancedBst.FindKthSmallestElementInBst(k, bst);
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    private static IEnumerable<TestCaseData> FindKthInvalidKCases()
+    {
+        yield return new TestCaseData(new[] { 1, 2, 3 }, 0).SetName("FindKth_InvalidK_Zero");
+        yield return new TestCaseData(new[] { 1, 2, 3 }, 4).SetName("FindKth_InvalidK_GreaterThanCount");
+    }
+
+    [Test]
+    [TestCaseSource(nameof(FindKthInvalidKCases))]
+    public void FindKthSmallestElementInBst_InvalidK_ThrowsArgumentOutOfRange(int[] arr, int k)
+    {
+        var bst = SortedArrayToBalancedBst.ConvertArrToBst(arr);
+        Assert.Throws<ArgumentOutOfRangeException>(() => SortedArrayToBalancedBst.FindKthSmallestElementInBst(k, bst));
+    }
+
+    private static IEnumerable<TestCaseData> FindKthInvalidBstCases()
+    {
+        yield return new TestCaseData(null, 1).SetName("FindKth_NullBst_Throws");
+        yield return new TestCaseData(Array.Empty<int>(), 1).SetName("FindKth_EmptyBst_Throws");
+    }
+
+    [Test]
+    [TestCaseSource(nameof(FindKthInvalidBstCases))]
+    public void FindKthSmallestElementInBst_NullOrEmptyBst_ThrowsArgumentException(int[]? arr, int k)
+    {
+        var bst = arr is null ? null : SortedArrayToBalancedBst.ConvertArrToBst(arr);
+        Assert.Throws<ArgumentException>(() => SortedArrayToBalancedBst.FindKthSmallestElementInBst(k, bst));
     }
 }

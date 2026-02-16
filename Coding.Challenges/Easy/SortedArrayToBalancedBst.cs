@@ -119,7 +119,7 @@ public static class SortedArrayToBalancedBst
             var leftNode = BuildFromRange(left, mid - 1);
 
             // current node becomes root
-            if (current == null) return null; 
+            if (current == null) return null;
             var node = new TreeNode<int>(current.Value)
             {
                 LeftNode = leftNode
@@ -138,11 +138,48 @@ public static class SortedArrayToBalancedBst
         return new BinaryTree<int> { Root = root };
     }
 
+    /// <summary>
+    ///     Returns the k-th smallest element in the given BST (1-based).
+    ///     Uses an iterative in-order traversal (left, node, right) which visits nodes in ascending order for a BST.
+    /// </summary>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="bst" /> is null or the BST root is null (empty tree).</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     Thrown when <paramref name="k" /> is not positive or is greater than the
+    ///     number of nodes.
+    /// </exception>
+    public static int FindKthSmallestElementInBst(int k, BinaryTree<int> bst)
+    {
+        if (bst?.Root == null)
+            throw new ArgumentException("BST is null or empty.", nameof(bst));
+        if (k <= 0)
+            throw new ArgumentOutOfRangeException(nameof(k), "k must be a positive integer.");
+
+        var stack = new Stack<TreeNode<int>>();
+        var current = bst.Root;
+        var count = 0;
+
+        while (stack.Count > 0 || current != null)
+        {
+            while (current != null)
+            {
+                stack.Push(current);
+                current = current.LeftNode;
+            }
+
+            current = stack.Pop();
+            count++;
+            if (count == k)
+                return current.Value;
+
+            current = current.RightNode;
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(k), "k is greater than the number of nodes in the BST.");
+    }
 
 
     //ToDo:
     //  Sorted order printing of a given array that represents a BST
-    //  Find kth smallest element in BST
     //  Determine if a tree is a height-balanced tree or not
     //  Construct a complete binary tree from the given array
 }
