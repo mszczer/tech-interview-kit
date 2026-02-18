@@ -178,8 +178,7 @@ public static class SortedArrayToBalancedBst
     }
 
 
-    //ToDo:
-    //  Sorted order printing of a given array that represents a BST
-    //  Determine if a tree is a height-balanced tree or not
-    //  Construct a complete binary tree from the given array
+    // ToDo:
+    //  1. Sorted order printing of a given array that represents a BST
+    //  2. Construct a complete binary tree from the given array
 }

@@ -374,4 +374,33 @@ public class BinaryTree<T>
         if (node == null) return -1;
         return Math.Max(GetDepthInternal(node.LeftNode), GetDepthInternal(node.RightNode)) + 1;
     }
+
+    /// <summary>
+    ///     Determines whether the current tree is height-balanced.
+    ///     Uses a simple recursive implementation: at each node compare subtree heights and recurse.
+    ///     An empty tree is considered balanced.
+    /// </summary>
+    /// <returns><c>true</c> when the tree is height-balanced; otherwise <c>false</c>.</returns>
+    public bool IsTreeHeightBalanced()
+    {
+        return CheckBalanced(Root);
+    }
+
+    private static bool CheckBalanced(TreeNode<T>? node)
+    {
+        if (node == null) return true;
+
+        var leftHeight = GetDepthInternal(node.LeftNode);
+        var rightHeight = GetDepthInternal(node.RightNode);
+
+        if (Math.Abs(leftHeight - rightHeight) > 1) return false;
+
+        return CheckBalanced(node.LeftNode) && CheckBalanced(node.RightNode);
+    }
 }
+
+// Determine if a tree is a height-balanced tree or not. A binary tree is considered height-balanced (also known as a balanced binary tree)
+// if it satisfies these three conditions for every node in the tree:
+// 1. The absolute difference between the heights of the left subtree and the right subtree is no more than 1.
+// 2. The left subtree is itself height-balanced.
+// 3. The right subtree is itself height-balanced

@@ -301,6 +301,64 @@ public class TestBinaryTree
         Assert.That(result, Is.EqualTo(expected));
     }
 
+    [Test]
+    public void IsTreeHeightBalanced_ShouldReturnTrue_ForEmptyTree()
+    {
+        var tree = new BinaryTree<int>();
+        Assert.That(tree.IsTreeHeightBalanced(), Is.True);
+    }
+
+    [Test]
+    public void IsTreeHeightBalanced_ShouldReturnTrue_ForSingleNode()
+    {
+        var tree = CreateTree(1);
+        Assert.That(tree.IsTreeHeightBalanced(), Is.True);
+    }
+
+    [Test]
+    public void IsTreeHeightBalanced_ShouldReturnTrue_ForPerfectTree()
+    {
+        var tree = CreatePerfectTree();
+        Assert.That(tree.IsTreeHeightBalanced(), Is.True);
+    }
+
+    [Test]
+    public void IsTreeHeightBalanced_ShouldReturnFalse_ForLeftHeavyChain()
+    {
+        // Chain of left children: 1 -> 2 -> 3 -> 4 (unbalanced)
+        var tree = CreateTreeFromStructure(1, (1, 2, false), (2, 3, false), (3, 4, false));
+        Assert.That(tree.IsTreeHeightBalanced(), Is.False);
+    }
+
+    [Test]
+    public void IsTreeHeightBalanced_ShouldReturnFalse_ForUnbalancedSubtree()
+    {
+        // Left subtree is deeper by more than 1 due to a deep chain under left child
+        // Structure:
+        //      1
+        //     / \
+        //    2   3
+        //   /
+        //  4
+        // /
+        //5   => node 1 left height 3, right height 0 -> unbalanced
+        var tree = CreateTreeFromStructure(1, (1, 2, false), (1, 3, true), (2, 4, false), (4, 5, false));
+        Assert.That(tree.IsTreeHeightBalanced(), Is.False);
+    }
+
+    [Test]
+    public void IsTreeHeightBalanced_ShouldReturnTrue_ForDifferentShapes_Balanced()
+    {
+        // Different shapes but balanced:
+        //    1
+        //   / \
+        //  2   3
+        // /     \
+        //4       5
+        var tree = CreateTreeFromStructure(1, (1, 2, false), (1, 3, true), (2, 4, false), (3, 5, true));
+        Assert.That(tree.IsTreeHeightBalanced(), Is.True);
+    }
+
     private static IEnumerable<TestCaseData> GetDepthCases()
     {
         yield return new TestCaseData(
