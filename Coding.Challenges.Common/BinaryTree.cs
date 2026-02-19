@@ -399,8 +399,3 @@ public class BinaryTree<T>
     }
 }
 
-// Determine if a tree is a height-balanced tree or not. A binary tree is considered height-balanced (also known as a balanced binary tree)
-// if it satisfies these three conditions for every node in the tree:
-// 1. The absolute difference between the heights of the left subtree and the right subtree is no more than 1.
-// 2. The left subtree is itself height-balanced.
-// 3. The right subtree is itself height-balanced

@@ -178,7 +178,5 @@ public static class SortedArrayToBalancedBst
     }
 
 
-    // ToDo:
-    //  1. Sorted order printing of a given array that represents a BST
-    //  2. Construct a complete binary tree from the given array
+    // ToDo: Sorted order printing of a given array that represents a BST
 }
