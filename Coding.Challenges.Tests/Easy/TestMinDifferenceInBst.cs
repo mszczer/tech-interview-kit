@@ -9,22 +9,7 @@ public class TestMinDifferenceInBst
     [Test]
     public void MinDiffInTree_SampleBst_ReturnsOne()
     {
-        var tree = new BinaryTree<int>
-        {
-            Root = new TreeNode<int>(7)
-            {
-                LeftNode = new TreeNode<int>(3)
-                {
-                    LeftNode = new TreeNode<int>(2),
-                    RightNode = new TreeNode<int>(5)
-                },
-                RightNode = new TreeNode<int>(10)
-                {
-                    LeftNode = new TreeNode<int>(8),
-                    RightNode = new TreeNode<int>(12)
-                }
-            }
-        };
+        var tree = CreateSampleTree();
 
         var result = MinDifferenceInBst.MinDiffInTree(tree);
         Assert.That(result, Is.EqualTo(1));
@@ -95,5 +80,88 @@ public class TestMinDifferenceInBst
 
         var result = MinDifferenceInBst.MinDiffInTree(tree);
         Assert.That(result, Is.EqualTo(2));
+    }
+
+    [Test]
+    [TestCase(12, true)]
+    [TestCase(25, false)]
+    public void FindPairWithGivenSumInBst_SampleBst_VariousSums_ReturnsExpected(int givenSum, bool expected)
+    {
+        var tree = CreateSampleTree();
+
+        var result = MinDifferenceInBst.FindPairWithGivenSumInBst(tree, givenSum);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void FindPairWithGivenSumInBst_NullTree_ReturnsFalse()
+    {
+        BinaryTree<int>? tree = null;
+
+        var result = MinDifferenceInBst.FindPairWithGivenSumInBst(tree, 10);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void FindPairWithGivenSumInBst_SingleNode_ReturnsFalse()
+    {
+        var tree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(5)
+        };
+
+        var result = MinDifferenceInBst.FindPairWithGivenSumInBst(tree, 10);
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void FindPairWithGivenSumInBst_DuplicateValues_ReturnsTrue()
+    {
+        var tree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(5)
+            {
+                RightNode = new TreeNode<int>(5)
+            }
+        };
+
+        var result = MinDifferenceInBst.FindPairWithGivenSumInBst(tree, 10);
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void FindPairWithGivenSumInBst_NegativeValues_Works()
+    {
+        var tree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(-6)
+            {
+                LeftNode = new TreeNode<int>(-7),
+                RightNode = new TreeNode<int>(-5)
+            }
+        };
+
+        var result = MinDifferenceInBst.FindPairWithGivenSumInBst(tree, -12);
+        Assert.That(result, Is.True);
+    }
+
+    private static BinaryTree<int> CreateSampleTree()
+    {
+        return new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(7)
+            {
+                LeftNode = new TreeNode<int>(3)
+                {
+                    LeftNode = new TreeNode<int>(2),
+                    RightNode = new TreeNode<int>(5)
+                },
+                RightNode = new TreeNode<int>(10)
+                {
+                    LeftNode = new TreeNode<int>(8),
+                    RightNode = new TreeNode<int>(12)
+                }
+            }
+        };
     }
 }
