@@ -32,20 +32,35 @@ public static class MinDifferenceInBst
         if (tree?.Root == null)
             return 0;
 
-        var serializedTree = tree.SerializeInOrderTraversal();
-
-        if (serializedTree.Count < 2)
-            return 0;
-
+        // Iterative in-order traversal to compute adjacent differences without materializing full list.
         var minDiff = int.MaxValue;
-        for (var i = 1; i < serializedTree.Count; i++)
+        int? previous = null;
+
+        var stack = new Stack<TreeNode<int>>();
+        var node = tree.Root;
+
+        while (stack.Count > 0 || node != null)
         {
-            var diff = serializedTree[i] - serializedTree[i - 1];
-            if (diff < minDiff)
-                minDiff = diff;
+            while (node != null)
+            {
+                stack.Push(node);
+                node = node.LeftNode;
+            }
+
+            node = stack.Pop();
+
+            if (previous.HasValue)
+            {
+                var diff = node.Value - previous.Value;
+                if (diff < minDiff)
+                    minDiff = diff;
+            }
+
+            previous = node.Value;
+            node = node.RightNode;
         }
 
-        return minDiff;
+        return minDiff == int.MaxValue ? 0 : minDiff;
     }
 
     /// <summary>
@@ -57,17 +72,25 @@ public static class MinDifferenceInBst
         if (tree?.Root == null)
             return false;
 
-        var serializedTree = tree.SerializeInOrderTraversal();
+        var values = tree.SerializeInOrderTraversal();
 
-        if (serializedTree.Count < 2)
+        if (values.Count < 2)
             return false;
 
-        for (var i = 0; i < serializedTree.Count - 1; i++)
-        for (var j = 1; j < serializedTree.Count; j++)
+        // Two-pointer on sorted in-order list
+        var left = 0;
+        var right = values.Count - 1;
+
+        while (left < right)
         {
-            var sum = serializedTree[i] + serializedTree[j];
+            var sum = values[left] + values[right];
             if (sum == givenSum)
                 return true;
+
+            if (sum < givenSum)
+                left++;
+            else
+                right--;
         }
 
         return false;
@@ -88,7 +111,6 @@ public static class MinDifferenceInBst
         if (left.Count == 0 || right.Count == 0)
             return 0;
 
-        // Both lists are sorted because SerializeInOrderTraversal performs in-order traversal of BST.
         var i = 0;
         var j = 0;
         var minDiff = int.MaxValue;
@@ -116,25 +138,26 @@ public static class MinDifferenceInBst
 
     /// <summary>
     ///     Finds node(s) in the provided binary tree whose values have the minimum absolute difference
-    ///     to <paramref name="givenValue"/>. 
+    ///     to <paramref name="givenValue" />.
     ///     Works for any binary tree (does not rely on BST ordering).
     /// </summary>
     /// <param name="tree">The binary tree to search. Must not be null and must have a root node.</param>
     /// <param name="givenValue">The value to compare against node values.</param>
     /// <returns>
-    ///     A list of <see cref="TreeNode{Int32}"/> instances that have the smallest absolute difference
-    ///     to <paramref name="givenValue"/>. The list will contain at least one node.
+    ///     A list of <see cref="TreeNode{Int32}" /> instances that have the smallest absolute difference
+    ///     to <paramref name="givenValue" />. The list will contain at least one node.
     /// </returns>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="tree"/> is null or empty.</exception>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="tree" /> is null or empty.</exception>
     public static List<TreeNode<int>> FindNodesClosestToValue(BinaryTree<int>? tree, int givenValue)
     {
         if (tree?.Root == null)
-            throw new ArgumentException("BST is null or empty.", nameof(tree));
+            throw new ArgumentException("Binary tree is null or empty.", nameof(tree));
 
         var nodes = new List<TreeNode<int>>();
         var minDiff = int.MaxValue;
 
         MinDiffToGivenValue(tree.Root);
+
         return nodes;
 
         void MinDiffToGivenValue(TreeNode<int>? node)
@@ -160,21 +183,21 @@ public static class MinDifferenceInBst
     }
 
     /// <summary>
-    ///     Iterative variant of <see cref="FindNodesClosestToValue"/>. Uses an explicit stack to perform
+    ///     Iterative variant of <see cref="FindNodesClosestToValue" />. Uses an explicit stack to perform
     ///     DFS and avoids recursion. Applicable to any binary tree and returns the same results as the
     ///     recursive implementation.
     /// </summary>
     /// <param name="tree">The binary tree to search. Must not be null and must have a root node.</param>
     /// <param name="givenValue">The value to compare against node values.</param>
     /// <returns>
-    ///     A list of <see cref="TreeNode{Int32}"/> instances that have the smallest absolute difference
-    ///     to <paramref name="givenValue"/>. The list will contain at least one node.
+    ///     A list of <see cref="TreeNode{Int32}" /> instances that have the smallest absolute difference
+    ///     to <paramref name="givenValue" />. The list will contain at least one node.
     /// </returns>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="tree"/> is null or empty.</exception>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="tree" /> is null or empty.</exception>
     public static List<TreeNode<int>> FindNodesClosestToValueIterative(BinaryTree<int>? tree, int givenValue)
     {
         if (tree?.Root == null)
-            throw new ArgumentException("BST is null or empty.", nameof(tree));
+            throw new ArgumentException("Binary tree is null or empty.", nameof(tree));
 
         var nodes = new List<TreeNode<int>>();
         var minDiff = int.MaxValue;
@@ -206,7 +229,35 @@ public static class MinDifferenceInBst
 
         return nodes;
     }
-}
 
-// ToDo:
-//  Find a pair with a given sum in two different BSTs.
+    public static bool FindPairWithGivenSumInTwoBst(BinaryTree<int>? firstTree, BinaryTree<int>? secondTree,
+        int givenSum)
+    {
+        if (firstTree?.Root == null || secondTree?.Root == null)
+            return false;
+
+        var left = firstTree.SerializeInOrderTraversal();
+        var right = secondTree.SerializeInOrderTraversal();
+
+        if (left.Count == 0 || right.Count == 0)
+            return false;
+
+        // Two-pointer across two sorted lists. left ascending, right ascending — start right pointer at end.
+        var i = 0;
+        var j = right.Count - 1;
+
+        while (i < left.Count && j >= 0)
+        {
+            var sum = left[i] + right[j];
+            if (sum == givenSum)
+                return true;
+
+            if (sum < givenSum)
+                i++;
+            else
+                j--;
+        }
+
+        return false;
+    }
+}

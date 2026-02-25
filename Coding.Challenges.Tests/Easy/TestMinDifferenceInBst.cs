@@ -295,6 +295,70 @@ public class TestMinDifferenceInBst
         Assert.That(values, Is.EqualTo(new List<int> { 5 }));
     }
 
+    [Test]
+    [TestCaseSource(nameof(FindPairWithGivenSumInTwoBstCases))]
+    public void FindPairWithGivenSumInTwoBst_Parametrized(BinaryTree<int> firstTree, BinaryTree<int> secondTree,
+        int sum, bool expected)
+    {
+        var result = MinDifferenceInBst.FindPairWithGivenSumInTwoBst(firstTree, secondTree, sum);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    private static IEnumerable<TestCaseData> FindPairWithGivenSumInTwoBstCases()
+    {
+        // Tree values {2,3,4,5,7}
+        var firstTree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(5)
+            {
+                LeftNode = new TreeNode<int>(3)
+                {
+                    LeftNode = new TreeNode<int>(2),
+                    RightNode = new TreeNode<int>(4)
+                },
+                RightNode = new TreeNode<int>(7)
+            }
+        };
+
+        // Tree values {6,8,9,10}
+        var secondTree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(8)
+            {
+                LeftNode = new TreeNode<int>(6),
+                RightNode = new TreeNode<int>(10)
+                {
+                    LeftNode = new TreeNode<int>(9)
+                }
+            }
+        };
+
+        yield return new TestCaseData(firstTree, secondTree, 11, true).SetName("TwoTrees_Sum11_ReturnsTrue");
+
+        // Tree values {1,3,5}  -> root 3
+        var firstSmallTree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(3)
+            {
+                LeftNode = new TreeNode<int>(1),
+                RightNode = new TreeNode<int>(5)
+            }
+        };
+
+        // Tree values {4,6,8} -> root 6
+        var secondSmallTree = new BinaryTree<int>
+        {
+            Root = new TreeNode<int>(6)
+            {
+                LeftNode = new TreeNode<int>(4),
+                RightNode = new TreeNode<int>(8)
+            }
+        };
+
+        // sum = 9 -> 1 + 8 = 9
+        yield return new TestCaseData(firstSmallTree, secondSmallTree, 9, true).SetName("SmallTrees_Sum9_ReturnsTrue");
+    }
+
     private static BinaryTree<int> CreateSampleTree()
     {
         return new BinaryTree<int>
