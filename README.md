@@ -30,6 +30,8 @@ This repository contains solutions to various coding problems presented on the [
 - [Min Depth of Binary Tree](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
 - [Merge two binary trees](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
 - [Sorted Array to Balanced BST](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
+- [Calculate power function](Coding.Challenges/Easy/PowerFunction.cs)
+- [Minimum absolute difference in BST](Coding.Challenges/Easy/MinDifferenceInBst.cs)
 ### Medium
 - [Sorting algorithms](Coding.Challenges/Medium/SortedArray.cs)
 ### Hard
