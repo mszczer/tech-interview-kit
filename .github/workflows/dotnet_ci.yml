@@ -39,6 +39,15 @@ jobs:
         reporter: dotnet-trx
         only-summary: 'false'
     
+    - name: Upload Codacy coverage report
+      uses: codacy/codacy-coverage-reporter-action@v1.3.0
+      if: always()
+      with:
+         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+         coverage-reports: "**/*coverage.cobertura.xml"
+
+
+    
    # - name: Test
    #   run: dotnet test 
    #     --no-build 
