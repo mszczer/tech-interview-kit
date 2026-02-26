@@ -27,7 +27,9 @@ jobs:
     - name: Test
       run: dotnet test 
         --no-build 
-        --verbosity normal 
+        --verbosity normal
+        -- CollectCoverage true 
+        #--collect:"XPlat Code Coverage" 
         --logger "trx;LogFileName=test-results.trx"  
 
     
