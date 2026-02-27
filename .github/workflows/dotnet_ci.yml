@@ -46,6 +46,11 @@ jobs:
          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
          coverage-reports: "**/*coverage.cobertura.xml"
 
+    - name: Upload Codecov coverage report
+      uses: codecov/codecov-action@v5.5.2
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
 
     
    # - name: Test
