@@ -13,8 +13,7 @@ public abstract class ZeroesToEnd
 {
     public static int[] MoveZeroesToEnd(int[] arr)
     {
-        if (arr == null)
-            throw new ArgumentNullException(nameof(arr));
+        ArgumentNullException.ThrowIfNull(arr);
 
         var nonZeroIdx = 0;
 
