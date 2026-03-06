@@ -9,7 +9,7 @@
  *      You must do this in-place without making a copy of the array.
  *      Minimize the total number of operations.
  */
-public abstract class TestZeroesToEnd
+public abstract class ZeroesToEnd
 {
     public static int[] MoveZeroesToEnd(int[] arr)
     {

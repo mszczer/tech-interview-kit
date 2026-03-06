@@ -22,7 +22,7 @@ public class TestZeroesToEnd
     [TestCaseSource(nameof(MoveZeroesToEndTestCases))]
     public void MoveZeroesToEnd_ReturnsArrayWithZeroesAtEnd(int[] input, int[] expected)
     {
-        Assert.That(Challenges.Easy.TestZeroesToEnd.MoveZeroesToEnd(input), Is.EqualTo(expected));
+        Assert.That(Challenges.Easy.ZeroesToEnd.MoveZeroesToEnd(input), Is.EqualTo(expected));
     }
 
     [Test]
@@ -36,7 +36,7 @@ public class TestZeroesToEnd
     [TestCase(new[] { 1, 2, 3, 0, 0 })]
     public void NoNonZeroElementAfterZeroes(int[] array)
     {
-        var result = Challenges.Easy.TestZeroesToEnd.MoveZeroesToEnd(array);
+        var result = Challenges.Easy.ZeroesToEnd.MoveZeroesToEnd(array);
 
         var nonZeroEncountered = false;
 
@@ -49,6 +49,6 @@ public class TestZeroesToEnd
     [Test]
     public void MoveZeroesToEnd_ThrowsOnNullInput()
     {
-        Assert.Throws<ArgumentNullException>(() => Challenges.Easy.TestZeroesToEnd.MoveZeroesToEnd(null));
+        Assert.Throws<ArgumentNullException>(() => Challenges.Easy.ZeroesToEnd.MoveZeroesToEnd(null));
     }
 }
