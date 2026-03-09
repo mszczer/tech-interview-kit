@@ -79,4 +79,30 @@ public class TestRomanToInteger
         var result = RomanToInteger.ConvertRomanToInt(roman);
         Assert.That(result, Is.EqualTo(original));
     }
+
+    [TestCase(0, "0", TestName = "ConvertIntToBinary_0_Returns0")]
+    [TestCase(1, "1", TestName = "ConvertIntToBinary_1_Returns1")]
+    [TestCase(2, "10", TestName = "ConvertIntToBinary_2_Returns10")]
+    [TestCase(5, "101", TestName = "ConvertIntToBinary_5_Returns101")]
+    [TestCase(8, "1000", TestName = "ConvertIntToBinary_8_Returns1000")]
+    [TestCase(10, "1010", TestName = "ConvertIntToBinary_10_Returns1010")]
+    [TestCase(15, "1111", TestName = "ConvertIntToBinary_15_Returns1111")]
+    [TestCase(16, "10000", TestName = "ConvertIntToBinary_16_Returns10000")]
+    [TestCase(42, "101010", TestName = "ConvertIntToBinary_42_Returns101010")]
+    [TestCase(255, "11111111", TestName = "ConvertIntToBinary_255_Returns11111111")]
+    [TestCase(256, "100000000", TestName = "ConvertIntToBinary_256_Returns100000000")]
+    [TestCase(1024, "10000000000", TestName = "ConvertIntToBinary_1024_Returns10000000000")]
+    public void ConvertIntToBinary_ValidInputs_ReturnsExpected(int number, string expected)
+    {
+        var actual = RomanToInteger.ConvertIntToBinary(number);
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase(-1, TestName = "ConvertIntToBinary_Negative1_ThrowsArgumentOutOfRangeException")]
+    [TestCase(-100, TestName = "ConvertIntToBinary_Negative100_ThrowsArgumentOutOfRangeException")]
+    [TestCase(int.MinValue, TestName = "ConvertIntToBinary_MinValue_ThrowsArgumentOutOfRangeException")]
+    public void ConvertIntToBinary_NegativeInputs_ThrowsArgumentOutOfRangeException(int number)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => RomanToInteger.ConvertIntToBinary(number));
+    }
 }

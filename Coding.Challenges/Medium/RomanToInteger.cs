@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections;
+using System.ComponentModel;
+using System.Text;
 
 namespace Coding.Challenges.Medium;
 
@@ -87,5 +89,31 @@ public class RomanToInteger
             }
 
         return result.ToString();
+    }
+
+    public static string ConvertIntToBinary(int number)
+    {
+        if (number < 0)
+            throw new ArgumentOutOfRangeException(nameof(number), "Input must be non-negative.");
+
+        if (number == 0)
+            return "0";
+
+        var binary = new StringBuilder();
+
+        while (number > 0)
+        {
+            binary.Append(number % 2);
+            number /= 2;
+        }
+
+        return Reverse(binary.ToString());
+    }
+
+    private static string Reverse(string s)
+    {
+        var chars = s.ToCharArray();
+        Array.Reverse(chars);
+        return new string(chars);
     }
 }
