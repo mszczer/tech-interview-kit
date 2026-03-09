@@ -17,6 +17,23 @@ public class TestRomanToInteger
         Assert.That(actual, Is.EqualTo(expected));
     }
 
+    [TestCase(null, TestName = "ConvertRomanToInt_Null_ThrowsArgumentException")]
+    [TestCase("", TestName = "ConvertRomanToInt_EmptyString_ThrowsArgumentException")]
+    [TestCase("   ", TestName = "ConvertRomanToInt_Whitespace_ThrowsArgumentException")]
+    public void ConvertRomanToInt_NullOrWhitespace_ThrowsArgumentException(string roman)
+    {
+        Assert.Throws<ArgumentException>(() => RomanToInteger.ConvertRomanToInt(roman));
+    }
+
+    [TestCase("ABC", TestName = "ConvertRomanToInt_InvalidCharacters_ThrowsArgumentException")]
+    [TestCase("IXZ", TestName = "ConvertRomanToInt_InvalidCharZ_ThrowsArgumentException")]
+    [TestCase("X1V", TestName = "ConvertRomanToInt_NumberInString_ThrowsArgumentException")]
+    [TestCase("X@V", TestName = "ConvertRomanToInt_SpecialCharacter_ThrowsArgumentException")]
+    public void ConvertRomanToInt_InvalidCharacters_ThrowsArgumentException(string roman)
+    {
+        Assert.Throws<ArgumentException>(() => RomanToInteger.ConvertRomanToInt(roman));
+    }
+
     [TestCase(1, "I", TestName = "ConvertIntToRoman_1_ReturnsI")]
     [TestCase(3999, "MMMCMXCIX", TestName = "ConvertIntToRoman_3999_ReturnsMMMCMXCIX")]
     [TestCase(4, "IV", TestName = "ConvertIntToRoman_4_ReturnsIV")]
