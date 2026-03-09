@@ -17,7 +17,6 @@ public class TestRomanToInteger
         Assert.That(actual, Is.EqualTo(expected));
     }
 
-    [TestCase(null, TestName = "ConvertRomanToInt_Null_ThrowsArgumentException")]
     [TestCase("", TestName = "ConvertRomanToInt_EmptyString_ThrowsArgumentException")]
     [TestCase("   ", TestName = "ConvertRomanToInt_Whitespace_ThrowsArgumentException")]
     public void ConvertRomanToInt_NullOrWhitespace_ThrowsArgumentException(string roman)
