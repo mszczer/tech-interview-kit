@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using System.Text;
+﻿using System.Text;
 
 namespace Coding.Challenges.Medium;
 
@@ -115,5 +113,30 @@ public class RomanToInteger
         var chars = s.ToCharArray();
         Array.Reverse(chars);
         return new string(chars);
+    }
+
+    public static string DecimalToExponentialNotation(decimal number)
+    {
+        if (number == 0)
+            return "0 × 10^0";
+
+        var sign = number < 0 ? "-" : "";
+        number = Math.Abs(number);
+
+        var exponent = 0;
+
+        while (number >= 10)
+        {
+            number /= 10;
+            exponent++;
+        }
+
+        while (number < 1)
+        {
+            number *= 10;
+            exponent--;
+        }
+
+        return $"{sign}{number:G29} × 10^{exponent}";
     }
 }

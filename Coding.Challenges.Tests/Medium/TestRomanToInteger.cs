@@ -105,4 +105,13 @@ public class TestRomanToInteger
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => RomanToInteger.ConvertIntToBinary(number));
     }
+
+    [TestCase(1230000, "1.23 × 10^6", TestName = "DecimalToExponentialNotation_1230000_Returns1Point23Times10Power6")]
+    [TestCase(0.000045, "4.5 × 10^-5", TestName = "DecimalToExponentialNotation_0Point000045_Returns4Point5Times10PowerMinus5")]
+    [TestCase(0, "0 × 10^0", TestName = "DecimalToExponentialNotation_0_Returns0Times10Power0")]
+    public void DecimalToExponentialNotation_ValidInputs_ReturnsExpected(decimal number, string expected)
+    {
+        var actual = RomanToInteger.DecimalToExponentialNotation(number);
+        Assert.That(actual, Is.EqualTo(expected));
+    }
 }
