@@ -139,4 +139,24 @@ public class RomanToInteger
 
         return $"{sign}{number:G29} × 10^{exponent}";
     }
+
+    public static string NinesComplement(string number)
+    {
+        if (string.IsNullOrWhiteSpace(number))
+            throw new ArgumentException("Input must be a non-empty string.", nameof(number));
+
+        var result = new StringBuilder();
+        foreach (var c in number)
+            if (char.IsDigit(c))
+            {
+                var digit = c - '0';
+                result.Append(9 - digit);
+            }
+            else
+            {
+                result.Append(c);
+            }
+
+        return result.ToString();
+    }
 }

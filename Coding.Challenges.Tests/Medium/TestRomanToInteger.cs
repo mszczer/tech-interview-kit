@@ -114,4 +114,32 @@ public class TestRomanToInteger
         var actual = RomanToInteger.DecimalToExponentialNotation(number);
         Assert.That(actual, Is.EqualTo(expected));
     }
+
+    [TestCase("0", "9", TestName = "NinesComplement_0_Returns9")]
+    [TestCase("7", "2", TestName = "NinesComplement_7_Returns2")]
+    [TestCase("1234", "8765", TestName = "NinesComplement_1234_Returns8765")]
+    [TestCase("909", "090", TestName = "NinesComplement_909_Returns090")]
+    [TestCase("456.20", "543.79", TestName = "NinesComplement_456Point20_Returns543Point79")]
+    [TestCase("0019", "9980", TestName = "NinesComplement_0019_Returns9980")]
+    [TestCase("99", "00", TestName = "NinesComplement_99_Returns00")]
+    [TestCase("5", "4", TestName = "NinesComplement_5_Returns4")]
+    [TestCase("123.456", "876.543", TestName = "NinesComplement_123Point456_Returns876Point543")]
+    public void NinesComplement_ValidInputs_ReturnsExpected(string number, string expected)
+    {
+        var actual = RomanToInteger.NinesComplement(number);
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase("", TestName = "NinesComplement_EmptyString_ThrowsArgumentException")]
+    [TestCase("   ", TestName = "NinesComplement_Whitespace_ThrowsArgumentException")]
+    public void NinesComplement_InvalidInputs_ThrowsArgumentException(string number)
+    {
+        Assert.Throws<ArgumentException>(() => RomanToInteger.NinesComplement(number));
+    }
+
+    [Test]
+    public void NinesComplement_Null_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => RomanToInteger.NinesComplement(null));
+    }
 }
