@@ -115,6 +115,19 @@ public class RomanToInteger
         return new string(chars);
     }
 
+    public static string ConvertIntToBinaryRecursive(int number)
+    {
+        if (number < 0)
+            throw new ArgumentOutOfRangeException(nameof(number), "Input must be non-negative.");
+        
+        if (number == 0)
+            return "0";
+        if (number == 1)
+            return "1";
+        
+        return ConvertIntToBinaryRecursive(number/2) + (number%2).ToString();
+    }
+
     public static string DecimalToExponentialNotation(decimal number)
     {
         if (number == 0)

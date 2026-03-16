@@ -106,6 +106,50 @@ public class TestRomanToInteger
         Assert.Throws<ArgumentOutOfRangeException>(() => RomanToInteger.ConvertIntToBinary(number));
     }
 
+    [TestCase(0, "0", TestName = "ConvertIntToBinaryRecursive_0_Returns0")]
+    [TestCase(1, "1", TestName = "ConvertIntToBinaryRecursive_1_Returns1")]
+    [TestCase(2, "10", TestName = "ConvertIntToBinaryRecursive_2_Returns10")]
+    [TestCase(5, "101", TestName = "ConvertIntToBinaryRecursive_5_Returns101")]
+    [TestCase(8, "1000", TestName = "ConvertIntToBinaryRecursive_8_Returns1000")]
+    [TestCase(10, "1010", TestName = "ConvertIntToBinaryRecursive_10_Returns1010")]
+    [TestCase(15, "1111", TestName = "ConvertIntToBinaryRecursive_15_Returns1111")]
+    [TestCase(16, "10000", TestName = "ConvertIntToBinaryRecursive_16_Returns10000")]
+    [TestCase(42, "101010", TestName = "ConvertIntToBinaryRecursive_42_Returns101010")]
+    [TestCase(255, "11111111", TestName = "ConvertIntToBinaryRecursive_255_Returns11111111")]
+    [TestCase(256, "100000000", TestName = "ConvertIntToBinaryRecursive_256_Returns100000000")]
+    [TestCase(1024, "10000000000", TestName = "ConvertIntToBinaryRecursive_1024_Returns10000000000")]
+    [TestCase(7, "111", TestName = "ConvertIntToBinaryRecursive_7_Returns111")]
+    [TestCase(31, "11111", TestName = "ConvertIntToBinaryRecursive_31_Returns11111")]
+    [TestCase(127, "1111111", TestName = "ConvertIntToBinaryRecursive_127_Returns1111111")]
+    [TestCase(1000, "1111101000", TestName = "ConvertIntToBinaryRecursive_1000_Returns1111101000")]
+    public void ConvertIntToBinaryRecursive_ValidInputs_ReturnsExpected(int number, string expected)
+    {
+        var actual = RomanToInteger.ConvertIntToBinaryRecursive(number);
+        Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [TestCase(-1, TestName = "ConvertIntToBinaryRecursive_Negative1_ThrowsArgumentOutOfRangeException")]
+    [TestCase(-100, TestName = "ConvertIntToBinaryRecursive_Negative100_ThrowsArgumentOutOfRangeException")]
+    [TestCase(int.MinValue, TestName = "ConvertIntToBinaryRecursive_MinValue_ThrowsArgumentOutOfRangeException")]
+    public void ConvertIntToBinaryRecursive_NegativeInputs_ThrowsArgumentOutOfRangeException(int number)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => RomanToInteger.ConvertIntToBinaryRecursive(number));
+    }
+
+    [TestCase(0, TestName = "BinaryConversion_BothMethods_0_ProduceSameResult")]
+    [TestCase(1, TestName = "BinaryConversion_BothMethods_1_ProduceSameResult")]
+    [TestCase(7, TestName = "BinaryConversion_BothMethods_7_ProduceSameResult")]
+    [TestCase(42, TestName = "BinaryConversion_BothMethods_42_ProduceSameResult")]
+    [TestCase(255, TestName = "BinaryConversion_BothMethods_255_ProduceSameResult")]
+    [TestCase(1024, TestName = "BinaryConversion_BothMethods_1024_ProduceSameResult")]
+    [TestCase(9999, TestName = "BinaryConversion_BothMethods_9999_ProduceSameResult")]
+    public void BinaryConversion_IterativeAndRecursive_ProduceSameResult(int number)
+    {
+        var iterativeResult = RomanToInteger.ConvertIntToBinary(number);
+        var recursiveResult = RomanToInteger.ConvertIntToBinaryRecursive(number);
+        Assert.That(recursiveResult, Is.EqualTo(iterativeResult));
+    }
+
     [TestCase(1230000, "1.23 × 10^6", TestName = "DecimalToExponentialNotation_1230000_Returns1Point23Times10Power6")]
     [TestCase(0.000045, "4.5 × 10^-5", TestName = "DecimalToExponentialNotation_0Point000045_Returns4Point5Times10PowerMinus5")]
     [TestCase(0, "0 × 10^0", TestName = "DecimalToExponentialNotation_0_Returns0Times10Power0")]
