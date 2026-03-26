@@ -172,4 +172,30 @@ public abstract class ReverseBits
 
         return true;
     }
+
+    // Given an integer n, rotate its bits left/right by k positions (within a fixed bit width).
+    // k > 0 => rotate right, k < 0 => rotate left
+    public static string RotateBitsOfNumber(string binaryStr, int k)
+    {
+        var coreBinary = binaryStr.TrimStart('0');
+
+        if (string.IsNullOrEmpty(coreBinary))
+            return "0";
+
+        if (coreBinary.Length == 1)
+            return coreBinary;
+
+        // Normalize to rotate RIGHT by r in [0..coreBinary.Length-1]
+        var r = k % coreBinary.Length;
+        if (r < 0)
+            r += coreBinary.Length;
+
+        if (r == 0)
+            return coreBinary;
+
+        // Rotate right by r: last r bits + first (n-r) bits
+        var suffix = coreBinary.Substring(coreBinary.Length - r, r);
+        var prefix = coreBinary[..^r];
+        return suffix + prefix;
+    }
 }
