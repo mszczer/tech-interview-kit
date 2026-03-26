@@ -85,6 +85,44 @@ public class TestReverseBits
         Assert.That(ReverseBits.SetOddBitsToOne(input), Is.EqualTo(expected));
     }
 
+    private static IEnumerable<TestCaseData> SetEvenBitsToZeroTestCases()
+    {
+        yield return new TestCaseData("0010100", "00000");
+        yield return new TestCaseData("10100", "00000");
+        yield return new TestCaseData("0", "0");
+        yield return new TestCaseData("1", "0");
+        yield return new TestCaseData("00000", "0");
+        yield return new TestCaseData("0001", "0");
+        yield return new TestCaseData("00010", "00");
+        yield return new TestCaseData("000101", "000");
+        yield return new TestCaseData("00", "0");
+        yield return new TestCaseData("10", "00");
+        yield return new TestCaseData("01", "0");
+        yield return new TestCaseData("11", "01");
+        yield return new TestCaseData("000", "0");
+        yield return new TestCaseData("101", "000");
+        yield return new TestCaseData("110", "010");
+        yield return new TestCaseData("100", "000");
+        yield return new TestCaseData("0000", "0");
+        yield return new TestCaseData("1111", "0101");
+        yield return new TestCaseData("1010", "0000");
+        yield return new TestCaseData("0101", "000");
+        yield return new TestCaseData("1000", "0000");
+        yield return new TestCaseData("11111", "01010");
+        yield return new TestCaseData("10000", "00000");
+        yield return new TestCaseData("00000000", "0");
+        yield return new TestCaseData("11111111", "01010101");
+        yield return new TestCaseData("10101010", "00000000");
+        yield return new TestCaseData("10000000", "00000000");
+    }
+
+    [Test]
+    [TestCaseSource(nameof(SetEvenBitsToZeroTestCases))]
+    public void SetEvenBitsToZero_SetsEvenPositionsToZero(string input, string expected)
+    {
+        Assert.That(ReverseBits.SetEvenBitsToZero(input), Is.EqualTo(expected));
+    }
+
     private static IEnumerable<TestCaseData> IsPalindromeTestCases()
     {
         yield return new TestCaseData(0, true);

@@ -139,6 +139,21 @@ public abstract class ReverseBits
         return oddBitsSetToOne.ToString();
     }
 
+    public static string SetEvenBitsToZero(string binaryStr)
+    {
+        var coreBinary = binaryStr.TrimStart('0');
+
+        if (string.IsNullOrEmpty(coreBinary))
+            return "0";
+
+        var evenBitsSetToZero = new StringBuilder(coreBinary.Length);
+
+        for (var i = 0; i < coreBinary.Length; i++)
+            evenBitsSetToZero.Append(i % 2 == 0 ? '0' : coreBinary[i]);
+
+        return evenBitsSetToZero.ToString();
+    }
+
     public static bool IsPalindrome(int num)
     {
         var binaryStr = DecIntToBinary(num);
