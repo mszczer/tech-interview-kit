@@ -138,4 +138,23 @@ public abstract class ReverseBits
 
         return oddBitsSetToOne.ToString();
     }
+
+    public static bool IsPalindrome(int num)
+    {
+        var binaryStr = DecIntToBinary(num);
+
+        var left = 0;
+        var right = binaryStr.Length - 1;
+
+        while (left < right)
+        {
+            if (binaryStr[left] != binaryStr[right])
+                return false;
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
 }

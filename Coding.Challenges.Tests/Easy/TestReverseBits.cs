@@ -84,4 +84,33 @@ public class TestReverseBits
     {
         Assert.That(ReverseBits.SetOddBitsToOne(input), Is.EqualTo(expected));
     }
+
+    private static IEnumerable<TestCaseData> IsPalindromeTestCases()
+    {
+        yield return new TestCaseData(0, true);
+        yield return new TestCaseData(1, true);
+        yield return new TestCaseData(3, true);   // 11
+        yield return new TestCaseData(5, true);   // 101
+        yield return new TestCaseData(7, true);   // 111
+        yield return new TestCaseData(9, true);   // 1001
+        yield return new TestCaseData(15, true);  // 1111
+        yield return new TestCaseData(21, true);  // 10101
+        yield return new TestCaseData(31, true);  // 11111
+        yield return new TestCaseData(45, true);  // 101101
+        yield return new TestCaseData(99, true);  // 1100011
+        yield return new TestCaseData(2, false);   // 10
+        yield return new TestCaseData(4, false);   // 100
+        yield return new TestCaseData(6, false);   // 110
+        yield return new TestCaseData(8, false);   // 1000
+        yield return new TestCaseData(10, false);  // 1010
+        yield return new TestCaseData(13, false);  // 1101
+        yield return new TestCaseData(100, false); // 1100100
+    }
+
+    [Test]
+    [TestCaseSource(nameof(IsPalindromeTestCases))]
+    public void IsPalindrome_ChecksIfBinaryRepresentationIsPalindrome(int input, bool expected)
+    {
+        Assert.That(ReverseBits.IsPalindrome(input), Is.EqualTo(expected));
+    }
 }
