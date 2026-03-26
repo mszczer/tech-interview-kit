@@ -51,7 +51,7 @@ tech-interview-kit/
 <a id="algorithms-problem-set"></a>
 ## Algorithms Problem Set
 
-> This section is generated from the `Coding.Challenges/` directory.
+<!-- This section is generated from the `Coding.Challenges/` directory. -->
 
 <!-- ALGORITHMS_PROBLEM_SET:START -->
 <a id="easy"></a>
