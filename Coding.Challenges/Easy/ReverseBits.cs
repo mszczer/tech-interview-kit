@@ -9,7 +9,7 @@ public abstract class ReverseBits
      * Problem:
      *  Given a non-negative integer num, write a program to return the number obtained after reversing the bits of num.
      *  The actual binary representation of the number is being considered for reversing the bits, no leading 0’s are being considered.
-     *  Example: 
+     *  Example:
      *   Input: 13
      *   Output: 11
      *   Explanation: Binary representation of 13 is 1101. After reversing the bits we get 1011 which is equal to 11.
@@ -103,5 +103,24 @@ public abstract class ReverseBits
         Array.Reverse(stringArray);
         var reversedString = new string(stringArray);
         return reversedString;
+    }
+
+    public static string InvertActualBits(string binaryStr)
+    {
+        var invertedBinary = new StringBuilder();
+        var foundFirstOne = false;
+
+        foreach (var c in binaryStr)
+            if (c == '1')
+            {
+                foundFirstOne = true;
+                invertedBinary.Append('0');
+            }
+            else if (foundFirstOne)
+            {
+                invertedBinary.Append('1');
+            }
+
+        return invertedBinary.Length == 0 ? "1" : invertedBinary.ToString();
     }
 }

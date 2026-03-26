@@ -29,4 +29,21 @@ public class TestReverseBits
     {
         Assert.That(Challenges.ReverseBits.GetReverseBitNumberShiftingBits(input), Is.EqualTo(expected));
     }
+
+    private static IEnumerable<TestCaseData> InvertActualBitsTestCases()
+    {
+        yield return new TestCaseData("0001101", "0010");
+        yield return new TestCaseData("1101", "0010");
+        yield return new TestCaseData("0000", "1");
+        yield return new TestCaseData("0", "1");
+        yield return new TestCaseData("0001", "0");
+        yield return new TestCaseData("001010", "0101");
+    }
+
+    [Test]
+    [TestCaseSource(nameof(InvertActualBitsTestCases))]
+    public void InvertActualBits_ReturnsTheInvertedBits(string input, string expected)
+    {
+        Assert.That(Challenges.ReverseBits.InvertActualBits(input), Is.EqualTo(expected));
+    }
 }
