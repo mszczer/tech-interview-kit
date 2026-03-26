@@ -1,4 +1,4 @@
-﻿namespace Coding.Challenges;
+﻿namespace Coding.Challenges.Easy;
 
 /*
  * Difficulty: Easy

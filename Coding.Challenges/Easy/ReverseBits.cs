@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Coding.Challenges;
+namespace Coding.Challenges.Easy;
 
 public abstract class ReverseBits
 {
@@ -122,5 +122,20 @@ public abstract class ReverseBits
             }
 
         return invertedBinary.Length == 0 ? "1" : invertedBinary.ToString();
+    }
+
+    public static string SetOddBitsToOne(string binaryStr)
+    {
+        var coreBinary = binaryStr.TrimStart('0');
+
+        if (string.IsNullOrEmpty(coreBinary))
+            return "0";
+
+        var oddBitsSetToOne = new StringBuilder();
+
+        for (var i = 0; i < coreBinary.Length; i++)
+            oddBitsSetToOne.Append(i % 2 == 1 ? '1' : coreBinary[i]);
+
+        return oddBitsSetToOne.ToString();
     }
 }
