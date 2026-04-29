@@ -8,8 +8,10 @@
  *  If num is not a perfect square, then return floor(√num)
  */
 
-public class SquareRootOfInteger
+public class IntegerRootCalculator
 {
+    private const int MaxCubeRootValue = 2_097_151;
+
     public static int LinearSearchSquareRoot(int num)
     {
         if (num is 0 or 1) return num;
@@ -36,6 +38,37 @@ public class SquareRootOfInteger
         return right;
     }
 
+    public static int LinearSearchCubeRoot(int num)
+    {
+        if (num is 0 or 1) return num;
+        var cubeRoot = 2;
+        while ((long)cubeRoot * cubeRoot * cubeRoot <= num) cubeRoot++;
+
+        return cubeRoot - 1;
+    }
+
+    public static int BinarySearchCubeRoot(int num)
+    {
+        if (num is 0 or 1) return num;
+
+        var left = 2;
+        var right = Math.Min(num, MaxCubeRootValue);
+
+        while (left <= right)
+        {
+            var middle = left + (right - left) / 2;
+            var middleCubed = (long)middle * middle * middle;
+
+            if (middleCubed == num) return middle;
+            if (middleCubed < num)
+                left = middle + 1;
+            else
+                right = middle - 1;
+        }
+
+        return right;
+    }
+
     public static List<int> GetPrimeFactors(int num)
     {
         var primeFactors = new List<int>();
@@ -45,7 +78,7 @@ public class SquareRootOfInteger
             primeFactors.Add(-1);
             num = Math.Abs(num);
         }
-        
+
         for (var i = 2; i <= num / i; i++)
             while (num % i == 0)
             {
@@ -53,7 +86,7 @@ public class SquareRootOfInteger
                 num /= i;
             }
 
-        if (num > 1) 
+        if (num > 1)
             primeFactors.Add(num);
         return primeFactors;
     }
