@@ -54,10 +54,9 @@ tech-interview-kit/
 <!-- This section is generated from the `Coding.Challenges/` directory. -->
 
 <!-- ALGORITHMS_PROBLEM_SET:START -->
-## Algorithms Problem Set
+<!-- This list is auto-generated from Coding.Challenges/. Run scripts/generate-algorithms-index.ps1 to refresh. -->
 
-> Note: This list is auto-generated from the files in Coding.Challenges/ (run the generator script to refresh).
-
+<a id="easy"></a>
 ### Easy
 - [B in om ia lC oe ff ic ie nt](Coding.Challenges/Easy/BinomialCoefficient.cs)
 - [B it on ic Ar ra y](Coding.Challenges/Easy/BitonicArray.cs)
@@ -75,11 +74,13 @@ tech-interview-kit/
 - [W av eA rr ay](Coding.Challenges/Easy/WaveArray.cs)
 - [Z er oe sT oE nd](Coding.Challenges/Easy/ZeroesToEnd.cs)
 
+<a id="medium"></a>
 ### Medium
 - [I nt eg er Ro ot Ca lc ul at or](Coding.Challenges/Medium/IntegerRootCalculator.cs)
 - [R om an To In te ge r](Coding.Challenges/Medium/RomanToInteger.cs)
 - [S or te dA rr ay](Coding.Challenges/Medium/SortedArray.cs)
 
+<a id="hard"></a>
 ### Hard
 - (coming soon)
 
