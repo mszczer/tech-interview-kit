@@ -68,9 +68,9 @@ function Get-ProblemLinks([string]$difficulty) {
 }
 
 function Build-AlgorithmsSection() {
-  $easy = Get-ProblemLinks "Easy"
-  $medium = Get-ProblemLinks "Medium"
-  $hard = Get-ProblemLinks "Hard"
+  $easy = @(Get-ProblemLinks "Easy")
+  $medium = @(Get-ProblemLinks "Medium")
+  $hard = @(Get-ProblemLinks "Hard")
 
   $lines = @()
   $lines += "## Algorithms Problem Set"
