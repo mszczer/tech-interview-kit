@@ -58,27 +58,27 @@ tech-interview-kit/
 
 <a id="easy"></a>
 ### Easy
-- [t](Coding.Challenges/Easy/BinomialCoefficient.cs)
-- [](Coding.Challenges/Easy/BitonicArray.cs)
-- [](Coding.Challenges/Easy/MergeSortedLists.cs)
-- [s](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
-- [](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
-- [](Coding.Challenges/Easy/MinDifferenceInBst.cs)
-- [](Coding.Challenges/Easy/MinStack.cs)
-- [e](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
-- [n](Coding.Challenges/Easy/PowerFunction.cs)
-- [](Coding.Challenges/Easy/RangeInSortedArray.cs)
-- [s](Coding.Challenges/Easy/ReverseBits.cs)
-- [](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
-- [s](Coding.Challenges/Easy/SwapListNodes.cs)
-- [y](Coding.Challenges/Easy/WaveArray.cs)
-- [d](Coding.Challenges/Easy/ZeroesToEnd.cs)
+- [Binomial Coefficient](Coding.Challenges/Easy/BinomialCoefficient.cs)
+- [Bitonic Array](Coding.Challenges/Easy/BitonicArray.cs)
+- [Merge Sorted Lists](Coding.Challenges/Easy/MergeSortedLists.cs)
+- [Merge Two Binary Trees](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
+- [Min Depth Of Binary Tree](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
+- [Min Difference In BST](Coding.Challenges/Easy/MinDifferenceInBst.cs)
+- [Min Stack](Coding.Challenges/Easy/MinStack.cs)
+- [Path Sum In Binary Tree](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
+- [Power Function](Coding.Challenges/Easy/PowerFunction.cs)
+- [Range In Sorted Array](Coding.Challenges/Easy/RangeInSortedArray.cs)
+- [Reverse Bits](Coding.Challenges/Easy/ReverseBits.cs)
+- [Sorted Array To Balanced BST](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
+- [Swap List Nodes](Coding.Challenges/Easy/SwapListNodes.cs)
+- [Wave Array](Coding.Challenges/Easy/WaveArray.cs)
+- [Zeroes To End](Coding.Challenges/Easy/ZeroesToEnd.cs)
 
 <a id="medium"></a>
 ### Medium
-- [r](Coding.Challenges/Medium/IntegerRootCalculator.cs)
-- [](Coding.Challenges/Medium/RomanToInteger.cs)
-- [y](Coding.Challenges/Medium/SortedArray.cs)
+- [Integer Root Calculator](Coding.Challenges/Medium/IntegerRootCalculator.cs)
+- [Roman To Integer](Coding.Challenges/Medium/RomanToInteger.cs)
+- [Sorted Array](Coding.Challenges/Medium/SortedArray.cs)
 
 <a id="hard"></a>
 ### Hard
