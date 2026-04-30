@@ -35,11 +35,12 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $startMarker = "<!-- ALGORITHMS_PROBLEM_SET:START -->"
-$endMarker = "<!-- ALGORITHMS_PROBLEM_SET:END -->"
+$endMarker   = "<!-- ALGORITHMS_PROBLEM_SET:END -->"
 
 function To-TitleCaseFromPascalCase([string]$name) {
   # Adds spaces before capitals and normalizes common acronyms
-  $spaced = ($name -replace '([a-z0-9])([A-Z])', '$1 $2')
+  # Use ${1} / ${2} to refer to regex capture groups safely in PowerShell replacements
+  $spaced = ($name -replace '([a-z0-9])([A-Z])', '${1} ${2}')
   $spaced = ($spaced -replace '\bBst\b', 'BST')
   $spaced = ($spaced -replace '\bId\b', 'ID')
   return $spaced.Trim()
@@ -54,7 +55,7 @@ function Get-ProblemLinks([string]$difficulty) {
   $files = Get-ChildItem -Path $dir -Filter "*.cs" -File | Sort-Object Name
 
   # Heuristic: exclude files that look like tests living in Coding.Challenges
-  $files = $files | Where-Object { $_.Name -notmatch '^(Test|Tests).*\\.cs$' }
+  $files = $files | Where-Object { $_.Name -notmatch '^(Test|Tests).*\.cs$' }
 
   $links = @()
   foreach ($f in $files) {
@@ -68,14 +69,15 @@ function Get-ProblemLinks([string]$difficulty) {
 }
 
 function Build-AlgorithmsSection() {
-  $easy = @(Get-ProblemLinks "Easy")
+  # Force arrays so .Count works even when there are 0 or 1 items
+  $easy   = @(Get-ProblemLinks "Easy")
   $medium = @(Get-ProblemLinks "Medium")
-  $hard = @(Get-ProblemLinks "Hard")
+  $hard   = @(Get-ProblemLinks "Hard")
 
   $lines = @()
   $lines += "## Algorithms Problem Set"
   $lines += ""
-  $lines += "> Note: This list is auto-generated from the files in \`Coding.Challenges/\` (run the generator script to refresh)."
+  $lines += "> Note: This list is auto-generated from the files in `Coding.Challenges/` (run the generator script to refresh)."
   $lines += ""
 
   $lines += "### Easy"
