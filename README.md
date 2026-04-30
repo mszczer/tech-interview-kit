@@ -58,27 +58,27 @@ tech-interview-kit/
 
 <a id="easy"></a>
 ### Easy
-- [B in om ia lC oe ff ic ie nt](Coding.Challenges/Easy/BinomialCoefficient.cs)
-- [B it on ic Ar ra y](Coding.Challenges/Easy/BitonicArray.cs)
-- [M er ge So rt ed Li st s](Coding.Challenges/Easy/MergeSortedLists.cs)
-- [M er ge Tw oB in ar yT re es](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
-- [M in De pt hO fB in ar yT re e](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
-- [M in Di ff er en ce In Bs t](Coding.Challenges/Easy/MinDifferenceInBst.cs)
-- [M in St ac k](Coding.Challenges/Easy/MinStack.cs)
-- [P at hS um In Bi na ry Tr ee](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
-- [P ow er Fu nc ti on](Coding.Challenges/Easy/PowerFunction.cs)
-- [R an ge In So rt ed Ar ra y](Coding.Challenges/Easy/RangeInSortedArray.cs)
-- [R ev er se Bi ts](Coding.Challenges/Easy/ReverseBits.cs)
-- [S or te dA rr ay To Ba la nc ed Bs t](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
-- [S wa pL is tN od es](Coding.Challenges/Easy/SwapListNodes.cs)
-- [W av eA rr ay](Coding.Challenges/Easy/WaveArray.cs)
-- [Z er oe sT oE nd](Coding.Challenges/Easy/ZeroesToEnd.cs)
+- [t](Coding.Challenges/Easy/BinomialCoefficient.cs)
+- [](Coding.Challenges/Easy/BitonicArray.cs)
+- [](Coding.Challenges/Easy/MergeSortedLists.cs)
+- [s](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
+- [](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
+- [](Coding.Challenges/Easy/MinDifferenceInBst.cs)
+- [](Coding.Challenges/Easy/MinStack.cs)
+- [e](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
+- [n](Coding.Challenges/Easy/PowerFunction.cs)
+- [](Coding.Challenges/Easy/RangeInSortedArray.cs)
+- [s](Coding.Challenges/Easy/ReverseBits.cs)
+- [](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
+- [s](Coding.Challenges/Easy/SwapListNodes.cs)
+- [y](Coding.Challenges/Easy/WaveArray.cs)
+- [d](Coding.Challenges/Easy/ZeroesToEnd.cs)
 
 <a id="medium"></a>
 ### Medium
-- [I nt eg er Ro ot Ca lc ul at or](Coding.Challenges/Medium/IntegerRootCalculator.cs)
-- [R om an To In te ge r](Coding.Challenges/Medium/RomanToInteger.cs)
-- [S or te dA rr ay](Coding.Challenges/Medium/SortedArray.cs)
+- [r](Coding.Challenges/Medium/IntegerRootCalculator.cs)
+- [](Coding.Challenges/Medium/RomanToInteger.cs)
+- [y](Coding.Challenges/Medium/SortedArray.cs)
 
 <a id="hard"></a>
 ### Hard
