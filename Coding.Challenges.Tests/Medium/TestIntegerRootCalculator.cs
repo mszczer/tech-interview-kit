@@ -60,4 +60,22 @@ public class TestIntegerRootCalculator
         var result = IntegerRootCalculator.BinarySearchCubeRoot(input);
         Assert.That(result, Is.EqualTo(expectedResult));
     }
+
+    [TestCase(-10, false)]
+    [TestCase(3, false)]
+    [TestCase(9, true)]
+    public void IsPerfectSquareIterative_ReturnsExpectedResult(int input, bool expectedResult)
+    {
+        var result = IntegerRootCalculator.IsPerfectSquareIterative(input);
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCase(-10, false)]
+    [TestCase(3, false)]
+    [TestCase(9, true)]
+    public void IsPerfectSquareOddSum_ReturnsExpectedResult(int input, bool expectedResult)
+    {
+        var result = IntegerRootCalculator.IsPerfectSquareOddSum(input);
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
 }

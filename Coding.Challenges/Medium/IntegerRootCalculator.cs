@@ -16,7 +16,7 @@ public class IntegerRootCalculator
     {
         if (num is 0 or 1) return num;
         var squareRoot = 2;
-        while (squareRoot * squareRoot <= num) squareRoot++;
+        while ((long)squareRoot * squareRoot <= num) squareRoot++;
 
         return squareRoot - 1;
     }
@@ -28,7 +28,7 @@ public class IntegerRootCalculator
         var right = num / 2;
         while (left <= right)
         {
-            var middle = (left + right) / 2;
+            var middle = left + (right - left) / 2;
             var middleSquared = (long)middle * middle;
             if (middleSquared == num) return middle;
             if (middleSquared < num) left = middle + 1;
@@ -90,4 +90,26 @@ public class IntegerRootCalculator
             primeFactors.Add(num);
         return primeFactors;
     }
+
+    public static bool IsPerfectSquareIterative(int num)
+    {
+        if (num < 0) return false;
+        var root = 1;
+        while ((long)root * root < num)
+            root++;
+        return (long)root * root == num;
+    }
+
+    public static bool IsPerfectSquareOddSum(int num)
+    {
+        if (num < 0) return false;
+        var odd = 1;
+        while (num > 0)
+        {
+            num -= odd;
+            odd += 2;
+        }
+        return num == 0;
+    }
+
 }
