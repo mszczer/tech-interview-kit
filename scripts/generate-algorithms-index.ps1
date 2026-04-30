@@ -29,8 +29,8 @@ $startMarker = "<!-- ALGORITHMS_PROBLEM_SET:START -->"
 $endMarker   = "<!-- ALGORITHMS_PROBLEM_SET:END -->"
 
 function To-TitleCaseFromPascalCase([string]$name) {
-  # Insert spaces between lower/digit -> upper transitions using scriptblock replacement
-  $spaced = $name -replace '([a-z0-9])([A-Z])', { "$($args[0].Groups[1].Value) $($args[0].Groups[2].Value)" }
+  # Insert spaces between lower/digit -> upper transitions safely (no $1/$2, no args indexing)
+  $spaced = $name -replace '([a-z0-9])([A-Z])', { "$($Matches[1]) $($Matches[2])" }
 
   # Normalize common acronyms
   $spaced = ($spaced -replace '\bBst\b', 'BST')
