@@ -58,29 +58,28 @@ function Get-ProblemLinks([string]$difficulty) {
 }
 
 function Build-AlgorithmsSection() {
-  $easy   = Get-ProblemLinks "Easy"
-  $medium = Get-ProblemLinks "Medium"
-  $hard   = Get-ProblemLinks "Hard"
+  $easy   = @((Get-ProblemLinks "Easy"))
+  $medium = @((Get-ProblemLinks "Medium"))
+  $hard   = @((Get-ProblemLinks "Hard"))
 
   $lines = @()
 
-  # Comment-only note (not visible)
   $lines += "<!-- This list is auto-generated from `Coding.Challenges/`. Run scripts/generate-algorithms-index.ps1 to refresh. -->"
   $lines += ""
 
   $lines += "<a id=""easy""></a>"
   $lines += "### Easy"
-  if ($easy.Count -gt 0) { $lines += @($easy) } else { $lines += "- (none yet)" }
+  if ($easy.Length -gt 0) { $lines += $easy } else { $lines += "- (none yet)" }
   $lines += ""
 
   $lines += "<a id=""medium""></a>"
   $lines += "### Medium"
-  if ($medium.Count -gt 0) { $lines += @($medium) } else { $lines += "- (none yet)" }
+  if ($medium.Length -gt 0) { $lines += $medium } else { $lines += "- (none yet)" }
   $lines += ""
 
   $lines += "<a id=""hard""></a>"
   $lines += "### Hard"
-  if ($hard.Count -gt 0) { $lines += @($hard) } else { $lines += "- (coming soon)" }
+  if ($hard.Length -gt 0) { $lines += $hard } else { $lines += "- (coming soon)" }
   $lines += ""
 
   return ($lines -join "`n")
