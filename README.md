@@ -56,7 +56,7 @@ tech-interview-kit/
 <!-- ALGORITHMS_PROBLEM_SET:START -->
 ## Algorithms Problem Set
 
-> Note: This list is auto-generated from the files in \Coding.Challenges/\ (run the generator script to refresh).
+> Note: This list is auto-generated from the files in Coding.Challenges/ (run the generator script to refresh).
 
 ### Easy
 - [B in om ia lC oe ff ic ie nt](Coding.Challenges/Easy/BinomialCoefficient.cs)
