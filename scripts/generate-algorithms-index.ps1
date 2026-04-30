@@ -6,9 +6,9 @@ Generates the "Algorithms Problem Set" section in README.md.
 Scans Coding.Challenges/Easy, Coding.Challenges/Medium, and Coding.Challenges/Hard for .cs files and
 replaces the content between markers in README.md:
 
-<!-- ALGORITHMS:START -->
+<!-- ALGORITHMS_PROBLEM_SET:START -->
 ...
-<!-- ALGORITHMS:END -->
+<!-- ALGORITHMS_PROBLEM_SET:END -->
 
 Only the content between the markers is replaced.
 
@@ -34,8 +34,8 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$startMarker = "<!-- ALGORITHMS:START -->"
-$endMarker = "<!-- ALGORITHMS:END -->"
+$startMarker = "<!-- ALGORITHMS_PROBLEM_SET:START -->"
+$endMarker = "<!-- ALGORITHMS_PROBLEM_SET:END -->"
 
 function To-TitleCaseFromPascalCase([string]$name) {
   # Adds spaces before capitals and normalizes common acronyms
