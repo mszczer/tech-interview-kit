@@ -54,31 +54,35 @@ tech-interview-kit/
 <!-- This section is generated from the `Coding.Challenges/` directory. -->
 
 <!-- ALGORITHMS_PROBLEM_SET:START -->
-<a id="easy"></a>
+## Algorithms Problem Set
+
+> Note: This list is auto-generated from the files in \Coding.Challenges/\ (run the generator script to refresh).
+
 ### Easy
-- [Bitonic Array](Coding.Challenges/Easy/BitonicArray.cs)
-- [Calculate Power Function](Coding.Challenges/Easy/PowerFunction.cs)
-- [Merge Two Binary Trees](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
-- [Merge Two Sorted Lists](Coding.Challenges/Easy/MergeSortedLists.cs)
-- [Min Depth of Binary Tree](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
-- [Min Stack](Coding.Challenges/Easy/MinStack.cs)
-- [Minimum Absolute Difference in BST](Coding.Challenges/Easy/MinDifferenceInBst.cs)
-- [Path Sum in Binary Tree](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
-- [Range in a Sorted Array](Coding.Challenges/Easy/RangeInSortedArray.cs)
-- [Reverse Bits](Coding.Challenges/Easy/ReverseBits.cs)
-- [Sorted Array to Balanced BST](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
-- [Swap List Nodes](Coding.Challenges/Easy/SwapListNodes.cs)
-- [Test Zeroes To End](Coding.Challenges/Easy/TestZeroesToEnd.cs)
-- [Wave Array](Coding.Challenges/Easy/WaveArray.cs)
+- [B in om ia lC oe ff ic ie nt](Coding.Challenges/Easy/BinomialCoefficient.cs)
+- [B it on ic Ar ra y](Coding.Challenges/Easy/BitonicArray.cs)
+- [M er ge So rt ed Li st s](Coding.Challenges/Easy/MergeSortedLists.cs)
+- [M er ge Tw oB in ar yT re es](Coding.Challenges/Easy/MergeTwoBinaryTrees.cs)
+- [M in De pt hO fB in ar yT re e](Coding.Challenges/Easy/MinDepthOfBinaryTree.cs)
+- [M in Di ff er en ce In Bs t](Coding.Challenges/Easy/MinDifferenceInBst.cs)
+- [M in St ac k](Coding.Challenges/Easy/MinStack.cs)
+- [P at hS um In Bi na ry Tr ee](Coding.Challenges/Easy/PathSumInBinaryTree.cs)
+- [P ow er Fu nc ti on](Coding.Challenges/Easy/PowerFunction.cs)
+- [R an ge In So rt ed Ar ra y](Coding.Challenges/Easy/RangeInSortedArray.cs)
+- [R ev er se Bi ts](Coding.Challenges/Easy/ReverseBits.cs)
+- [S or te dA rr ay To Ba la nc ed Bs t](Coding.Challenges/Easy/SortedArrayToBalancedBst.cs)
+- [S wa pL is tN od es](Coding.Challenges/Easy/SwapListNodes.cs)
+- [W av eA rr ay](Coding.Challenges/Easy/WaveArray.cs)
+- [Z er oe sT oE nd](Coding.Challenges/Easy/ZeroesToEnd.cs)
 
-<a id="medium"></a>
 ### Medium
-- [Roman To Integer](Coding.Challenges/Medium/RomanToInteger.cs)
-- [Sorting Algorithms](Coding.Challenges/Medium/SortedArray.cs)
+- [I nt eg er Ro ot Ca lc ul at or](Coding.Challenges/Medium/IntegerRootCalculator.cs)
+- [R om an To In te ge r](Coding.Challenges/Medium/RomanToInteger.cs)
+- [S or te dA rr ay](Coding.Challenges/Medium/SortedArray.cs)
 
-<a id="hard"></a>
 ### Hard
 - (coming soon)
+
 <!-- ALGORITHMS_PROBLEM_SET:END -->
 
 ---
