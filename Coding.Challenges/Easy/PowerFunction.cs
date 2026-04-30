@@ -8,13 +8,15 @@
  * Ideas to think:
  *  Complexity analysis
  */
-public abstract class PowerFunction
+public static class PowerFunction
 {
-  
     public static double ComputePowerIteratively(double baseNumber, int exponent)
     {
         if (baseNumber == 0 && exponent == 0)
             throw new ArgumentException("0^0 is undefined.");
+
+        if (baseNumber == 0 && exponent < 0)
+            throw new ArgumentException("0^negative is undefined (division by zero).");
 
         var power = 1.0;
         var absExponent = Math.Abs(exponent);
@@ -29,6 +31,9 @@ public abstract class PowerFunction
     {
         if (baseNumber == 0 && exponent == 0)
             throw new ArgumentException("0^0 is undefined.");
+
+        if (baseNumber == 0 && exponent < 0)
+            throw new ArgumentException("0^negative is undefined (division by zero).");
 
         if (exponent == 0)
             return 1.0;

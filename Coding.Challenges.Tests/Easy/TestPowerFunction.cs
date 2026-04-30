@@ -28,7 +28,8 @@ public class TestPowerFunction
     [TestCaseSource(nameof(PowerFunctionTestCases))]
     public void ComputePowerDivideAndConquerOptimized_ReturnsThePower(double baseNumber, int exponent, double expected)
     {
-        Assert.That(PowerFunction.ComputePowerDivideAndConquerOptimized(baseNumber, exponent), Is.EqualTo(expected).Within(1e-9));
+        Assert.That(PowerFunction.ComputePowerDivideAndConquerOptimized(baseNumber, exponent),
+            Is.EqualTo(expected).Within(1e-9));
     }
 
     [Test]
@@ -42,6 +43,26 @@ public class TestPowerFunction
     [TestCase(0.0, 0)]
     public void ComputePowerDivideAndConquerOptimized_ThrowsOnZeroToZero(double baseNumber, int exponent)
     {
-        Assert.Throws<ArgumentException>(() => PowerFunction.ComputePowerDivideAndConquerOptimized(baseNumber, exponent));
+        Assert.Throws<ArgumentException>(() =>
+            PowerFunction.ComputePowerDivideAndConquerOptimized(baseNumber, exponent));
+    }
+
+    [Test]
+    [TestCase(0.0, -1)]
+    [TestCase(0.0, -5)]
+    [TestCase(0.0, int.MinValue)]
+    public void ComputePowerIteratively_ThrowsOnZeroToNegative(double baseNumber, int exponent)
+    {
+        Assert.Throws<ArgumentException>(() => PowerFunction.ComputePowerIteratively(baseNumber, exponent));
+    }
+
+    [Test]
+    [TestCase(0.0, -1)]
+    [TestCase(0.0, -5)]
+    [TestCase(0.0, int.MinValue)]
+    public void ComputePowerDivideAndConquerOptimized_ThrowsOnZeroToNegative(double baseNumber, int exponent)
+    {
+        Assert.Throws<ArgumentException>(() =>
+            PowerFunction.ComputePowerDivideAndConquerOptimized(baseNumber, exponent));
     }
 }
