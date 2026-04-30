@@ -1,6 +1,6 @@
-<#
+<# 
 .SYNOPSIS
-Generates the "Algorithms Problem Set" section in README.md.
+Generates the Algorithms Problem Set list in README.md.
 
 .DESCRIPTION
 Scans Coding.Challenges/Easy, Coding.Challenges/Medium, and Coding.Challenges/Hard for .cs files and
@@ -11,15 +11,6 @@ replaces the content between markers in README.md:
 <!-- ALGORITHMS_PROBLEM_SET:END -->
 
 Only the content between the markers is replaced.
-
-.PARAMETER ReadmePath
-Path to README.md (default: ./README.md).
-
-.PARAMETER ChallengesRoot
-Root folder for challenges (default: ./Coding.Challenges).
-
-.EXAMPLE
-pwsh ./scripts/generate-algorithms-index.ps1
 #>
 
 [CmdletBinding()]
@@ -38,19 +29,19 @@ $startMarker = "<!-- ALGORITHMS_PROBLEM_SET:START -->"
 $endMarker   = "<!-- ALGORITHMS_PROBLEM_SET:END -->"
 
 function To-TitleCaseFromPascalCase([string]$name) {
-  # Adds spaces before capitals and normalizes common acronyms
-  # Use ${1} / ${2} to refer to regex capture groups safely in PowerShell replacements
+  # Insert spaces between lower->upper transitions safely
   $spaced = ($name -replace '([a-z0-9])([A-Z])', '${1} ${2}')
+
+  # Normalize common acronyms
   $spaced = ($spaced -replace '\bBst\b', 'BST')
   $spaced = ($spaced -replace '\bId\b', 'ID')
+
   return $spaced.Trim()
 }
 
 function Get-ProblemLinks([string]$difficulty) {
   $dir = Join-Path $ChallengesRoot $difficulty
-  if (-not (Test-Path $dir)) {
-    return @()
-  }
+  if (-not (Test-Path $dir)) { return @() }
 
   $files = Get-ChildItem -Path $dir -Filter "*.cs" -File | Sort-Object Name
 
@@ -69,25 +60,28 @@ function Get-ProblemLinks([string]$difficulty) {
 }
 
 function Build-AlgorithmsSection() {
-  # Force arrays so .Count works even when there are 0 or 1 items
   $easy   = @(Get-ProblemLinks "Easy")
   $medium = @(Get-ProblemLinks "Medium")
   $hard   = @(Get-ProblemLinks "Hard")
 
   $lines = @()
-  $lines += "## Algorithms Problem Set"
-  $lines += ""
-  $lines += "> Note: This list is auto-generated from the files in `Coding.Challenges/` (run the generator script to refresh)."
+
+  # Optional: keep as comment (NOT visible)
+  # If you already have a comment above the markers in README, you can delete this line.
+  $lines += "<!-- This list is auto-generated from `Coding.Challenges/`. Run scripts/generate-algorithms-index.ps1 to refresh. -->"
   $lines += ""
 
+  $lines += "<a id=""easy""></a>"
   $lines += "### Easy"
   if ($easy.Count -gt 0) { $lines += $easy } else { $lines += "- (none yet)" }
   $lines += ""
 
+  $lines += "<a id=""medium""></a>"
   $lines += "### Medium"
   if ($medium.Count -gt 0) { $lines += $medium } else { $lines += "- (none yet)" }
   $lines += ""
 
+  $lines += "<a id=""hard""></a>"
   $lines += "### Hard"
   if ($hard.Count -gt 0) { $lines += $hard } else { $lines += "- (coming soon)" }
   $lines += ""
