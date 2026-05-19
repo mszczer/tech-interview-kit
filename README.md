@@ -76,6 +76,7 @@ tech-interview-kit/
 
 <a id="medium"></a>
 ### Medium
+- [Greatest Common Divisor](Coding.Challenges/Medium/GreatestCommonDivisor.cs)
 - [Integer Root Calculator](Coding.Challenges/Medium/IntegerRootCalculator.cs)
 - [Roman To Integer](Coding.Challenges/Medium/RomanToInteger.cs)
 - [Sorted Array](Coding.Challenges/Medium/SortedArray.cs)
