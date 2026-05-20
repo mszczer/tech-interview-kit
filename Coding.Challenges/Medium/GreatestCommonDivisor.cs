@@ -107,4 +107,62 @@ public class GreatestCommonDivisor
 
         return primeFactors;
     }
+
+    /// <summary>
+    ///     Calculate LCM using GCD: Uses the mathematical property that LCM(a, b) = (a * b) / GCD(a, b).
+    /// </summary>
+    public static int GetLCM_UsingGCD(int num1, int num2)
+    {
+        if (num1 == 0 || num2 == 0) return 0;
+
+        var gcd = FindGCD_EuclideanAlgorithm(num1, num2);
+
+        return num1 / gcd * num2;
+    }
+
+    /// <summary>
+    ///     Calculate LCM using Prime Factorization: Find all prime factors and use the maximum count of each factor.
+    /// </summary>
+    public static int GetLCM_PrimeFactorization(int num1, int num2)
+    {
+        if (num1 == 0 || num2 == 0) return 0;
+
+        var num1PrimeFactors = GetPrimeFactors(num1);
+        var num2PrimeFactors = GetPrimeFactors(num2);
+
+        var lcmFactors = GetLCMPrimeFactors(num1PrimeFactors, num2PrimeFactors);
+
+        var lcm = 1;
+        foreach (var factor in lcmFactors)
+            lcm *= factor;
+
+        return lcm;
+    }
+
+    private static List<int> GetLCMPrimeFactors(List<int> num1PrimeFactors, List<int> num2PrimeFactors)
+    {
+        var lcmFactors = new List<int>();
+        var num1FactorsCopy = new List<int>(num1PrimeFactors);
+        var num2FactorsCopy = new List<int>(num2PrimeFactors);
+
+        // Group factors by value and count
+        var num1FactorCounts = num1FactorsCopy.GroupBy(f => f).ToDictionary(g => g.Key, g => g.Count());
+        var num2FactorCounts = num2FactorsCopy.GroupBy(f => f).ToDictionary(g => g.Key, g => g.Count());
+
+        // Get all unique prime factors
+        var allPrimes = num1FactorCounts.Keys.Union(num2FactorCounts.Keys);
+
+        // For each prime, take the maximum count from either number
+        foreach (var prime in allPrimes)
+        {
+            var count1 = num1FactorCounts.GetValueOrDefault(prime, 0);
+            var count2 = num2FactorCounts.GetValueOrDefault(prime, 0);
+            var maxCount = Math.Max(count1, count2);
+
+            for (var i = 0; i < maxCount; i++)
+                lcmFactors.Add(prime);
+        }
+
+        return lcmFactors;
+    }
 }

@@ -176,4 +176,93 @@ public class TestGreatestCommonDivisor
 
         Assert.That(euclideanResult, Is.EqualTo(bruteForceResult));
     }
+
+    private static readonly object[] LcmTestCases =
+    [
+        new object[] { 12, 18, 36 },        // Basic case: 12 = 2^2 * 3, 18 = 2 * 3^2, LCM = 2^2 * 3^2 = 36
+        new object[] { 4, 6, 12 },          // Simple case
+        new object[] { 21, 6, 42 },         // 21 = 3 * 7, 6 = 2 * 3, LCM = 2 * 3 * 7 = 42
+        new object[] { 15, 20, 60 },        // 15 = 3 * 5, 20 = 2^2 * 5, LCM = 2^2 * 3 * 5 = 60
+        new object[] { 7, 13, 91 },         // Co-prime numbers: LCM = product
+        new object[] { 1, 5, 5 },           // LCM with 1
+        new object[] { 5, 1, 5 },           // LCM with 1 (commutative)
+        new object[] { 0, 5, 0 },           // Zero case
+        new object[] { 5, 0, 0 },           // Zero case (commutative)
+        new object[] { 0, 0, 0 },           // Both zero
+        new object[] { 10, 10, 10 },        // Same numbers
+        new object[] { 8, 12, 24 },         // 8 = 2^3, 12 = 2^2 * 3, LCM = 2^3 * 3 = 24
+        new object[] { 14, 21, 42 },        // 14 = 2 * 7, 21 = 3 * 7, LCM = 2 * 3 * 7 = 42
+        new object[] { 48, 18, 144 },       // 48 = 2^4 * 3, 18 = 2 * 3^2, LCM = 2^4 * 3^2 = 144
+        new object[] { 54, 24, 216 },       // Larger result
+        new object[] { 100, 50, 100 },      // One divides the other
+        new object[] { 7, 14, 14 },         // One divides the other
+        new object[] { 17, 19, 323 },       // Prime numbers: LCM = product
+        new object[] { 2, 2, 2 },           // Same prime
+        new object[] { 3, 5, 15 },          // Small co-primes
+        new object[] { 25, 35, 175 }        // 25 = 5^2, 35 = 5 * 7, LCM = 5^2 * 7 = 175
+    ];
+
+    [TestCaseSource(nameof(LcmTestCases))]
+    public void GetLCM_UsingGCD_ReturnsExpectedResult(int num1, int num2, int expectedResult)
+    {
+        var result = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCaseSource(nameof(LcmTestCases))]
+    public void GetLCM_PrimeFactorization_ReturnsExpectedResult(int num1, int num2, int expectedResult)
+    {
+        var result = GreatestCommonDivisor.GetLCM_PrimeFactorization(num1, num2);
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [TestCaseSource(nameof(MathematicalPropertyTestCases))]
+    public void GetLCM_UsingGCD_ProducesSameResultAs_PrimeFactorization(int num1, int num2)
+    {
+        var lcmUsingGcd = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
+        var lcmUsingPrimeFactorization = GreatestCommonDivisor.GetLCM_PrimeFactorization(num1, num2);
+
+        Assert.That(lcmUsingGcd, Is.EqualTo(lcmUsingPrimeFactorization));
+    }
+
+    [TestCaseSource(nameof(MathematicalPropertyTestCases))]
+    public void GetLCM_IsCommutative(int num1, int num2)
+    {
+        var lcm1 = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
+        var lcm2 = GreatestCommonDivisor.GetLCM_UsingGCD(num2, num1);
+
+        Assert.That(lcm1, Is.EqualTo(lcm2));
+    }
+
+    [TestCaseSource(nameof(MathematicalPropertyTestCases))]
+    public void GetLCM_IsDivisibleByNum1(int num1, int num2)
+    {
+        if (num1 == 0 || num2 == 0) return;
+
+        var lcm = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
+
+        Assert.That(lcm % num1, Is.Zero, $"LCM {lcm} should be divisible by {num1}");
+    }
+
+    [TestCaseSource(nameof(MathematicalPropertyTestCases))]
+    public void GetLCM_IsDivisibleByNum2(int num1, int num2)
+    {
+        if (num1 == 0 || num2 == 0) return;
+
+        var lcm = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
+
+        Assert.That(lcm % num2, Is.Zero, $"LCM {lcm} should be divisible by {num2}");
+    }
+
+    [TestCaseSource(nameof(MathematicalPropertyTestCases))]
+    public void GCD_And_LCM_Satisfy_MathematicalProperty(int num1, int num2)
+    {
+        if (num1 == 0 || num2 == 0) return;
+
+        // Mathematical property: GCD(a,b) * LCM(a,b) = a * b
+        var gcd = GreatestCommonDivisor.FindGCD_EuclideanAlgorithm(num1, num2);
+        var lcm = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
+
+        Assert.That((long)gcd * lcm, Is.EqualTo((long)num1 * num2));
+    }
 }
