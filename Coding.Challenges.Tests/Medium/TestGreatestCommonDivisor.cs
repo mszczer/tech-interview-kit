@@ -1,4 +1,6 @@
-﻿namespace Coding.Challenges.Tests.Medium;
+﻿using NUnit.Framework.Internal;
+
+namespace Coding.Challenges.Tests.Medium;
 
 [TestFixture]
 [Parallelizable(ParallelScope.All)]
@@ -264,5 +266,107 @@ public class TestGreatestCommonDivisor
         var lcm = GreatestCommonDivisor.GetLCM_UsingGCD(num1, num2);
 
         Assert.That((long)gcd * lcm, Is.EqualTo((long)num1 * num2));
+    }
+
+    [Test]
+    public void CalculateGCDUsingFloat_ReturnsExpectedResult()
+    {
+        const decimal num1 = 1.2m;
+        const decimal num2 = 22.5m;
+        const decimal expectedResult = 0.3m;
+
+        var result = GreatestCommonDivisor.CalculateGCDUsingFloat(num1, num2);
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    private static readonly object[] FloatGcdTestCases =
+    [
+        new object[] { 1.2m, 22.5m, 0.3m },           // Original test case
+        new object[] { 0.5m, 1.5m, 0.5m },            // Simple decimals
+        new object[] { 2.4m, 3.6m, 1.2m },            // Common divisor
+        new object[] { 0.25m, 0.75m, 0.25m },         // Quarter divisions
+        new object[] { 0.6m, 0.9m, 0.3m },            // Tenths
+        new object[] { 1.5m, 2.5m, 0.5m },            // Different denominators
+        new object[] { 0.12m, 0.18m, 0.06m },         // Hundredths
+        new object[] { 0.0m, 5.5m, 5.5m },            // Zero case
+        new object[] { 5.5m, 0.0m, 5.5m },            // Zero case (commutative)
+        new object[] { 3.5m, 3.5m, 3.5m },            // Same numbers
+        new object[] { 0.001m, 0.003m, 0.001m },      // Very small numbers
+        new object[] { 10.5m, 7.5m, 1.5m },           // Larger decimals
+        new object[] { 0.125m, 0.375m, 0.125m },      // Eighths
+        new object[] { 2.0m, 3.0m, 1.0m },            // Whole numbers as decimals
+        new object[] { 0.333m, 0.666m, 0.333m },      // Three decimal places
+        new object[] { 1.44m, 2.4m, 0.48m },          // Multiple decimal places result
+        new object[] { 0.7m, 1.4m, 0.7m },            // One divides the other
+        new object[] { 0.15m, 0.25m, 0.05m },         // Small common divisor
+    ];
+
+    [TestCaseSource(nameof(FloatGcdTestCases))]
+    public void CalculateGCDUsingFloat_VariousCases_ReturnsExpectedResult(decimal num1, decimal num2, decimal expected)
+    {
+        var result = GreatestCommonDivisor.CalculateGCDUsingFloat(num1, num2);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [TestCaseSource(nameof(FloatGcdTestCases))]
+    public void CalculateGCDUsingFloat_IsCommutative(decimal num1, decimal num2, decimal expected)
+    {
+        var result1 = GreatestCommonDivisor.CalculateGCDUsingFloat(num1, num2);
+        var result2 = GreatestCommonDivisor.CalculateGCDUsingFloat(num2, num1);
+
+        Assert.That(result2, Is.EqualTo(result1));
+    }
+
+    [TestCaseSource(nameof(FloatGcdTestCases))]
+    public void CalculateGCDUsingFloat_ResultDividesNum1(decimal num1, decimal num2, decimal expected)
+    {
+        if (num1 == 0) return;
+
+        var gcd = GreatestCommonDivisor.CalculateGCDUsingFloat(num1, num2);
+        var quotient = num1 / gcd;
+        var remainder = quotient - Math.Floor(quotient);
+
+        Assert.That(remainder, Is.LessThan(0.0000001m),
+            $"GCD {gcd} should divide {num1} evenly, but got remainder {remainder}");
+    }
+
+    [TestCaseSource(nameof(FloatGcdTestCases))]
+    public void CalculateGCDUsingFloat_ResultDividesNum2(decimal num1, decimal num2, decimal expected)
+    {
+        if (num2 == 0) return;
+
+        var gcd = GreatestCommonDivisor.CalculateGCDUsingFloat(num1, num2);
+        var quotient = num2 / gcd;
+        var remainder = quotient - Math.Floor(quotient);
+
+        Assert.That(remainder, Is.LessThan(0.0000001m),
+            $"GCD {gcd} should divide {num2} evenly, but got remainder {remainder}");
+    }
+
+    [Test]
+    public void CalculateGCDUsingFloat_WithNegativeNum1_ReturnsPositiveResult()
+    {
+        var result = GreatestCommonDivisor.CalculateGCDUsingFloat(-1.2m, 2.4m);
+        var expected = GreatestCommonDivisor.CalculateGCDUsingFloat(1.2m, 2.4m);
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CalculateGCDUsingFloat_WithNegativeNum2_ReturnsPositiveResult()
+    {
+        var result = GreatestCommonDivisor.CalculateGCDUsingFloat(1.2m, -2.4m);
+        var expected = GreatestCommonDivisor.CalculateGCDUsingFloat(1.2m, 2.4m);
+
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void CalculateGCDUsingFloat_WithBothNegative_ReturnsPositiveResult()
+    {
+        var result = GreatestCommonDivisor.CalculateGCDUsingFloat(-1.2m, -2.4m);
+        var expected = GreatestCommonDivisor.CalculateGCDUsingFloat(1.2m, 2.4m);
+
+        Assert.That(result, Is.EqualTo(expected));
     }
 }

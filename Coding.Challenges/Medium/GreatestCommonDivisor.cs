@@ -165,4 +165,57 @@ public class GreatestCommonDivisor
 
         return lcmFactors;
     }
+
+    /// <summary>
+    ///     Calculate GCD for floating-point numbers by converting to rational representation.
+    ///     Note: GCD is mathematically defined for integers. This method approximates GCD for floats
+    ///     by treating them as rational numbers with a specific precision.
+    /// </summary>
+    public static decimal CalculateGCDUsingFloat(decimal num1, decimal num2)
+    {
+        if (num1 == 0) return num2;
+        if (num2 == 0) return num1;
+
+        // Work with absolute values
+        num1 = Math.Abs(num1);
+        num2 = Math.Abs(num2);
+
+        // Count decimal places for each number
+        var num1DecimalPlaces = CountDecimalPlaces(num1);
+        var num2DecimalPlaces = CountDecimalPlaces(num2);
+        var maxDecimalPlaces = Math.Max(num1DecimalPlaces, num2DecimalPlaces);
+
+        // Scale both numbers to integers
+        var multiplier = (decimal)Math.Pow(10, maxDecimalPlaces);
+        var num1Scaled = (long)(num1 * multiplier);
+        var num2Scaled = (long)(num2 * multiplier);
+
+        // Calculate GCD of scaled integers
+        var gcdScaled = FindGCD_EuclideanAlgorithmLong(num1Scaled, num2Scaled);
+
+        // Scale back to decimal
+        return gcdScaled / multiplier;
+    }
+
+    private static long FindGCD_EuclideanAlgorithmLong(long num1, long num2)
+    {
+        num1 = Math.Abs(num1);
+        num2 = Math.Abs(num2);
+
+        while (num2 != 0)
+        {
+            var remainder = num1 % num2;
+            num1 = num2;
+            num2 = remainder;
+        }
+
+        return num1;
+    }
+
+    private static int CountDecimalPlaces(decimal value)
+    {
+        var bits = decimal.GetBits(value);
+        var scale = (bits[3] >> 16) & 0x7F;
+        return scale;
+    }
 }
