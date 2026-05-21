@@ -218,4 +218,22 @@ public class GreatestCommonDivisor
         var scale = (bits[3] >> 16) & 0x7F;
         return scale;
     }
+
+    /// <summary>
+    ///     Calculate GCD of an array of integers using the Euclidean Algorithm iteratively.
+    /// </summary>
+    /// <param name="numbers">Array of integers to find the GCD for. Must not be null or empty.</param>
+    /// <returns>The greatest common divisor of all numbers in the array.</returns>
+    /// <exception cref="ArgumentException">Thrown when the input array is null or empty.</exception>
+    public static int FindGCD_Array(int[] numbers)
+    {
+        if (numbers == null || numbers.Length == 0)
+            throw new ArgumentException("Input array cannot be null or empty.", nameof(numbers));
+
+        var result = 0;
+        foreach (var number in numbers)
+            result = FindGCD_EuclideanAlgorithm(result, number);
+
+        return result;
+    }
 }

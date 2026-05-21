@@ -369,4 +369,101 @@ public class TestGreatestCommonDivisor
 
         Assert.That(result, Is.EqualTo(expected));
     }
+
+    private static readonly object[] ArrayGcdTestCases =
+    [
+        new object[] { new[] { 24, 36, 60 }, 12 },              // Example from requirement
+        new object[] { new[] { 12, 18, 24 }, 6 },               // Multiple common factors
+        new object[] { new[] { 8, 12, 16, 20 }, 4 },            // Four numbers
+        new object[] { new[] { 100, 50, 25 }, 25 },             // Divisible by smallest
+        new object[] { new[] { 7, 14, 21, 28 }, 7 },            // All multiples of 7
+        new object[] { new[] { 17, 34, 51 }, 17 },              // Prime factor
+        new object[] { new[] { 13, 26, 39, 52, 65 }, 13 },      // Five numbers with prime GCD
+        new object[] { new[] { 10, 15, 20, 25, 30 }, 5 },       // Multiple numbers
+        new object[] { new[] { 2, 4, 8, 16, 32 }, 2 },          // Powers of 2
+        new object[] { new[] { 9, 27, 81 }, 9 },                // Powers of 3
+        new object[] { new[] { 1, 2, 3, 4, 5 }, 1 },            // Co-prime numbers
+        new object[] { new[] { 0, 5, 10 }, 5 },                 // Array with zero
+        new object[] { new[] { 0, 0, 0 }, 0 },                  // All zeros
+        new object[] { new[] { 42 }, 42 },                      // Single element
+        new object[] { new[] { 100, 200 }, 100 },               // Two numbers
+        new object[] { new[] { 12, 18, 24, 30, 36 }, 6 },       // Consistent GCD
+        new object[] { new[] { 1024, 512, 256 }, 256 },         // Large powers of 2
+        new object[] { new[] { 15, 25, 35, 45 }, 5 },           // Multiples of 5
+        new object[] { new[] { 6, 9, 12, 15, 18 }, 3 },         // Multiples of 3
+        new object[] { new[] { 144, 96, 48 }, 48 },             // Larger numbers
+        new object[] { new[] { 120, 180, 240, 300, 360, 420, 480 }, 60 }, // Large array
+        new object[] { new[] { 1000000, 500000, 250000 }, 250000 },       // Mixed sizes
+        new object[] { new[] { 60, 24, 36 }, 12 },              // Order test - permutation 1
+        new object[] { new[] { 36, 60, 24 }, 12 }               // Order test - permutation 2
+    ];
+
+    [TestCaseSource(nameof(ArrayGcdTestCases))]
+    public void FindGCD_Array_ReturnsExpectedResult(int[] numbers, int expectedResult)
+    {
+        var result = GreatestCommonDivisor.FindGCD_Array(numbers);
+        Assert.That(result, Is.EqualTo(expectedResult));
+    }
+
+    [Test]
+    public void FindGCD_Array_WithNullArray_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.FindGCD_Array(null));
+    }
+
+    [Test]
+    public void FindGCD_Array_WithEmptyArray_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.FindGCD_Array([]));
+    }
+
+    [Test]
+    public void FindGCD_Array_WithTwoElements_ProducesSameResultAs_TwoNumberGCD()
+    {
+        var numbers = new[] { 24, 36 };
+        var arrayResult = GreatestCommonDivisor.FindGCD_Array(numbers);
+        var twoNumberResult = GreatestCommonDivisor.FindGCD_EuclideanAlgorithm(24, 36);
+
+        Assert.That(arrayResult, Is.EqualTo(twoNumberResult));
+    }
+
+    [Test]
+    public void FindGCD_Array_IsAssociative()
+    {
+        // GCD(GCD(a, b), c) = GCD(a, GCD(b, c))
+        var numbers = new[] { 24, 36, 60 };
+
+        var result1 = GreatestCommonDivisor.FindGCD_EuclideanAlgorithm(
+            GreatestCommonDivisor.FindGCD_EuclideanAlgorithm(numbers[0], numbers[1]),
+            numbers[2]
+        );
+
+        var result2 = GreatestCommonDivisor.FindGCD_EuclideanAlgorithm(
+            numbers[0],
+            GreatestCommonDivisor.FindGCD_EuclideanAlgorithm(numbers[1], numbers[2])
+        );
+
+        Assert.That(result1, Is.EqualTo(result2));
+    }
+
+    private static readonly object[] ArrayElementDivisibilityTestCases =
+    [
+        new object[] { new[] { 24, 36, 60 }, 24 },
+        new object[] { new[] { 24, 36, 60 }, 36 },
+        new object[] { new[] { 24, 36, 60 }, 60 },
+        new object[] { new[] { 12, 18, 24 }, 12 },
+        new object[] { new[] { 12, 18, 24 }, 18 },
+        new object[] { new[] { 12, 18, 24 }, 24 },
+        new object[] { new[] { 8, 12, 16, 20 }, 8 },
+        new object[] { new[] { 8, 12, 16, 20 }, 12 },
+        new object[] { new[] { 8, 12, 16, 20 }, 16 },
+        new object[] { new[] { 8, 12, 16, 20 }, 20 }
+    ];
+
+    [TestCaseSource(nameof(ArrayElementDivisibilityTestCases))]
+    public void FindGCD_Array_ResultDividesElement(int[] numbers, int element)
+    {
+        var gcd = GreatestCommonDivisor.FindGCD_Array(numbers);
+        Assert.That(element % gcd, Is.Zero, $"GCD {gcd} should divide {element}");
+    }
 }
