@@ -236,4 +236,38 @@ public class GreatestCommonDivisor
 
         return result;
     }
+
+    /// <summary>
+    ///     Calculate the sum of squares of the first n natural numbers using an iterative approach.
+    /// </summary>
+    /// <param name="n">A positive integer representing how many natural numbers to square and sum.</param>
+    /// <returns>The sum of squares of the first n natural numbers.</returns>
+    /// <exception cref="ArgumentException">Thrown when n is less than or equal to 0.</exception>
+    public static long CalculateSumOfSquares(int n)
+    {
+        if (n <= 0)
+            throw new ArgumentException("Input must be a positive integer.", nameof(n));
+
+        long result = 0;
+        for (var i = 1; i <= n; i++) 
+            result += (long)i * i;
+
+        return result;
+    }
+
+    /// <summary>
+    ///     Calculate the sum of squares of the first n natural numbers using the mathematical formula.
+    ///     Formula: n(n + 1)(2n + 1) / 6
+    /// </summary>
+    /// <param name="n">A positive integer representing how many natural numbers to square and sum.</param>
+    /// <returns>The sum of squares of the first n natural numbers.</returns>
+    /// <exception cref="ArgumentException">Thrown when n is less than or equal to 0.</exception>
+    public static long CalculateSumOfSquaresOptimized(int n)
+    {
+        if (n <= 0)
+            throw new ArgumentException("Input must be a positive integer.", nameof(n));
+
+        return (long)n * (n + 1) * (2 * n + 1) / 6;
+    }
+
 }

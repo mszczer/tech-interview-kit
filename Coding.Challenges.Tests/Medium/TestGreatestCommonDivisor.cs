@@ -466,4 +466,67 @@ public class TestGreatestCommonDivisor
         var gcd = GreatestCommonDivisor.FindGCD_Array(numbers);
         Assert.That(element % gcd, Is.Zero, $"GCD {gcd} should divide {element}");
     }
+
+    private static readonly object[] SumOfSquaresTestCases =
+    [
+        new object[] { 1, 1L },                     // 1² = 1
+        new object[] { 2, 5L },                     // 1² + 2² = 1 + 4 = 5
+        new object[] { 3, 14L },                    // 1² + 2² + 3² = 1 + 4 + 9 = 14
+        new object[] { 4, 30L },                    // 1² + 2² + 3² + 4² = 1 + 4 + 9 + 16 = 30
+        new object[] { 5, 55L },                    // Sum = 55
+        new object[] { 10, 385L },                  // Sum = 385
+        new object[] { 20, 2870L },                 // Sum = 2870
+        new object[] { 50, 42925L },                // Sum = 42925
+        new object[] { 100, 338350L },              // Sum = 338350
+        new object[] { 1000, 333833500L },          // Large number
+        new object[] { 5000, 41679167500L }         // Very large number
+    ];
+
+    [TestCaseSource(nameof(SumOfSquaresTestCases))]
+    public void CalculateSumOfSquares_ReturnsExpectedResult(int n, long expected)
+    {
+        var result = GreatestCommonDivisor.CalculateSumOfSquares(n);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [TestCaseSource(nameof(SumOfSquaresTestCases))]
+    public void CalculateSumOfSquaresOptimized_ReturnsExpectedResult(int n, long expected)
+    {
+        var result = GreatestCommonDivisor.CalculateSumOfSquaresOptimized(n);
+        Assert.That(result, Is.EqualTo(expected));
+    }
+
+    [TestCaseSource(nameof(SumOfSquaresTestCases))]
+    public void CalculateSumOfSquares_BothMethodsProduceSameResult(int n, long expected)
+    {
+        var iterativeResult = GreatestCommonDivisor.CalculateSumOfSquares(n);
+        var optimizedResult = GreatestCommonDivisor.CalculateSumOfSquaresOptimized(n);
+
+        Assert.That(iterativeResult, Is.EqualTo(optimizedResult),
+            $"Both methods should produce the same result for n={n}");
+    }
+
+    [Test]
+    public void CalculateSumOfSquares_WithZero_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.CalculateSumOfSquares(0));
+    }
+
+    [Test]
+    public void CalculateSumOfSquares_WithNegativeNumber_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.CalculateSumOfSquares(-5));
+    }
+
+    [Test]
+    public void CalculateSumOfSquaresOptimized_WithZero_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.CalculateSumOfSquaresOptimized(0));
+    }
+
+    [Test]
+    public void CalculateSumOfSquaresOptimized_WithNegativeNumber_ThrowsArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => GreatestCommonDivisor.CalculateSumOfSquaresOptimized(-5));
+    }
 }
