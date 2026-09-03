@@ -83,7 +83,7 @@ tech-interview-kit/
 
 <a id="hard"></a>
 ### Hard
-- (coming soon)
+- [Closest Palindrome](Coding.Challenges/Hard/ClosestPalindrome.cs)
 
 <!-- ALGORITHMS_PROBLEM_SET:END -->
 
