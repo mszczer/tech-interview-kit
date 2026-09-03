@@ -25,7 +25,7 @@ public static class ClosestPalindrome
         {
             // Check lower palindrome
             var lowerCandidate = originalNum - i;
-            if (lowerCandidate > 0 && IsPalindrome(lowerCandidate))
+            if (lowerCandidate >= 0 && IsPalindrome(lowerCandidate))
             {
                 closestPalindrome = lowerCandidate;
                 break;
