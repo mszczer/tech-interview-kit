@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Hard\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Coding.Challenges.Common\Coding.Challenges.Common.csproj" />
   </ItemGroup>
 
